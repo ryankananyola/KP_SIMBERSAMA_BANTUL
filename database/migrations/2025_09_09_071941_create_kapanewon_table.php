@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('kapanewon', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->timestamps();
         });
     }
 

@@ -155,53 +155,45 @@
     </main>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script>
-const wilayah = {
-  'SEWON': {
-    'TIMBULHARJO': ['Balong', 'Bibis', 'Dadapan', 'Dagan', 'Dobalan', 'Gabusan', 'Gatak', 'Kepek', 'Kowen I', 'Kowen II', 'Ngentak', 'Ngasem', 'Timbulharjo'],
-    'PANGGUNGHARJO': ['Padukuhan 3', 'Padukuhan 4'],
-    'PENDOWOHARJO': ['Padukuhan 3', 'Padukuhan 4'],
-    'BANGUNHARJO': ['Padukuhan 3', 'Padukuhan 4'],
-  },
-  'Kecamatan B': {
-    'Kelurahan Z': ['Padukuhan 5', 'Padukuhan 6']
-  }
-};
-
 const kecamatanSelect = document.getElementById('kecamatan');
 const kelurahanSelect = document.getElementById('kelurahan');
 const padukuhanSelect = document.getElementById('padukuhan');
 
-// Populate kecamatan
-for (const kecamatan in wilayah) {
-  const opt = document.createElement('option');
-  opt.value = kecamatan;
-  opt.textContent = kecamatan;
-  kecamatanSelect.appendChild(opt);
-}
+// Ambil data kapanewon dari database
+fetch('/wilayah/kapanewon')
+  .then(res => res.json())
+  .then(data => {
+    kecamatanSelect.innerHTML = '<option>--Pilih Kapanewon--</option>';
+    data.forEach(item => {
+      kecamatanSelect.innerHTML += `<option value="${item.id}">${item.nama}</option>`;
+    });
+  });
 
 kecamatanSelect.addEventListener('change', function() {
   kelurahanSelect.innerHTML = '<option>--Pilih Kelurahan--</option>';
   padukuhanSelect.innerHTML = '<option>--Pilih Padukuhan--</option>';
-  const kelurahanList = wilayah[this.value] || {};
-  for (const kelurahan in kelurahanList) {
-    const opt = document.createElement('option');
-    opt.value = kelurahan;
-    opt.textContent = kelurahan;
-    kelurahanSelect.appendChild(opt);
+  if (this.value) {
+    fetch(`/wilayah/kelurahan/${this.value}`)
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(item => {
+          kelurahanSelect.innerHTML += `<option value="${item.id}">${item.nama}</option>`;
+        });
+      });
   }
 });
 
 kelurahanSelect.addEventListener('change', function() {
   padukuhanSelect.innerHTML = '<option>--Pilih Padukuhan--</option>';
-  const kecamatan = kecamatanSelect.value;
-  const kelurahan = this.value;
-  const padukuhanList = (wilayah[kecamatan] && wilayah[kecamatan][kelurahan]) || [];
-  padukuhanList.forEach(function(padukuhan) {
-    const opt = document.createElement('option');
-    opt.value = padukuhan;
-    opt.textContent = padukuhan;
-    padukuhanSelect.appendChild(opt);
-  });
+  if (this.value) {
+    fetch(`/wilayah/padukuhan/${this.value}`)
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(item => {
+          padukuhanSelect.innerHTML += `<option value="${item.id}">${item.nama}</option>`;
+        });
+      });
+  }
 });
 
 const passwordInput = document.getElementById('password');
