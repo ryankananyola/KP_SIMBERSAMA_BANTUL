@@ -35,6 +35,7 @@
         @endif
         <form class="bg-white rounded-xl shadow p-4 space-y-8 overflow-y-auto max-h-[80vh]" method="POST" action="/register">
             @csrf
+            
             <!-- DATA AKUN -->
             <div>
                 <div class="flex items-center mb-2">
@@ -149,16 +150,20 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col md:flex-row items-center justify-center mt-4 gap-2">
-                <span class="text-gray-700">Sudah punya akun?</span>
-                <a href="/login" class="bg-[#256d5a] text-black font-bold px-6 py-2 rounded shadow hover:bg-[#1e5647] transition flex items-center gap-2">
-                    <span class="material-icons">login</span> Masuk
-                </a>
+            <!-- Google reCAPTCHA -->
+            <div class="flex justify-center mb-4">
+                {!! NoCaptcha::display() !!}
             </div>
             <div class="flex justify-center mt-8">
                 <button type="submit" class="bg-[#256d5a] text-black font-bold px-8 py-3 rounded-lg shadow hover:bg-[#1e5647] transition flex items-center gap-2">
                     <span class="material-icons">person_add</span> Register
                 </button>
+            </div>
+            <div class="flex flex-col md:flex-row items-center justify-center mt-4 gap-2">
+                <span class="text-gray-700">Sudah punya akun?</span>
+                <a href="/login" class="bg-[#256d5a] text-black font-bold px-6 py-2 rounded shadow hover:bg-[#1e5647] transition flex items-center gap-2">
+                    <span class="material-icons">login</span> Masuk
+                </a>
             </div>
             <div class="flex justify-center mt-6">
 				<a href="/" class="bg-gray-200 text-[#256d5a] font-bold px-6 py-2 rounded shadow hover:bg-gray-300 transition flex items-center gap-2">
@@ -166,6 +171,7 @@
 				</a>
 			</div>
         </form>
+    {!! NoCaptcha::renderJs() !!}
     </main>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script>
