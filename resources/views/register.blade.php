@@ -19,7 +19,22 @@
                 <p class="text-gray-700">Mohon isi form dibawah ini dengan lengkap & benar!</p>
             </div>
         </div>
-        <form class="bg-white rounded-xl shadow p-4 space-y-8 overflow-y-auto max-h-[80vh]">
+        @if ($errors->any())
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <ul class="list-disc pl-5">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if (session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+        <form class="bg-white rounded-xl shadow p-4 space-y-8 overflow-y-auto max-h-[80vh]" method="POST" action="/register">
+            @csrf
             <!-- DATA AKUN -->
             <div>
                 <div class="flex items-center mb-2">
@@ -29,7 +44,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-semibold mb-1">Pilih Jenis Fasilitas</label>
-                        <select class="w-full border rounded px-3 py-2">
+                        <select class="w-full border rounded px-3 py-2" name="jenis_fasilitas">
                             <option>--Pilih jenis Fasilitas--</option>
                             <option>Bank Sampah</option>
                             <option>Shodaqoh Sampah</option>
@@ -39,19 +54,19 @@
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Nama Bank Sampah</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" placeholder="Cth: Bank Sampah UGM Jaya">
+                        <input type="text" class="w-full border rounded px-3 py-2" name="nama_bank_sampah" placeholder="Cth: Bank Sampah UGM Jaya">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Nama Pimpinan</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" placeholder="Cth: Saya Sendiri">
+                        <input type="text" class="w-full border rounded px-3 py-2" name="nama" placeholder="Cth: Saya Sendiri">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Nomor Whatsapp</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" placeholder="Cth: 081234567890">
+                        <input type="text" class="w-full border rounded px-3 py-2" name="nomor_wa" placeholder="Cth: 081234567890">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Email</label>
-                        <input type="email" class="w-full border rounded px-3 py-2" placeholder="Cth: sayasendiri@gmail.com">
+                        <input type="email" class="w-full border rounded px-3 py-2" name="email" placeholder="Cth: sayasendiri@gmail.com">
                     </div>
                 </div>
             </div>
@@ -64,7 +79,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-semibold mb-1">Pilih Wilayah</label>
-                        <select class="w-full border rounded px-3 py-2">
+                        <select class="w-full border rounded px-3 py-2" name="wilayah">
                             <option>--Pilih Wilayah--</option>
                             <option>Ibukota Kabupaten</option></option>
                             <option>Non-Ibukota Kabupaten</option>
@@ -72,29 +87,29 @@
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Alamat Bank Sampah</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" placeholder="Cth: J. Wiyoro Kidul, Wirono">
+                        <input type="text" class="w-full border rounded px-3 py-2" name="alamat" placeholder="Cth: J. Wiyoro Kidul, Wirono">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Kecamatan</label>
-                        <select id="kecamatan" class="w-full border rounded px-3 py-2">
-                            <option>--Pilih Kecamatan--</option>
+                        <select id="kecamatan" class="w-full border rounded px-3 py-2" name="kapanewon_id">
+                            <option>--Pilih Kapanewon--</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Kelurahan</label>
-                        <select id="kelurahan" class="w-full border rounded px-3 py-2">
+                        <select id="kelurahan" class="w-full border rounded px-3 py-2" name="kelurahan_id">
                             <option>--Pilih Kelurahan--</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Padukuhan</label>
-                        <select id="padukuhan" class="w-full border rounded px-3 py-2">
+                        <select id="padukuhan" class="w-full border rounded px-3 py-2" name="padukuhan_id">
                             <option>--Pilih Padukuhan--</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Link Google Maps</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" placeholder="Cth: https://maps.app.goo.gl/xxx">
+                        <input type="text" class="w-full border rounded px-3 py-2" name="link_maps" placeholder="Cth: https://maps.app.goo.gl/xxx">
                     </div>
                 </div>
             </div>
@@ -107,13 +122,13 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-semibold mb-1">Username</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" placeholder="Cth: sayasendiri12">
+                        <input type="text" class="w-full border rounded px-3 py-2" name="username" placeholder="Cth: sayasendiri12">
                     </div>
                     <div></div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Password</label>
                         <div class="relative">
-                            <input type="password" id="password" class="w-full border rounded px-3 py-2 pr-10 mb-2" placeholder="Masukkan Password Anda..">
+                            <input type="password" id="password" class="w-full border rounded px-3 py-2 pr-10 mb-2" name="password" placeholder="Masukkan Password Anda..">
                             <span class="material-icons absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400" id="toggle-password" onclick="togglePassword('password', 'toggle-password')">visibility_off</span>
                         </div>
                         <div class="bg-[#f7f7f7] rounded p-2 text-xs" id="password-rules">
@@ -127,23 +142,12 @@
                     <div>
                         <label class="block text-sm font-semibold mb-1">Ulangi Password</label>
                         <div class="relative">
-                            <input type="password" id="password_confirmation" class="w-full border rounded px-3 py-2 pr-10" placeholder="Ulangi Password Anda..">
+                            <input type="password" id="password_confirmation" class="w-full border rounded px-3 py-2 pr-10" name="password_confirmation" placeholder="Ulangi Password Anda..">
                             <span class="material-icons absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400" id="toggle-confirm" onclick="togglePassword('password_confirmation', 'toggle-confirm')">visibility_off</span>
                         </div>
                         <div id="password-match-status" class="text-xs mt-1"></div>
                     </div>
                 </div>
-            </div>
-            <!-- reCAPTCHA & Submit -->
-            <div class="grid grid-cols-1 gap-4">
-                <div class="bg-white rounded-lg border p-4 flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <input type="checkbox" class="w-5 h-5">
-                        <span class="text-[#256d5a] font-semibold">I'm not a robot</span>
-                    </div>
-                    <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA" class="w-10 h-10">
-                </div>
-                <button type="submit" class="w-full bg-[#256d5a] text-white font-bold py-3 rounded-lg mt-2 text-lg shadow hover:bg-[#1e5647] transition flex items-center justify-center gap-2">DAFTAR <span class="material-icons">login</span></button>
             </div>
             <div class="flex flex-col md:flex-row items-center justify-center mt-4 gap-2">
                 <span class="text-gray-700">Sudah punya akun?</span>
@@ -151,6 +155,16 @@
                     <span class="material-icons">login</span> Masuk
                 </a>
             </div>
+            <div class="flex justify-center mt-8">
+                <button type="submit" class="bg-[#256d5a] text-black font-bold px-8 py-3 rounded-lg shadow hover:bg-[#1e5647] transition flex items-center gap-2">
+                    <span class="material-icons">person_add</span> Register
+                </button>
+            </div>
+            <div class="flex justify-center mt-6">
+				<a href="/" class="bg-gray-200 text-[#256d5a] font-bold px-6 py-2 rounded shadow hover:bg-gray-300 transition flex items-center gap-2">
+					<span class="material-icons">arrow_back</span> Kembali ke Dashboard
+				</a>
+			</div>
         </form>
     </main>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

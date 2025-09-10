@@ -988,7 +988,7 @@ class PadukuhanSeeder extends Seeder
             // Timbulharjo (id=70)
             ['nama' => 'Balong', 'kelurahan_id' => 70],
             ['nama' => 'Bibis', 'kelurahan_id' => 70],
-            ['nama' => 'Dadapa', 'kelurahan_id' => 70],
+            ['nama' => 'Dadapan', 'kelurahan_id' => 70],
             ['nama' => 'Dagan', 'kelurahan_id' => 70],
             ['nama' => 'Dobalan', 'kelurahan_id' => 70],
             ['nama' => 'Gabusan', 'kelurahan_id' => 70],
