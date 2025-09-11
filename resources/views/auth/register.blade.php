@@ -33,7 +33,7 @@
                 {{ session('success') }}
             </div>
         @endif
-        <form class="bg-white rounded-xl shadow p-4 space-y-8 overflow-y-auto max-h-[80vh]" method="POST" action="/register">
+        <form class="bg-white rounded-xl shadow p-4 space-y-8 overflow-y-auto max-h-[80vh]" method="POST" action="{{ route('register.user')>
             @csrf
             
             <!-- DATA AKUN -->

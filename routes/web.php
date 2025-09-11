@@ -1,66 +1,60 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Akun;
+
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\RegisterController;
-use Illuminate\Http\Request;
-use App\Models\Akun;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\RegisterPetugasController;
+use App\Http\Controllers\RegisterAdminController;
 
-Route::get('/', function () {
-    return view('landing');
-});
+// Landing Page
+Route::get('/', fn() => view('landing'));
+Route::get('/home', fn() => view('home'));
 
-Route::get('/home', function () {
-    return view('home');
-});
+// ================= LOGIN =================
+Route::get('/login', fn() => view('auth.login'))->name('login');
 
-Route::get('/login', function () {
-    return view('auth/login');
-});
-Route::post('/login', function(Request $request) {
+Route::post('/login', function (Request $request) {
     $request->validate([
         'username' => 'required',
         'password' => 'required',
     ]);
+
     $akun = Akun::where('username', $request->username)->first();
+
     if (!$akun || !Hash::check($request->password, $akun->password)) {
         return back()->withErrors(['login' => 'Username atau password salah'])->withInput();
     }
+
     // Redirect sesuai role
-    if ($akun->role == 2) {
-        return redirect('/dashboard_admin')->with('success', 'Login admin berhasil!');
-    } elseif ($akun->role == 1) {
-        return redirect('/dashboard_petugas')->with('success', 'Login petugas berhasil!');
-    } else {
-        return redirect('/dashboard')->with('success', 'Login user berhasil!');
-    }
+    return match ($akun->role) {
+        2 => redirect('/dashboard_admin')->with('success', 'Login admin berhasil!'),
+        1 => redirect('/dashboard_petugas')->with('success', 'Login petugas berhasil!'),
+        default => redirect('/dashboard')->with('success', 'Login user berhasil!'),
+    };
 });
 
+// ================= REGISTER USER =================
+Route::get('/register', fn() => view('auth.register'))->name('register.user.form');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.user.store');
 
-Route::get('/register', function () {
-    return view('auth/register');
-});
-Route::post('/register', [RegisterController::class, 'store']);
+// ================= REGISTER PETUGAS =================
+Route::get('/register-petugas', [RegisterPetugasController::class, 'showForm'])->name('register.petugas.form');
+Route::post('/register-petugas', [RegisterPetugasController::class, 'store'])->name('register.petugas.store');
 
-// Register Petugas
-use App\Http\Controllers\RegisterPetugasController;
-Route::get('/register-petugas', [RegisterPetugasController::class, 'showForm']);
-Route::post('/register-petugas', [RegisterPetugasController::class, 'store']);
+// ================= REGISTER ADMIN =================
+Route::get('/register-admin', [RegisterAdminController::class, 'showForm'])->name('register.admin.form');
+Route::post('/register-admin', [RegisterAdminController::class, 'store'])->name('register.admin.store');
 
-// Register Admin
-use App\Http\Controllers\RegisterAdminController;
-Route::get('/register-admin', [RegisterAdminController::class, 'showForm']);
-Route::post('/register-admin', [RegisterAdminController::class, 'store']);
-
+// ================= WILAYAH (API) =================
 Route::get('/wilayah/kapanewon', [WilayahController::class, 'getKapanewon']);
 Route::get('/wilayah/kelurahan/{kapanewon_id}', [WilayahController::class, 'getKelurahan']);
 Route::get('/wilayah/padukuhan/{kelurahan_id}', [WilayahController::class, 'getPadukuhan']);
 
-// Dashboard Admin
-Route::get('/dashboard_admin', function () {
-    return view('dashboard.admin.dashboard_admin');
-});
-Route::get('/dashboard_admin/data-umum', function () {
-    return view('dashboard.admin.data_umum_admin');
-});
+// ================= DASHBOARD =================
+Route::get('/dashboard_admin', fn() => view('dashboard.admin.dashboard_admin'));
+Route::get('/dashboard_admin/data-umum', fn() => view('dashboard.admin.data_umum_admin'));
+

@@ -24,14 +24,35 @@
                 {{ session('success') }}
             </div>
         @endif
-        <form method="POST" action="/register-petugas">
+        <form method="POST" action="{{ route('register.petugas') }}">
             @csrf
-            <input type="text" name="username" placeholder="Username" class="w-full mb-4 px-4 py-3 rounded-lg bg-white text-[#256d5a] font-semibold placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#256d5a]">
+            <input type="hidden" name="role" value="1"> <!-- otomatis petugas -->
+
+            <input type="text" name="nama" placeholder="Nama Lengkap" 
+                class="w-full mb-4 px-4 py-3 rounded-lg bg-white text-[#256d5a] font-semibold placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#256d5a]">
+
+            <input type="text" name="username" placeholder="Username" 
+                class="w-full mb-4 px-4 py-3 rounded-lg bg-white text-[#256d5a] font-semibold placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#256d5a]">
+
+            <input type="email" name="email" placeholder="Email" 
+                class="w-full mb-4 px-4 py-3 rounded-lg bg-white text-[#256d5a] font-semibold placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#256d5a]">
+
+            <input type="text" name="no_hp" placeholder="No HP" 
+                class="w-full mb-4 px-4 py-3 rounded-lg bg-white text-[#256d5a] font-semibold placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#256d5a]">
+
+            <input type="text" name="alamat" placeholder="Alamat" 
+                class="w-full mb-4 px-4 py-3 rounded-lg bg-white text-[#256d5a] font-semibold placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#256d5a]">
+
             <div class="relative mb-4">
-                <input type="password" name="password" id="password" placeholder="Password" class="w-full px-4 py-3 rounded-lg bg-white text-[#256d5a] font-semibold placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#256d5a]">
-                <span class="material-icons absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400" id="toggle-password" onclick="togglePassword('password', 'toggle-password')">visibility_off</span>
+                <input type="password" name="password" id="password" placeholder="Password" 
+                    class="w-full px-4 py-3 rounded-lg bg-white text-[#256d5a] font-semibold placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#256d5a]">
+                <span class="material-icons absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400" 
+                    id="toggle-password" onclick="togglePassword('password', 'toggle-password')">visibility_off</span>
             </div>
-            <button type="submit" class="w-full bg-white text-[#256d5a] font-bold py-3 rounded-lg mt-2 text-lg shadow hover:bg-gray-100 transition">Register Petugas</button>
+            <button type="submit" 
+                class="w-full bg-white text-[#256d5a] font-bold py-3 rounded-lg mt-2 text-lg shadow hover:bg-gray-100 transition">
+                Register Petugas
+            </button>
         </form>
         <div class="flex justify-center mt-6">
             <a href="/" class="bg-gray-200 text-[#256d5a] font-bold px-6 py-2 rounded shadow hover:bg-gray-300 transition flex items-center gap-2">
