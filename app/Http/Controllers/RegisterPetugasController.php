@@ -7,7 +7,7 @@ class RegisterPetugasController extends Controller
 {
     public function showForm()
     {
-        return view('register_petugas');
+        return view('auth/register_petugas');
     }
     public function store(Request $request)
     {

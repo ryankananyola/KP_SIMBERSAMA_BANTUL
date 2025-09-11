@@ -22,10 +22,10 @@
                 <h2 class="text-2xl font-bold mb-4">(SISTEM INFORMASI PENGELOLAAN SAMPAH KAB. BANTUL)</h2>
                 <p class="text-gray-700 mb-6">Dinas Lingkungan Hidup Kabupaten Bantul membuat aplikasi ini dengan harapan agar <span class="font-bold">BUMKal</span> dapat mengelola sampah tersebut dengan mudah. Sehingga dapat mensukseskan <span class="font-bold">Bantul Bersih Sampah 2025 (Bantul Bersama)</span></p>
                 <div class="flex gap-4 mb-6">
-                    <a href="#" class="bg-[#256d5a] text-white font-bold px-5 py-2 rounded flex items-center gap-2 shadow hover:bg-[#1e5647] transition">
+                    <a href="#" class="bg-[#256d5a] text-black font-bold px-5 py-2 rounded flex items-center gap-2 shadow hover:bg-[#1e5647] transition">
                         <span class="material-icons">menu_book</span> BUKU PANDUAN
                     </a>
-                    <a href="#" class="bg-[#256d5a] text-white font-bold px-5 py-2 rounded flex items-center gap-2 shadow hover:bg-[#1e5647] transition">
+                    <a href="#" class="bg-[#256d5a] text-black font-bold px-5 py-2 rounded flex items-center gap-2 shadow hover:bg-[#1e5647] transition">
                         <span class="material-icons">play_circle</span> VIDEO PANDUAN
                     </a>
                 </div>

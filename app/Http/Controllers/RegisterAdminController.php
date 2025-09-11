@@ -7,7 +7,7 @@ class RegisterAdminController extends Controller
 {
     public function showForm()
     {
-        return view('register_admin');
+        return view('auth/register_admin');
     }
     public function store(Request $request)
     {

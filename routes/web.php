@@ -16,7 +16,7 @@ Route::get('/home', function () {
 });
 
 Route::get('/login', function () {
-    return view('login');
+    return view('auth/login');
 });
 Route::post('/login', function(Request $request) {
     $request->validate([
@@ -39,7 +39,7 @@ Route::post('/login', function(Request $request) {
 
 
 Route::get('/register', function () {
-    return view('register');
+    return view('auth/register');
 });
 Route::post('/register', [RegisterController::class, 'store']);
 
@@ -56,3 +56,11 @@ Route::post('/register-admin', [RegisterAdminController::class, 'store']);
 Route::get('/wilayah/kapanewon', [WilayahController::class, 'getKapanewon']);
 Route::get('/wilayah/kelurahan/{kapanewon_id}', [WilayahController::class, 'getKelurahan']);
 Route::get('/wilayah/padukuhan/{kelurahan_id}', [WilayahController::class, 'getPadukuhan']);
+
+// Dashboard Admin
+Route::get('/dashboard_admin', function () {
+    return view('dashboard.admin.dashboard_admin');
+});
+Route::get('/dashboard_admin/data-umum', function () {
+    return view('dashboard.admin.data_umum_admin');
+});

@@ -19,7 +19,7 @@ class RegisterController extends Controller
             'kelurahan_id' => 'required|exists:kelurahan,id',
             'padukuhan_id' => 'required|exists:padukuhan,id',
             'username' => 'required|unique:akun,username',
-            'g-recaptcha-response' => 'required|captcha',
+            // 'g-recaptcha-response' => 'required|captcha',
         ]);
         $validated['password'] = Hash::make($validated['password']);
         Akun::create($validated);
