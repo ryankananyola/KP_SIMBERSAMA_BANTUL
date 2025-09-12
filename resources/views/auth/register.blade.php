@@ -33,7 +33,7 @@
                 {{ session('success') }}
             </div>
         @endif
-        <form class="bg-white rounded-xl shadow p-4 space-y-8 overflow-y-auto max-h-[80vh]" method="POST" action="{{ route('register.user')>
+        <form class="bg-white rounded-xl shadow p-4 space-y-8 overflow-y-auto max-h-[80vh]" method="POST" action="{{ route('register.user') }}">
             @csrf
             
             <!-- DATA AKUN -->
@@ -58,7 +58,7 @@
                         <input type="text" class="w-full border rounded px-3 py-2" name="nama_bank_sampah" placeholder="Cth: Bank Sampah UGM Jaya">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold mb-1">Nama Pimpinan</label>
+                        <label class="block text-sm font-semibold mb-1">Nama Pengelola</label>
                         <input type="text" class="w-full border rounded px-3 py-2" name="nama" placeholder="Cth: Saya Sendiri">
                     </div>
                     <div>

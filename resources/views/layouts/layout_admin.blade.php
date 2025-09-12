@@ -97,6 +97,11 @@
                         <span class="material-icons">settings</span> Pengaturan Website
                     </a>
                 </li>
+                <li class="nav-item mt-4">
+                    <a class="nav-link" href="/" onclick="return confirm('Yakin ingin logout?')">
+                        <span class="material-icons">logout</span> Logout
+                    </a>
+                </li>
             </ul>
         </nav>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="margin-left:16.5rem;">
