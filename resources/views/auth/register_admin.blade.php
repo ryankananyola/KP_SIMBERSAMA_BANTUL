@@ -59,6 +59,13 @@
                 <span class="material-icons absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400"
                     id="toggle-password" onclick="togglePassword('password', 'toggle-password')">visibility_off</span>
             </div>
+            <div class="relative mb-4">
+                <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Konfirmasi Password"
+                    class="w-full px-4 py-3 rounded-lg bg-white text-[#256d5a] font-semibold 
+                    placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#256d5a]" required>
+                <span class="material-icons absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400"
+                    id="toggle-password-confirmation" onclick="togglePassword('password_confirmation', 'toggle-password-confirmation')">visibility_off</span>
+            </div>
 
             <button type="submit"
                 class="w-full bg-white text-[#256d5a] font-bold py-3 rounded-lg mt-2 text-lg shadow hover:bg-gray-100 transition">

@@ -16,8 +16,8 @@ class RegisterPetugasController extends Controller
     {
         $validated = $request->validate([
             'nama'      => 'required|string|max:255',
-            'username'  => 'required|unique:adminstafs,username',
-            'email'     => 'required|email|unique:adminstafs,email',
+            'username'  => 'required|unique:adminstaf,username',
+            'email'     => 'required|email|unique:adminstaf,email',
             'password'  => 'required|string|min:8|confirmed',
             'no_hp'     => 'nullable|string|max:20',
             'alamat'    => 'nullable|string',

@@ -15,14 +15,14 @@ return [
         ],
 
         // Guard untuk admin/petugas
-        'adminstaf' => [
+        'adminstaf' => [ 
             'driver' => 'session',
-            'provider' => 'adminstafs',
+            'provider' => 'adminstaf', 
         ],
 
         // Kalau ada API
         'api' => [
-            'driver' => 'passport', // bisa sanctum juga tergantung setup
+            'driver' => 'passport', 
             'provider' => 'akuns',
         ],
     ],
@@ -35,7 +35,7 @@ return [
         ],
 
         // Provider untuk adminstaf
-        'adminstafs' => [
+        'adminstaf' => [ // 
             'driver' => 'eloquent',
             'model' => App\Models\Adminstaf::class,
         ],
@@ -48,8 +48,8 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'adminstafs' => [
-            'provider' => 'adminstafs',
+        'adminstaf' => [ // 
+            'provider' => 'adminstaf',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
