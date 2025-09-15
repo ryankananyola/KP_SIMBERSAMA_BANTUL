@@ -8,12 +8,13 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-white font-[Instrument Sans] min-h-screen">
-    <header class="bg-[#256d5a] py-4 px-8 flex items-center">
-        <span class="text-white text-2xl font-bold tracking-wide">SIMBERSAMA</span>
+    <header class="bg-[#78ffdb] py-4 px-8 flex items-center">
+        <span class="text-black text-2xl font-bold tracking-wide">SIMBERSAMA</span>
     </header>
     <main class="max-w-4xl mx-auto p-4">
         <div class="flex flex-col lg:flex-row items-center gap-8 mb-6">
-            <img src="/images/bantul-logo.png" alt="Logo Bantul" class="w-48 h-48 mb-4 lg:mb-0">
+            <img src="{{ asset('assets/images/LogoBantul.png') }}" alt="Logo Bantul"
+                class="h-64 w-auto mb-6 mx-auto">
             <div>
                 <h1 class="text-[#256d5a] text-xl font-bold mb-2">Selamat Datang di Portal Registrasi<br>Sistem Informasi Pengelolaan Sampah Kab. Bantul</h1>
                 <p class="text-gray-700">Mohon isi form dibawah ini dengan lengkap & benar!</p>

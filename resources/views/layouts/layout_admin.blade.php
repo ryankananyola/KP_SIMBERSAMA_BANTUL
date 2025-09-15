@@ -17,7 +17,7 @@
             color: #fff;
         }
         .sidebar .nav-link.active {
-            background: #004d40; /* warna hijau tua */
+            background: #004d40;
             color: #fff !important;
             font-weight: bold;
         }
@@ -50,7 +50,8 @@
     <div class="row">
         <nav class="col-md-3 col-lg-2 d-md-block sidebar py-3 px-0 position-fixed">
             <div class="d-flex align-items-center mb-4 px-3">
-                <img src="/images/bantul-logo.png" alt="Logo" style="width:40px;height:40px;">
+               <img src="{{ asset('assets/images/LogoBantul.png') }}" alt="Logo Bantul"
+                    class="h-64 w-auto mb-6 mx-auto">
                 <span class="ms-2 fw-bold">SIMBERSAMA</span>
             </div>
             <ul class="nav flex-column px-2">

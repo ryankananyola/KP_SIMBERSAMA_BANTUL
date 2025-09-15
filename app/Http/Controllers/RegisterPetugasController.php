@@ -30,7 +30,7 @@ class RegisterPetugasController extends Controller
         $petugas->password = Hash::make($validated['password']);
         $petugas->no_hp = $validated['no_hp'] ?? null;
         $petugas->alamat = $validated['alamat'] ?? null;
-        $petugas->role = 1; // PETUGAS
+        $petugas->role = 1;
         $petugas->save();
 
         return redirect('/login')->with('success', 'Registrasi petugas berhasil!');

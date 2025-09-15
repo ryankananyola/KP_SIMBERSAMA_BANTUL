@@ -30,7 +30,7 @@ class RegisterAdminController extends Controller
         $admin->password = Hash::make($validated['password']);
         $admin->no_hp = $validated['no_hp'] ?? null;
         $admin->alamat = $validated['alamat'] ?? null;
-        $admin->role = 2; // ADMIN
+        $admin->role = 2; 
         $admin->save();
 
         return redirect('/login')->with('success', 'Registrasi admin berhasil!');

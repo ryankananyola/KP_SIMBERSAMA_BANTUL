@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\RegisterController;
@@ -8,6 +9,8 @@ use App\Http\Controllers\RegisterPetugasController;
 use App\Http\Controllers\RegisterAdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataUmumAdminController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DokumenSKController;
 
 Route::get('/', fn() => view('landing'));
 Route::get('/home', fn() => view('home'));
@@ -33,4 +36,18 @@ Route::get('/dashboard_admin/data-umum', fn() => view('dashboard.admin.data_umum
 Route::get('/dashboard_admin/data-umum', [DataUmumAdminController::class, 'index'])->name('data.umum.index');
 Route::get('/dashboard_admin/data-umum/{id}', [DataUmumAdminController::class, 'show'])->name('data.umum.show');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard_user', [UserController::class, 'dashboard'])->name('user.dashboard_user');
+    Route::get('/data-umum', [UserController::class, 'dataUmum'])->name('user.data_umum');
+    Route::get('/data-periodik', [UserController::class, 'dataPeriodik'])->name('user.data_periodik');
+    Route::get('/upload-sk', [DokumenSKController::class, 'create'])->name('user.upload_sk');
+    Route::post('/upload-sk', [DokumenSKController::class, 'store'])->name('user.upload_sk.store');
+});
 
+Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+
+    return redirect('/login');
+})->name('logout');

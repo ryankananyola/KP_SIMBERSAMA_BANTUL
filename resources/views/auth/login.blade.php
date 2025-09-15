@@ -14,7 +14,8 @@
 			<div class="mb-4">
 				<span class="text-[#256d5a] text-2xl font-bold tracking-wide">SIMBERSAMA</span>
 			</div>
-			<img src="/images/bantul-logo.png" alt="Logo Bantul" class="w-64 h-64 mb-6">
+			<img src="{{ asset('assets/images/LogoBantul.png') }}" alt="Logo Bantul"
+                    class="h-64 w-auto mb-6 mx-auto">
 			<h1 class="text-[#256d5a] text-2xl font-bold text-center leading-tight mb-2">WEBSITE SIMBERSAMA<br><span class="text-lg font-semibold">(SISTEM INFORMASI PENGELOLAAN SAMPAH KAB. BANTUL)</span></h1>
 		</div>
 		<div class="flex-1 bg-[#256d5a] rounded-2xl p-10 shadow-lg flex flex-col justify-center min-w-[350px] max-w-md">
