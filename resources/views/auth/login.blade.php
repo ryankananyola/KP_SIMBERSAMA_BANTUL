@@ -11,14 +11,11 @@
 <body class="bg-white font-[Instrument Sans] min-h-screen flex items-center justify-center">
 	<div class="flex flex-col lg:flex-row items-center justify-center w-full max-w-5xl mx-auto gap-8 p-4">
 		<div class="flex flex-col items-center flex-1">
-			<div class="mb-4">
-				<span class="text-[#256d5a] text-2xl font-bold tracking-wide">SIMBERSAMA</span>
-			</div>
 			<img src="{{ asset('assets/images/LogoBantul.png') }}" alt="Logo Bantul"
-                    class="h-64 w-auto mb-6 mx-auto">
-			<h1 class="text-[#256d5a] text-2xl font-bold text-center leading-tight mb-2">WEBSITE SIMBERSAMA<br><span class="text-lg font-semibold">(SISTEM INFORMASI PENGELOLAAN SAMPAH KAB. BANTUL)</span></h1>
+                    class="h-80 w-auto mb-6 mx-auto">
+			<h1 class="text-green-800 text-2xl font-bold text-center leading-tight mb-2">WEBSITE SIMBERSAMA<br><span class="text-lg font-semibold">(SISTEM INFORMASI PENGELOLAAN SAMPAH KAB. BANTUL)</span></h1>
 		</div>
-		<div class="flex-1 bg-[#256d5a] rounded-2xl p-10 shadow-lg flex flex-col justify-center min-w-[350px] max-w-md">
+		<div class="flex-1 bg-green-800 rounded-2xl p-10 shadow-lg flex flex-col justify-center min-w-[350px] max-w-md">
 			<h2 class="text-white text-2xl font-bold mb-2">Selamat Datang!</h2>
 			<p class="text-white mb-6">Sudah punya akun? <span class="font-bold">Log in</span></p>
 			
@@ -43,17 +40,17 @@
 				{{-- <div class="flex justify-center mb-4">
 					{!! NoCaptcha::display() !!}
 				</div> --}}
-				<button type="submit" class="w-full bg-white text-[#256d5a] font-bold py-3 rounded-lg mt-2 text-lg shadow hover:bg-gray-100 transition">Login</button>
+				<button type="submit" class="w-full bg-white text-green-800 font-bold py-3 rounded-lg mt-2 text-lg shadow hover:bg-gray-100 transition">Masuk</button>
 			</form>
 			<hr class="my-6 border-white">
-			<div class="text-black text-center">
-				Belum Punya Akun? <a href="/register" class="font-bold underline">Register</a>
+			<div class="text-white text-center">
+				Belum Punya Akun? <a href="/register" class="font-bold underline">Daftar</a>
 			</div>
-			<div class="text-black text-center mt-2 text-sm">
+			<div class="text-white text-center mt-2 text-sm">
 				Lupa Password ? <a href="/password/reset" class="font-bold underline">Reset Password</a>
 			</div>
 			<div class="flex justify-center mt-6">
-				<a href="/" class="bg-gray-200 text-[#256d5a] font-bold px-6 py-2 rounded shadow hover:bg-gray-300 transition flex items-center gap-2">
+				<a href="/" class="bg-gray-200 text-green-800 font-bold px-6 py-2 rounded shadow hover:bg-gray-300 transition flex items-center gap-2">
 					<span class="material-icons">arrow_back</span> Kembali ke Dashboard
 				</a>
 			</div>

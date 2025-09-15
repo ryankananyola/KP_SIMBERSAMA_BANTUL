@@ -8,15 +8,15 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-white font-[Instrument Sans] min-h-screen">
-    <header class="bg-[#78ffdb] py-4 px-8 flex items-center">
-        <span class="text-black text-2xl font-bold tracking-wide">SIMBERSAMA</span>
+    <header class="bg-green-800 py-4 px-8 flex items-center">
+        <span class="text-white text-2xl font-bold tracking-wide">SIMBERSAMA</span>
     </header>
     <main class="max-w-4xl mx-auto p-4">
         <div class="flex flex-col lg:flex-row items-center gap-8 mb-6">
             <img src="{{ asset('assets/images/LogoBantul.png') }}" alt="Logo Bantul"
-                class="h-64 w-auto mb-6 mx-auto">
+                class="h-80 w-auto mb-6 mx-auto">
             <div>
-                <h1 class="text-[#256d5a] text-xl font-bold mb-2">Selamat Datang di Portal Registrasi<br>Sistem Informasi Pengelolaan Sampah Kab. Bantul</h1>
+                <h1 class="text-black text-xl font-bold mb-2">Selamat Datang di Portal Registrasi<br>Sistem Informasi Pengelolaan Sampah<br>Kab. Bantul</h1>
                 <p class="text-gray-700">Mohon isi form dibawah ini dengan lengkap & benar!</p>
             </div>
         </div>
@@ -38,7 +38,7 @@
             @csrf
             
             <!-- DATA AKUN -->
-            <div>
+            <div class="border rounded-lg p-4 mb-6">
                 <div class="flex items-center mb-2">
                     <span class="material-icons text-[#256d5a] mr-2">person_add</span>
                     <span class="font-bold text-[#256d5a] text-lg">DATA AKUN</span>
@@ -156,13 +156,14 @@
                 {!! NoCaptcha::display() !!}
             </div> --}}
             <div class="flex justify-center mt-8">
-                <button type="submit" class="bg-[#256d5a] text-black font-bold px-8 py-3 rounded-lg shadow hover:bg-[#1e5647] transition flex items-center gap-2">
-                    <span class="material-icons">person_add</span> Register
+                <button type="submit" 
+                    class="w-full md:w-3/4 lg:w-1/2 bg-green-800 text-white font-bold py-3 rounded-lg shadow hover:bg-green-900 transition flex justify-center items-center gap-2">
+                    <span class="material-icons">person_add</span> Daftar
                 </button>
             </div>
             <div class="flex flex-col md:flex-row items-center justify-center mt-4 gap-2">
                 <span class="text-gray-700">Sudah punya akun?</span>
-                <a href="/login" class="bg-[#256d5a] text-black font-bold px-6 py-2 rounded shadow hover:bg-[#1e5647] transition flex items-center gap-2">
+                <a href="/login" class="bg-green-600 text-white font-bold px-6 py-2 rounded shadow hover:bg-[#1e5647] transition flex items-center gap-2">
                     <span class="material-icons">login</span> Masuk
                 </a>
             </div>
@@ -172,6 +173,7 @@
 				</a>
 			</div>
         </form>
+
     {{-- {!! NoCaptcha::renderJs() !!} --}}
     </main>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
