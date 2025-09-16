@@ -4,11 +4,9 @@
 <div class="container py-4">
     <h4 class="fw-bold mb-4">SK, Organisasi & Bangunan</h4>
 
-    {{-- FORM UPLOAD --}}
     <form action="{{ route('user.upload_sk.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row g-3">
-            {{-- Jenis SK --}}
             <div class="col-md-6">
                 <label class="form-label fw-semibold">SK <span class="text-danger">*</span></label>
                 <select name="sk" id="sk_select" class="form-select" required>
@@ -24,13 +22,11 @@
                 <input type="text" name="sk_lainnya" id="sk_lainnya" class="form-control mt-2 d-none" placeholder="Isi jenis SK lainnya">
             </div>
 
-            {{-- No. SK --}}
             <div class="col-md-6">
                 <label class="form-label fw-semibold">No. SK <span class="text-danger">*</span></label>
                 <input type="text" name="no_sk" class="form-control" required>
             </div>
 
-            {{-- Diperlukan Oleh --}}
             <div class="col-md-6">
                 <label class="form-label fw-semibold">Di Perlukan Oleh <span class="text-danger">*</span></label>
                 <select name="diperlukan_oleh" id="diperlukan_select" class="form-select" required>
@@ -44,19 +40,16 @@
                 <input type="text" name="diperlukan_oleh_lainnya" id="diperlukan_lainnya" class="form-control mt-2 d-none" placeholder="Isi manual">
             </div>
 
-            {{-- Upload File --}}
             <div class="col-md-6">
                 <label class="form-label fw-semibold">Upload File SK <span class="text-danger">*</span></label>
                 <input type="file" name="file_sk" class="form-control" required>
             </div>
 
-            {{-- Struktur Organisasi --}}
             <div class="col-md-6">
                 <label class="form-label fw-semibold">Struktur Organisasi</label>
                 <input type="text" name="struktur_organisasi" class="form-control">
             </div>
 
-            {{-- Kondisi Bangunan --}}
             <div class="col-md-6">
                 <label class="form-label fw-semibold">Kondisi Bangunan</label>
                 <select name="kondisi_bangunan" id="kondisi_select" class="form-select">
@@ -71,7 +64,6 @@
                 <input type="text" name="kondisi_bangunan_lainnya" id="kondisi_lainnya" class="form-control mt-2 d-none" placeholder="Isi manual">
             </div>
 
-            {{-- Dibangun Oleh --}}
             <div class="col-md-6">
                 <label class="form-label fw-semibold">Dibangun Oleh</label>
                 <select name="dibangun_oleh" id="dibangun_select" class="form-select">
@@ -84,7 +76,6 @@
                 <input type="text" name="dibangun_oleh_lainnya" id="dibangun_lainnya" class="form-control mt-2 d-none" placeholder="Isi manual">
             </div>
 
-            {{-- Pihak yang Membangun --}}
             <div class="col-md-6">
                 <label class="form-label fw-semibold">Pihak yang Membangun</label>
                 <select name="pihak_membangun" id="pihak_select" class="form-select">
@@ -97,19 +88,16 @@
                 <input type="text" name="pihak_membangun_lainnya" id="pihak_lainnya" class="form-control mt-2 d-none" placeholder="Isi manual">
             </div>
 
-            {{-- Tahun Pembangunan --}}
             <div class="col-md-6">
                 <label class="form-label fw-semibold">Tahun Pembangunan</label>
                 <input type="number" name="tahun_pembangunan" min="1900" max="2100" class="form-control">
             </div>
 
-            {{-- Luas --}}
             <div class="col-md-6">
                 <label class="form-label fw-semibold">Luas (m²)</label>
                 <input type="number" step="0.01" name="luas" class="form-control">
             </div>
 
-            {{-- Biaya --}}
             <div class="col-md-6">
                 <label class="form-label fw-semibold">Biaya Pembangunan (Rp)</label>
                 <input type="number" step="0.01" name="biaya_pembangunan" class="form-control">
@@ -121,7 +109,6 @@
         </div>
     </form>
 
-    {{-- RIWAYAT UPLOAD --}}
     <div class="card shadow-sm mt-5">
         <div class="card-body">
             <h5 class="fw-bold mb-3">Riwayat Upload SK</h5>
@@ -160,7 +147,6 @@
                                 </td>
                             </tr>
 
-                            {{-- Modal Detail --}}
                             <div class="modal fade" id="detailModal-{{ $sk->id }}" tabindex="-1" aria-hidden="true">
                               <div class="modal-dialog modal-lg">
                                 <div class="modal-content">

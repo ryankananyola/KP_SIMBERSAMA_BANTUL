@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('padukuhan_id');
             $table->string('username')->unique();
             $table->tinyInteger('role')->default(0);
+            $table->string('foto')->nullable();
             $table->timestamps();
             $table->foreign('kapanewon_id')->references('id')->on('kapanewon');
             $table->foreign('kelurahan_id')->references('id')->on('kelurahan');

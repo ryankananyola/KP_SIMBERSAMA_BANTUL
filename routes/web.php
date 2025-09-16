@@ -11,6 +11,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataUmumAdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DokumenSKController;
+use App\Http\Controllers\LaporanPeriodikController;
 
 Route::get('/', fn() => view('landing'));
 Route::get('/home', fn() => view('home'));
@@ -40,17 +41,23 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard_user')->name('user.')->group(function () {
         Route::get('/', [UserController::class, 'dashboard'])->name('dashboard');
 
-        Route::get('/dashboard_user/data-umum', [UserController::class, 'showDataUmum'])->name('data_umum');
-        Route::put('/dashboard_user/data-umum', [UserController::class, 'updateDataUmum'])->name('data_umum.update');
+        // Data Umum
+        Route::get('/data-umum', [UserController::class, 'showDataUmum'])->name('data_umum');
+        Route::put('/data-umum', [UserController::class, 'updateDataUmum'])->name('data_umum.update');
 
-        Route::get('/dashboard_user/data-periodik', [UserController::class, 'dataPeriodik'])->name('data_periodik');
+        Route::get('/data-periodik', [LaporanPeriodikController::class, 'create'])->name('data_periodik');
+        Route::post('/data-periodik/store', [LaporanPeriodikController::class, 'store'])->name('data_periodik.store');
 
-        Route::get('/dashboard_user/upload-sk', [DokumenSKController::class, 'create'])->name('upload_sk');
-        Route::post('/dashboard_user/upload-sk', [DokumenSKController::class, 'store'])->name('upload_sk.store');
+        Route::get('/riwayat-laporan', [LaporanPeriodikController::class, 'riwayat'])->name('riwayat_laporan_user');
+        Route::get('/detail-laporan/{id}', [LaporanPeriodikController::class, 'detail'])->name('detail_laporan_user');
+
+        Route::get('/upload-sk', [DokumenSKController::class, 'create'])->name('upload_sk');
+        Route::post('/upload-sk', [DokumenSKController::class, 'store'])->name('upload_sk.store');
+
+        Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+        Route::put('/profile', [UserController::class, 'updateProfile'])->name('update_profile');
     });
 });
-
-
 
 Route::post('/logout', function () {
     Auth::logout();

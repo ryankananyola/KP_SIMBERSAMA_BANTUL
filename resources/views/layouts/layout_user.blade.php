@@ -11,6 +11,7 @@
         body { 
             background: #f8f9fa; 
             transition: all 0.3s; 
+            overflow-x: hidden;
         }
         .sidebar {
             background: #256d5a;
@@ -18,6 +19,10 @@
             color: #fff;
             width: 16.5rem;
             transition: all 0.3s;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000; 
         }
         .sidebar.collapsed {
             margin-left: -16.5rem;
@@ -25,11 +30,12 @@
         .content {
             margin-left: 16.5rem;
             transition: all 0.3s;
-            max-width: 100%;    
-            overflow-x: hidden;
+            width: calc(100% - 16.5rem);
+            overflow-x: hidden;         
         }
         .content.expanded {
             margin-left: 0; 
+            width: 100%;
         }
         .sidebar .nav-link, 
         .sidebar .nav-link:visited { 
@@ -62,24 +68,34 @@
             padding: 6px;
             font-size: 28px;
         }
-        .toggle-btn {
-            cursor: pointer;
-            color: #fff;
-        }
         #topbarToggle { 
-            display: none; 
+            display: inline-block; 
+            color: #256d5a;
+            cursor: pointer;
         }
-        .sidebar.collapsed ~ .content #topbarToggle {
-            display: inline-block;
+
+        /* Responsive: di layar kecil sidebar otomatis collapse */
+        @media (max-width: 768px) {
+            .sidebar {
+                margin-left: -16.5rem;
+            }
+            .sidebar.show {
+                margin-left: 0;
+            }
+            .content {
+                margin-left: 0;
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar py-3 px-0 position-fixed">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar py-3 px-0">
             <div class="d-flex align-items-center mb-4 px-3">
-                <span class="material-icons toggle-btn me-2" onclick="toggleSidebar()">menu</span>
+                <span class="material-icons me-2" onclick="toggleSidebar()" style="cursor:pointer;">menu</span>
                 <img src="{{ asset('assets/images/LogoBantul.png') }}" alt="Logo Bantul" 
                      style="width:40px; height:40px; object-fit:contain;" class="me-2">
                 <span class="fw-bold">SIMBERSAMA</span>
@@ -111,44 +127,97 @@
                     </a>
                 </li>
                 <li class="nav-item mb-1">
-                    <a class="nav-link {{ request()->is('riwayat-laporan') ? 'active' : '' }}" href="/riwayat-laporan">
+                    <a class="nav-link {{ request()->routeIs('user.riwayat_laporan_user') ? 'active' : '' }}" 
+                    href="{{ route('user.riwayat_laporan_user') }}">
                         <span class="material-icons">history</span> Riwayat Laporan
                     </a>
                 </li>
-
                 <li class="nav-item mt-4">
-                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                        @csrf
-                        <button type="submit" class="nav-link btn btn-link text-white w-100 text-start"
-                                onclick="return confirm('Yakin ingin logout?')">
-                            <span class="material-icons">logout</span> Logout
-                        </button>
-                    </form>
+                    <button type="button" 
+                            class="nav-link btn btn-link text-white w-100 text-start" 
+                            data-bs-toggle="modal" data-bs-target="#logoutModal">
+                        <span class="material-icons">logout</span> Logout
+                    </button>
                 </li>
             </ul>
         </nav>
 
+        <!-- Content -->
         <main id="content" class="px-md-4 content">
             <div class="d-flex align-items-center py-3 mb-3 border-bottom bg-white px-3" style="min-height:56px;">
-                <span id="topbarToggle" class="material-icons toggle-btn me-3" onclick="toggleSidebar()" style="color:#256d5a;">
-                    menu
-                </span>
-                <span class="profile-icon material-icons ms-auto">account_circle</span>
+                <!-- Tombol menu di topbar -->
+                <span id="topbarToggle" class="material-icons me-3" onclick="toggleSidebar()">menu</span>
+
+                <!-- Foto Profil -->
+                <a href="{{ route('user.profile') }}" class="ms-auto" style="text-decoration:none;">
+                    <img src="{{ Auth::user()->foto ? asset('storage/' . Auth::user()->foto) : asset('assets/images/default-profile.png') }}"
+                        alt="Foto Profil"
+                        class="rounded-circle"
+                        style="width:36px; height:36px; object-fit:cover; border:2px solid #256d5a;">
+                </a>
             </div>
 
             @yield('content')
         </main>
+
+        <!-- Modal Logout -->
+        <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin keluar dari aplikasi?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Ya, Logout</button>
+                </form>
+            </div>
+            </div>
+        </div>
+        </div>
     </div>
 </div>
 
 <script>
     function toggleSidebar() {
-        document.getElementById('sidebar').classList.toggle('collapsed');
-        document.getElementById('content').classList.toggle('expanded');
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+
+        if (window.innerWidth <= 768) {
+            // di layar kecil toggle pakai class show
+            sidebar.classList.toggle('show');
+        } else {
+            sidebar.classList.toggle('collapsed');
+            content.classList.toggle('expanded');
+
+            if (sidebar.classList.contains('collapsed')) {
+                localStorage.setItem('sidebar', 'collapsed');
+            } else {
+                localStorage.setItem('sidebar', 'expanded');
+            }
+        }
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+        const state = localStorage.getItem('sidebar');
+
+        if (window.innerWidth > 768 && state === 'collapsed') {
+            sidebar.classList.add('collapsed');
+            content.classList.add('expanded');
+        }
+    });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/ZjvgyolUkIqf3L4N1zU2j3zUksdQRVvoxMfooAo8n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>

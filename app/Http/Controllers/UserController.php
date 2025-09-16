@@ -7,20 +7,17 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    // Dashboard utama user
     public function dashboard()
     {
         return view('dashboard.user.dashboard_user');
     }
 
-    // Halaman Data Umum
     public function showDataUmum()
     {
         $akun = Auth::user();
         return view('dashboard.user.data_umum_user', compact('akun'));
     }
 
-    // Update Data Umum
     public function updateDataUmum(Request $request)
     {
         $akun = Auth::user();
@@ -42,15 +39,43 @@ class UserController extends Controller
         return redirect()->route('user.data_umum')->with('success', 'Data berhasil diperbarui!');
     }
 
-    // Halaman Data Periodik
     public function dataPeriodik()
     {
         return view('dashboard.user.data_periodik');
     }
 
-    // Halaman Upload SK
     public function uploadSK()
     {
         return view('dashboard.user.upload_sk_user');
     }
+
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('dashboard.user.profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'email'    => 'required|email|unique:akun,email,' . $user->id,
+            'nomor_wa' => 'nullable|string|max:20',
+            'foto'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        if ($request->hasFile('foto')) {
+            $path = $request->file('foto')->store('profile', 'public');
+            $user->foto = $path;
+        }
+
+        $user->email    = $request->email;
+        $user->nomor_wa = $request->nomor_wa;
+        $user->save();
+
+        return redirect()->route('user.profile')->with('success', 'Profil berhasil diperbarui!');
+    }
+
+
 }

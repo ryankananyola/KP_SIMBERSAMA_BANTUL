@@ -18,7 +18,6 @@
                 @csrf
                 @method('PUT')
 
-                {{-- SECTION DATA AKUN --}}
                 <h5 class="mb-3 fw-bold text-primary">DATA AKUN</h5>
                 <div class="row g-3">
                     <div class="col-md-6">
@@ -46,7 +45,6 @@
                         @error('nomor_wa') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
-                    {{-- Field lain hanya readonly --}}
                     <div class="col-md-6">
                         <label class="form-label">Jenis Fasilitas</label>
                         <input type="text" class="form-control" value="{{ $akun->jenis_fasilitas }}" readonly>
@@ -57,7 +55,6 @@
                     </div>
                 </div>
 
-                {{-- SECTION LOKASI --}}
                 <h5 class="mt-4 mb-3 fw-bold text-primary">LOKASI</h5>
                 <div class="row g-3">
                     <div class="col-md-12">
@@ -78,7 +75,6 @@
                     </div>
                 </div>
 
-                {{-- BUTTON SIMPAN --}}
                 <div class="mt-4 text-end">
                     <button type="submit" class="btn btn-success">Simpan Perubahan</button>
                 </div>
