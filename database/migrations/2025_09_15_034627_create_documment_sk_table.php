@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('documment_sk', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id'); 
             $table->string('sk');
             $table->string('no_sk');
             $table->string('diperlukan_oleh');
@@ -24,8 +25,12 @@ return new class extends Migration
             $table->year('tahun_pembangunan')->nullable();
             $table->integer('luas')->nullable();
             $table->bigInteger('biaya_pembangunan')->nullable();
+            $table->string('status')->default('Pending');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('akun')->onDelete('cascade');
         });
+
     }
 
     /**

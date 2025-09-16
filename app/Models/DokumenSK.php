@@ -11,6 +11,7 @@ class DokumenSK extends Model
     protected $table = 'documment_sk';
 
     protected $fillable = [
+        'user_id',
         'sk',
         'no_sk',
         'diperlukan_oleh',
@@ -24,4 +25,9 @@ class DokumenSK extends Model
         'biaya_pembangunan',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(Akun::class, 'user_id');
+    }
 }

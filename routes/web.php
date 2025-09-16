@@ -37,12 +37,20 @@ Route::get('/dashboard_admin/data-umum', [DataUmumAdminController::class, 'index
 Route::get('/dashboard_admin/data-umum/{id}', [DataUmumAdminController::class, 'show'])->name('data.umum.show');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard_user', [UserController::class, 'dashboard'])->name('user.dashboard_user');
-    Route::get('/data-umum', [UserController::class, 'dataUmum'])->name('user.data_umum');
-    Route::get('/data-periodik', [UserController::class, 'dataPeriodik'])->name('user.data_periodik');
-    Route::get('/upload-sk', [DokumenSKController::class, 'create'])->name('user.upload_sk');
-    Route::post('/upload-sk', [DokumenSKController::class, 'store'])->name('user.upload_sk.store');
+    Route::prefix('dashboard_user')->name('user.')->group(function () {
+        Route::get('/', [UserController::class, 'dashboard'])->name('dashboard');
+
+        Route::get('/dashboard_user/data-umum', [UserController::class, 'showDataUmum'])->name('data_umum');
+        Route::put('/dashboard_user/data-umum', [UserController::class, 'updateDataUmum'])->name('data_umum.update');
+
+        Route::get('/dashboard_user/data-periodik', [UserController::class, 'dataPeriodik'])->name('data_periodik');
+
+        Route::get('/dashboard_user/upload-sk', [DokumenSKController::class, 'create'])->name('upload_sk');
+        Route::post('/dashboard_user/upload-sk', [DokumenSKController::class, 'store'])->name('upload_sk.store');
+    });
 });
+
+
 
 Route::post('/logout', function () {
     Auth::logout();

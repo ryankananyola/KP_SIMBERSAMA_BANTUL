@@ -1,0 +1,89 @@
+@extends('layouts.layout_user')
+
+@section('content')
+<div class="container-fluid p-4">
+    <h1 class="h3 mb-4 fw-bold text-center">Data Umum</h1>
+    <div class="text-center mb-4">
+        <p class="fw-semibold">{{ $akun->nama }}</p>
+    </div>
+
+
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form action="{{ route('user.data_umum.update') }}" method="POST">
+                @csrf
+                @method('PUT')
+
+                {{-- SECTION DATA AKUN --}}
+                <h5 class="mb-3 fw-bold text-primary">DATA AKUN</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Nama Pengelola</label>
+                        <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" 
+                            value="{{ old('nama', $akun->nama) }}">
+                        @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" 
+                            value="{{ old('username', $akun->username) }}">
+                        @error('username') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" 
+                            value="{{ old('email', $akun->email) }}">
+                        @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Nomor WhatsApp</label>
+                        <input type="text" class="form-control @error('nomor_wa') is-invalid @enderror" name="nomor_wa" 
+                            value="{{ old('nomor_wa', $akun->nomor_wa) }}">
+                        @error('nomor_wa') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+
+                    {{-- Field lain hanya readonly --}}
+                    <div class="col-md-6">
+                        <label class="form-label">Jenis Fasilitas</label>
+                        <input type="text" class="form-control" value="{{ $akun->jenis_fasilitas }}" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Nama Bank Sampah</label>
+                        <input type="text" class="form-control" value="{{ $akun->nama_bank_sampah }}" readonly>
+                    </div>
+                </div>
+
+                {{-- SECTION LOKASI --}}
+                <h5 class="mt-4 mb-3 fw-bold text-primary">LOKASI</h5>
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label class="form-label">Alamat</label>
+                        <input type="text" class="form-control" value="{{ $akun->alamat }}" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Padukuhan</label>
+                        <input type="text" class="form-control" value="{{ $akun->padukuhan->nama ?? '-' }}" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Kelurahan</label>
+                        <input type="text" class="form-control" value="{{ $akun->kelurahan->nama ?? '-' }}" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Kapanewon</label>
+                        <input type="text" class="form-control" value="{{ $akun->kapanewon->nama ?? '-' }}" readonly>
+                    </div>
+                </div>
+
+                {{-- BUTTON SIMPAN --}}
+                <div class="mt-4 text-end">
+                    <button type="submit" class="btn btn-success">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection

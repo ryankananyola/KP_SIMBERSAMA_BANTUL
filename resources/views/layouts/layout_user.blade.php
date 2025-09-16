@@ -6,6 +6,7 @@
     <title>User - SIMBERSAMA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
     <style>
         body { 
             background: #f8f9fa; 
@@ -92,17 +93,20 @@
 
                 <div class="menu-title">MENU UTAMA</div>
                 <li class="nav-item mb-1">
-                    <a class="nav-link {{ request()->is('data-umum') ? 'active' : '' }}" href="/data-umum">
+                    <a class="nav-link {{ request()->routeIs('user.data_umum') ? 'active' : '' }}" 
+                        href="{{ route('user.data_umum') }}">
                         <span class="material-icons">fact_check</span> Data Umum
                     </a>
                 </li>
                 <li class="nav-item mb-1">
-                    <a class="nav-link {{ request()->is('data-periodik') ? 'active' : '' }}" href="/data-periodik">
+                    <a class="nav-link {{ request()->routeIs('user.data_periodik') ? 'active' : '' }}" 
+                        href="{{ route('user.data_periodik') }}">
                         <span class="material-icons">date_range</span> Data Periodik
                     </a>
                 </li>
                 <li class="nav-item mb-1">
-                    <a class="nav-link {{ request()->is('upload-sk') ? 'active' : '' }}" href="/upload-sk">
+                    <a class="nav-link {{ request()->routeIs('user.upload_sk') ? 'active' : '' }}" 
+                        href="{{ route('user.upload_sk') }}">
                         <span class="material-icons">upload_file</span> Upload SK
                     </a>
                 </li>
@@ -143,5 +147,8 @@
         document.getElementById('content').classList.toggle('expanded');
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/ZjvgyolUkIqf3L4N1zU2j3zUksdQRVvoxMfooAo8n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
 </body>
 </html>

@@ -19,11 +19,11 @@ class DokumenSKController extends Controller
             'sk' => 'required|string|max:255',
             'no_sk' => 'required|string|max:255',
             'diperlukan_oleh' => 'required|string|max:255',
-            'file_dokumen' => 'required|mimes:pdf,doc,docx,jpg,png|max:4096',
+            'file_sk' => 'required|mimes:pdf,doc,docx,jpg,png|max:4096',
             'struktur_organisasi' => 'nullable|string|max:255',
             'kondisi_bangunan' => 'nullable|string|max:255',
             'dibangun_oleh' => 'nullable|string|max:255',
-            'pihak_yang_membangun' => 'nullable|string|max:255',
+            'pihak_membangun' => 'nullable|string|max:255',
             'tahun_pembangunan' => 'nullable|digits:4|integer',
             'luas' => 'nullable|numeric',
             'biaya_pembangunan' => 'nullable|numeric',
@@ -41,17 +41,17 @@ class DokumenSKController extends Controller
         if ($request->dibangun_oleh === 'Lainnya') {
             $request->validate(['dibangun_oleh_lainnya' => 'required|string|max:255']);
         }
-        if ($request->pihak_yang_membangun === 'Lainnya') {
+        if ($request->pihak_membangun === 'Lainnya') {
             $request->validate(['pihak_yang_membangun_lainnya' => 'required|string|max:255']);
         }
 
-        $path = $request->file('file_dokumen')->store('dokumen_sk', 'public');
+        $path = $request->file('file_sk')->store('dokumen_sk', 'public');
 
         $sk = $request->sk === 'Lainnya' ? $request->sk_lainnya : $request->sk;
         $diperlukan_oleh = $request->diperlukan_oleh === 'Lainnya' ? $request->diperlukan_oleh_lainnya : $request->diperlukan_oleh;
         $kondisi_bangunan = $request->kondisi_bangunan === 'Lainnya' ? $request->kondisi_bangunan_lainnya : $request->kondisi_bangunan;
         $dibangun_oleh = $request->dibangun_oleh === 'Lainnya' ? $request->dibangun_oleh_lainnya : $request->dibangun_oleh;
-        $pihak_yang_membangun = $request->pihak_yang_membangun === 'Lainnya' ? $request->pihak_yang_membangun_lainnya : $request->pihak_yang_membangun;
+        $pihak_membangun = $request->pihak_membangun === 'Lainnya' ? $request->pihak_membangun_lainnya : $request->pihak_membangun;
 
         // Simpan ke database
         DokumenSK::create([
@@ -59,11 +59,11 @@ class DokumenSKController extends Controller
             'sk' => $sk,
             'no_sk' => $request->no_sk,
             'diperlukan_oleh' => $diperlukan_oleh,
-            'file_dokumen' => $path,
+            'file_sk' => $path,
             'struktur_organisasi' => $request->struktur_organisasi,
             'kondisi_bangunan' => $kondisi_bangunan,
             'dibangun_oleh' => $dibangun_oleh,
-            'pihak_yang_membangun' => $pihak_yang_membangun,
+            'pihak_membangun' => $pihak_membangun,
             'tahun_pembangunan' => $request->tahun_pembangunan,
             'luas' => $request->luas,
             'biaya_pembangunan' => $request->biaya_pembangunan,
