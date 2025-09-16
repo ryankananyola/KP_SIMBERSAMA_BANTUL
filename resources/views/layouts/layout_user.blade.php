@@ -68,13 +68,13 @@
             padding: 6px;
             font-size: 28px;
         }
+        
         #topbarToggle { 
             display: inline-block; 
             color: #256d5a;
             cursor: pointer;
         }
 
-        /* Responsive: di layar kecil sidebar otomatis collapse */
         @media (max-width: 768px) {
             .sidebar {
                 margin-left: -16.5rem;
@@ -92,7 +92,6 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <!-- Sidebar -->
         <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar py-3 px-0">
             <div class="d-flex align-items-center mb-4 px-3">
                 <span class="material-icons me-2" onclick="toggleSidebar()" style="cursor:pointer;">menu</span>
@@ -142,25 +141,24 @@
             </ul>
         </nav>
 
-        <!-- Content -->
         <main id="content" class="px-md-4 content">
             <div class="d-flex align-items-center py-3 mb-3 border-bottom bg-white px-3" style="min-height:56px;">
-                <!-- Tombol menu di topbar -->
                 <span id="topbarToggle" class="material-icons me-3" onclick="toggleSidebar()">menu</span>
-
-                <!-- Foto Profil -->
-                <a href="{{ route('user.profile') }}" class="ms-auto" style="text-decoration:none;">
-                    <img src="{{ Auth::user()->foto ? asset('storage/' . Auth::user()->foto) : asset('assets/images/default-profile.png') }}"
-                        alt="Foto Profil"
-                        class="rounded-circle"
-                        style="width:36px; height:36px; object-fit:cover; border:2px solid #256d5a;">
+                <a href="{{ route('user.profile') }}" class="ms-auto" style="text-decoration:none; display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; border:2px solid #256d5a; background:#fff; color:#256d5a;">
+                    @if(Auth::user()->foto)
+                        <img src="{{ asset('storage/' . Auth::user()->foto) }}"
+                            alt="Foto Profil"
+                            class="rounded-circle"
+                            style="width:36px; height:36px; object-fit:cover;">
+                    @else
+                        <span class="material-icons" style="font-size:28px;">person</span>
+                    @endif
                 </a>
             </div>
 
             @yield('content')
         </main>
 
-        <!-- Modal Logout -->
         <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -190,7 +188,6 @@
         const content = document.getElementById('content');
 
         if (window.innerWidth <= 768) {
-            // di layar kecil toggle pakai class show
             sidebar.classList.toggle('show');
         } else {
             sidebar.classList.toggle('collapsed');

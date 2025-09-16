@@ -152,8 +152,10 @@
                 </div>
             </div>
             {{-- <!-- Google reCAPTCHA -->
-            <div class="flex justify-center mb-4">
-                {!! NoCaptcha::display() !!}
+            <div class="flex justify-center my-6">
+                <div class="scale-90 md:scale-100 transform origin-center">
+                    {!! NoCaptcha::display() !!}
+                </div>
             </div> --}}
             <div class="flex justify-center mt-8">
                 <button type="submit" 
@@ -174,7 +176,7 @@
 			</div>
         </form>
 
-    {{-- {!! NoCaptcha::renderJs() !!} --}}
+    {!! NoCaptcha::renderJs() !!}
     </main>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script>

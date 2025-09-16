@@ -41,7 +41,6 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard_user')->name('user.')->group(function () {
         Route::get('/', [UserController::class, 'dashboard'])->name('dashboard');
 
-        // Data Umum
         Route::get('/data-umum', [UserController::class, 'showDataUmum'])->name('data_umum');
         Route::put('/data-umum', [UserController::class, 'updateDataUmum'])->name('data_umum.update');
 
@@ -53,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/upload-sk', [DokumenSKController::class, 'create'])->name('upload_sk');
         Route::post('/upload-sk', [DokumenSKController::class, 'store'])->name('upload_sk.store');
+        Route::put('/upload-sk/{id}', [DokumenSKController::class, 'update'])->name('upload_sk.update');
 
         Route::get('/profile', [UserController::class, 'profile'])->name('profile');
         Route::put('/profile', [UserController::class, 'updateProfile'])->name('update_profile');

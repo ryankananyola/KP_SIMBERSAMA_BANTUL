@@ -4,191 +4,306 @@
 <div class="container py-4">
     <h4 class="fw-bold mb-4">SK, Organisasi & Bangunan</h4>
 
-    <form action="{{ route('user.upload_sk.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="row g-3">
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">SK <span class="text-danger">*</span></label>
-                <select name="sk" id="sk_select" class="form-select" required>
-                    <option value="">-- Pilih 1 --</option>
-                    <option>SK Pengadaan Bangunan</option>
-                    <option>SK Pemanfaatan Aset</option>
-                    <option>SK Penyerahan Aset</option>
-                    <option>SK Penetapan Lokasi</option>
-                    <option>SK Pemberian Tunjangan</option>
-                    <option>SK Pembentukan Tim Kerja</option>
-                    <option value="Lainnya">Lainnya</option>
-                </select>
-                <input type="text" name="sk_lainnya" id="sk_lainnya" class="form-control mt-2 d-none" placeholder="Isi jenis SK lainnya">
-            </div>
+    @php
+        $latestSK = \App\Models\DokumenSK::where('user_id', auth()->id())
+                        ->latest()
+                        ->first();
+        $status = $latestSK->status ?? null;
 
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">No. SK <span class="text-danger">*</span></label>
-                <input type="text" name="no_sk" class="form-control" required>
-            </div>
+        $sk_list = \App\Models\DokumenSK::where('user_id', auth()->id())
+                    ->orderBy('created_at','desc')
+                    ->get();
+    @endphp
 
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">Di Perlukan Oleh <span class="text-danger">*</span></label>
-                <select name="diperlukan_oleh" id="diperlukan_select" class="form-select" required>
-                    <option value="">-- Pilih 1 --</option>
-                    <option>Kepala Dinas</option>
-                    <option>Pihak Pengelola</option>
-                    <option>Departemen Teknik</option>
-                    <option>Tim Pengadaan</option>
-                    <option value="Lainnya">Lainnya</option>
-                </select>
-                <input type="text" name="diperlukan_oleh_lainnya" id="diperlukan_lainnya" class="form-control mt-2 d-none" placeholder="Isi manual">
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">Upload File SK <span class="text-danger">*</span></label>
-                <input type="file" name="file_sk" class="form-control" required>
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">Struktur Organisasi</label>
-                <input type="text" name="struktur_organisasi" class="form-control">
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">Kondisi Bangunan</label>
-                <select name="kondisi_bangunan" id="kondisi_select" class="form-select">
-                    <option value="">-- Pilih 1 --</option>
-                    <option>Baru Dibangun</option>
-                    <option>Renovasi</option>
-                    <option>Perlu Perbaikan</option>
-                    <option>Rusak Berat</option>
-                    <option>Baik</option>
-                    <option value="Lainnya">Lainnya</option>
-                </select>
-                <input type="text" name="kondisi_bangunan_lainnya" id="kondisi_lainnya" class="form-control mt-2 d-none" placeholder="Isi manual">
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">Dibangun Oleh</label>
-                <select name="dibangun_oleh" id="dibangun_select" class="form-select">
-                    <option value="">-- Pilih 1 --</option>
-                    <option>Pemerintah Daerah</option>
-                    <option>PT XYZ</option>
-                    <option>Kontraktor XYZ</option>
-                    <option value="Lainnya">Lainnya</option>
-                </select>
-                <input type="text" name="dibangun_oleh_lainnya" id="dibangun_lainnya" class="form-control mt-2 d-none" placeholder="Isi manual">
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">Pihak yang Membangun</label>
-                <select name="pihak_membangun" id="pihak_select" class="form-select">
-                    <option value="">-- Pilih 1 --</option>
-                    <option>Pemerintah Kota/Kabupaten</option>
-                    <option>Kontraktor</option>
-                    <option>Pengelola Sumber Daya</option>
-                    <option value="Lainnya">Lainnya</option>
-                </select>
-                <input type="text" name="pihak_membangun_lainnya" id="pihak_lainnya" class="form-control mt-2 d-none" placeholder="Isi manual">
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">Tahun Pembangunan</label>
-                <input type="number" name="tahun_pembangunan" min="1900" max="2100" class="form-control">
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">Luas (m²)</label>
-                <input type="number" step="0.01" name="luas" class="form-control">
-            </div>
-
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">Biaya Pembangunan (Rp)</label>
-                <input type="number" step="0.01" name="biaya_pembangunan" class="form-control">
+    {{-- Pending --}}
+    @if($status === 'Pending')
+        <div class="alert alert-warning"> <h6 class="fw-bold">Upload SK Sudah Dilakukan</h6>
+            <p>Anda sudah mengupload SK dengan status <strong>{{ $status ?? '-' }}</strong>.
+                Tunggu konfirmasi petugas sebelum upload lagi.</p>
+        </div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="fw-bold mb-3">Riwayat Upload SK</h5>
+                @if($sk_list->isEmpty())
+                    <p class="text-muted text-center">Belum ada data SK</p>
+                @else
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Jenis SK</th>
+                                    <th>Tanggal Upload</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($sk_list as $index => $sk)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $sk->sk }}</td>
+                                    <td>{{ $sk->created_at->format('d-m-Y H:i') }}</td>
+                                    <td>{{ $sk->status ?? '-' }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#detailModal-{{ $sk->id }}">Detail</button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
             </div>
         </div>
 
-        <div class="mt-4 text-end">
-            <button type="submit" class="btn btn-success px-4">Simpan</button>
+    @elseif($status === 'Diterima')
+        <div class="alert alert-info">
+            <h6 class="fw-bold text-info">Dokumen SK Diterima</h6> 
+            <p>Dokumen SK Anda telah diterima oleh petugas, tetapi Anda masih perlu menunggu hasil <strong>survey lapangan</strong> sebelum dapat menginput data periodik.</p> 
+            <p class="text-muted"><small>Silahkan menunggu hasil survey oleh petugas.</small></p> 
         </div>
-    </form>
+        <div class="card shadow-sm">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0">Ringkasan Dokumen SK</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Jenis SK:</strong> {{ $latestSK->sk }}</p>
+                <p><strong>No SK:</strong> {{ $latestSK->no_sk }}</p>
+                <p><strong>Status:</strong> {{ $latestSK->status }}</p>
+                <p><strong>Struktur Organisasi:</strong> {{ $latestSK->struktur_organisasi ?? '-' }}</p>
+                <p><strong>Kondisi Bangunan:</strong> {{ $latestSK->kondisi_bangunan ?? '-' }}</p>
+                <p><strong>Dibangun Oleh:</strong> {{ $latestSK->dibangun_oleh ?? '-' }}</p>
+                <p><strong>Pihak yang Membangun:</strong> {{ $latestSK->pihak_membangun ?? '-' }}</p>
+                <p><strong>Tahun Pembangunan:</strong> {{ $latestSK->tahun_pembangunan ?? '-' }}</p>
+                <p><strong>Luas:</strong> {{ $latestSK->luas ?? '-' }} m²</p>
+                <p><strong>Biaya Pembangunan:</strong> Rp {{ number_format($latestSK->biaya_pembangunan ?? 0,0,',','.') }}</p>
+                <hr>
+                <p><strong>File SK:</strong></p>
+                @php $ext = pathinfo($latestSK->file_sk, PATHINFO_EXTENSION); @endphp
+                @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif']))
+                    <img src="{{ asset('storage/' . $latestSK->file_sk) }}" alt="File SK" class="img-fluid rounded">
+                @else
+                    <iframe src="{{ asset('storage/' . $latestSK->file_sk) }}" frameborder="0" width="100%" height="400px"></iframe>
+                @endif
+            </div>
+        </div>
 
-    <div class="card shadow-sm mt-5">
-        <div class="card-body">
-            <h5 class="fw-bold mb-3">Riwayat Upload SK</h5>
+    {{-- Revisi / Perlu Perbaikan / Ditolak / Belum ada SK --}}
+    @elseif(in_array($status, ['Revisi', 'Perlu Perbaikan', 'Ditolak']) || !$latestSK)
+        @if($latestSK && in_array($status, ['Revisi', 'Perlu Perbaikan', 'Ditolak']) && $latestSK->catatan_petugas)
+            <div class="alert alert-warning">
+                <h6 class="fw-bold">Catatan Petugas</h6>
+                <p>{{ $latestSK->catatan_petugas }}</p>
+            </div>
+        @endif
+        {{-- Form Upload / Revisi --}}
+        <form action="{{ $latestSK ? route('user.upload_sk.update', $latestSK->id) : route('user.upload_sk.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @if($latestSK) @method('PUT') @endif
 
-            @php
-                $sk_list = \App\Models\DokumenSK::where('user_id', auth()->id())
-                            ->orderBy('created_at','desc')
-                            ->get();
-            @endphp
-
-            @if($sk_list->isEmpty())
-                <p class="text-muted text-center">Belum ada data SK</p>
-            @else
-                <div class="table-responsive">
-                    <table class="table table-bordered align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>No</th>
-                                <th>Jenis SK</th>
-                                <th>Tanggal Upload</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($sk_list as $index => $sk)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $sk->sk }}</td>
-                                <td>{{ $sk->created_at->format('d-m-Y H:i') }}</td>
-                                <td>{{ $sk->status ?? '-' }}</td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#detailModal-{{ $sk->id }}">
-                                        Detail
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <div class="modal fade" id="detailModal-{{ $sk->id }}" tabindex="-1" aria-hidden="true">
-                              <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                  <div class="modal-header bg-success text-white">
-                                    <h5 class="modal-title">Detail Dokumen SK</h5>
-                                  </div>
-                                  <div class="modal-body">
-                                    <p><strong>Jenis SK:</strong> {{ $sk->sk }}</p>
-                                    <p><strong>No. SK:</strong> {{ $sk->no_sk }}</p>
-                                    <p><strong>Diperlukan Oleh:</strong> {{ $sk->diperlukan_oleh }}</p>
-                                    <p><strong>Status:</strong> {{ $sk->status ?? '-' }}</p>
-                                    <p><strong>Struktur Organisasi:</strong> {{ $sk->struktur_organisasi ?? '-' }}</p>
-                                    <p><strong>Kondisi Bangunan:</strong> {{ $sk->kondisi_bangunan ?? '-' }}</p>
-                                    <p><strong>Dibangun Oleh:</strong> {{ $sk->dibangun_oleh ?? '-' }}</p>
-                                    <p><strong>Pihak yang Membangun:</strong> {{ $sk->pihak_membangun ?? '-' }}</p>
-                                    <p><strong>Tahun Pembangunan:</strong> {{ $sk->tahun_pembangunan ?? '-' }}</p>
-                                    <p><strong>Luas:</strong> {{ $sk->luas ?? '-' }} m²</p>
-                                    <p><strong>Biaya Pembangunan:</strong> Rp {{ number_format($sk->biaya_pembangunan ?? 0, 0, ',', '.') }}</p>
-                                    <hr>
-                                    <p><strong>File SK:</strong></p>
-                                    @php
-                                        $ext = pathinfo($sk->file_sk, PATHINFO_EXTENSION);
-                                    @endphp
-                                    @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif']))
-                                        <img src="{{ asset('storage/' . $sk->file_sk) }}" alt="File SK" class="img-fluid rounded">
-                                    @else
-                                        <iframe src="{{ asset('storage/' . $sk->file_sk) }}" frameborder="0" width="100%" height="400px"></iframe>
-                                    @endif
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            @endforeach
-                        </tbody>
-                    </table>
+            <div class="row g-3">
+                {{-- Jenis SK --}}
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">SK <span class="text-danger">*</span></label>
+                    <select name="sk" id="sk_select" class="form-select" required>
+                        <option value="">-- Pilih 1 --</option>
+                        @php
+                            $sk_options = ['SK Pengadaan Bangunan','SK Pemanfaatan Aset','SK Penyerahan Aset','SK Penetapan Lokasi','SK Pemberian Tunjangan','SK Pembentukan Tim Kerja'];
+                        @endphp
+                        @foreach($sk_options as $option)
+                            <option value="{{ $option }}" @if($latestSK && $latestSK->sk === $option) selected @endif>{{ $option }}</option>
+                        @endforeach
+                        <option value="Lainnya" @if($latestSK && !in_array($latestSK->sk, $sk_options)) selected @endif>Lainnya</option>
+                    </select>
+                    <input type="text" name="sk_lainnya" id="sk_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->sk ?? '', $sk_options)) d-none @endif" placeholder="Isi jenis SK lainnya" value="{{ $latestSK && !in_array($latestSK->sk, $sk_options) ? $latestSK->sk : '' }}">
                 </div>
-            @endif
+
+                {{-- No. SK --}}
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">No. SK <span class="text-danger">*</span></label>
+                    <input type="text" name="no_sk" class="form-control" value="{{ $latestSK->no_sk ?? '' }}" required>
+                </div>
+
+                {{-- Diperlukan Oleh --}}
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Di Perlukan Oleh <span class="text-danger">*</span></label>
+                    @php
+                        $diperlukan_options = ['Kepala Dinas','Pihak Pengelola','Departemen Teknik','Tim Pengadaan'];
+                    @endphp
+                    <select name="diperlukan_oleh" id="diperlukan_select" class="form-select" required>
+                        <option value="">-- Pilih 1 --</option>
+                        @foreach($diperlukan_options as $opt)
+                            <option value="{{ $opt }}" @if($latestSK && $latestSK->diperlukan_oleh === $opt) selected @endif>{{ $opt }}</option>
+                        @endforeach
+                        <option value="Lainnya" @if($latestSK && !in_array($latestSK->diperlukan_oleh ?? '', $diperlukan_options)) selected @endif>Lainnya</option>
+                    </select>
+                    <input type="text" name="diperlukan_oleh_lainnya" id="diperlukan_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->diperlukan_oleh ?? '', $diperlukan_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->diperlukan_oleh ?? '', $diperlukan_options) ? $latestSK->diperlukan_oleh : '' }}">
+                </div>
+
+                {{-- Upload File SK --}}
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Upload File SK <span class="text-danger">*</span></label>
+                    <input type="file" name="file_sk" class="form-control">
+                    @if($latestSK && $latestSK->file_sk)
+                        <small>File lama: <a href="{{ asset('storage/' . $latestSK->file_sk) }}" target="_blank">Lihat</a></small>
+                    @endif
+                </div>
+
+                {{-- Struktur Organisasi --}}
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Struktur Organisasi</label>
+                    <input type="text" name="struktur_organisasi" class="form-control" value="{{ $latestSK->struktur_organisasi ?? '' }}">
+                </div>
+
+                {{-- Kondisi Bangunan --}}
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Kondisi Bangunan</label>
+                    @php
+                        $kondisi_options = ['Baru Dibangun','Renovasi','Perlu Perbaikan','Rusak Berat','Baik'];
+                    @endphp
+                    <select name="kondisi_bangunan" id="kondisi_select" class="form-select">
+                        <option value="">-- Pilih 1 --</option>
+                        @foreach($kondisi_options as $opt)
+                            <option value="{{ $opt }}" @if($latestSK && $latestSK->kondisi_bangunan === $opt) selected @endif>{{ $opt }}</option>
+                        @endforeach
+                        <option value="Lainnya" @if($latestSK && !in_array($latestSK->kondisi_bangunan ?? '', $kondisi_options)) selected @endif>Lainnya</option>
+                    </select>
+                    <input type="text" name="kondisi_bangunan_lainnya" id="kondisi_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->kondisi_bangunan ?? '', $kondisi_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->kondisi_bangunan ?? '', $kondisi_options) ? $latestSK->kondisi_bangunan : '' }}">
+                </div>
+
+                {{-- Dibangun Oleh --}}
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Dibangun Oleh</label>
+                    @php $dibangun_options = ['Pemerintah Daerah','PT XYZ','Kontraktor XYZ']; @endphp
+                    <select name="dibangun_oleh" id="dibangun_select" class="form-select">
+                        <option value="">-- Pilih 1 --</option>
+                        @foreach($dibangun_options as $opt)
+                            <option value="{{ $opt }}" @if($latestSK && $latestSK->dibangun_oleh === $opt) selected @endif>{{ $opt }}</option>
+                        @endforeach
+                        <option value="Lainnya" @if($latestSK && !in_array($latestSK->dibangun_oleh ?? '', $dibangun_options)) selected @endif>Lainnya</option>
+                    </select>
+                    <input type="text" name="dibangun_oleh_lainnya" id="dibangun_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->dibangun_oleh ?? '', $dibangun_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->dibangun_oleh ?? '', $dibangun_options) ? $latestSK->dibangun_oleh : '' }}">
+                </div>
+
+                {{-- Pihak yang Membangun --}}
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Pihak yang Membangun</label>
+                    @php $pihak_options = ['Pemerintah Kota/Kabupaten','Kontraktor','Pengelola Sumber Daya']; @endphp
+                    <select name="pihak_membangun" id="pihak_select" class="form-select">
+                        <option value="">-- Pilih 1 --</option>
+                        @foreach($pihak_options as $opt)
+                            <option value="{{ $opt }}" @if($latestSK && $latestSK->pihak_membangun === $opt) selected @endif>{{ $opt }}</option>
+                        @endforeach
+                        <option value="Lainnya" @if($latestSK && !in_array($latestSK->pihak_membangun ?? '', $pihak_options)) selected @endif>Lainnya</option>
+                    </select>
+                    <input type="text" name="pihak_membangun_lainnya" id="pihak_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->pihak_membangun ?? '', $pihak_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->pihak_membangun ?? '', $pihak_options) ? $latestSK->pihak_membangun : '' }}">
+                </div>
+
+                {{-- Tahun Pembangunan --}}
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Tahun Pembangunan</label>
+                    <input type="number" name="tahun_pembangunan" min="1900" max="2100" class="form-control" value="{{ $latestSK->tahun_pembangunan ?? '' }}">
+                </div>
+
+                {{-- Luas --}}
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Luas (m²)</label>
+                    <input type="number" step="0.01" name="luas" class="form-control" value="{{ $latestSK->luas ?? '' }}">
+                </div>
+
+                {{-- Biaya Pembangunan --}}
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Biaya Pembangunan (Rp)</label>
+                    <input type="number" step="0.01" name="biaya_pembangunan" class="form-control" value="{{ $latestSK->biaya_pembangunan ?? '' }}">
+                </div>
+            </div>
+
+            <div class="mt-4 text-end">
+                <button type="submit" class="btn btn-success px-4">{{ $latestSK ? 'Update' : 'Simpan' }}</button>
+            </div>
+        </form>
+
+        {{-- Tabel Riwayat --}}
+        <div class="card shadow-sm mt-4">
+            <div class="card-body">
+                <h5 class="fw-bold mb-3">Riwayat Upload SK</h5>
+                @if($sk_list->isEmpty())
+                    <p class="text-muted text-center">Belum ada data SK</p>
+                @else
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Jenis SK</th>
+                                    <th>Tanggal Upload</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($sk_list as $index => $sk)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $sk->sk }}</td>
+                                    <td>{{ $sk->created_at->format('d-m-Y H:i') }}</td>
+                                    <td>{{ $sk->status ?? '-' }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#detailModal-{{ $sk->id }}">Detail</button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+            </div>
+        </div>
+    @else
+        <div class="alert alert-warning"> <h6 class="fw-bold">Upload SK Sudah Dilakukan</h6>
+            <p>Anda sudah mengupload SK dengan status <strong>{{ $status ?? '-' }}</strong>.
+                Tunggu konfirmasi petugas sebelum upload lagi.</p>
+        </div>
+    @endif
+
+    {{-- Modal Detail untuk semua SK --}}
+    @foreach($sk_list as $sk)
+    <div class="modal fade" id="detailModal-{{ $sk->id }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Detail Dokumen SK</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Jenis SK:</strong> {{ $sk->sk }}</p>
+                    <p><strong>No. SK:</strong> {{ $sk->no_sk }}</p>
+                    <p><strong>Diperlukan Oleh:</strong> {{ $sk->diperlukan_oleh }}</p>
+                    <p><strong>Status:</strong> {{ $sk->status ?? '-' }}</p>
+                    <p><strong>Struktur Organisasi:</strong> {{ $sk->struktur_organisasi ?? '-' }}</p>
+                    <p><strong>Kondisi Bangunan:</strong> {{ $sk->kondisi_bangunan ?? '-' }}</p>
+                    <p><strong>Dibangun Oleh:</strong> {{ $sk->dibangun_oleh ?? '-' }}</p>
+                    <p><strong>Pihak yang Membangun:</strong> {{ $sk->pihak_membangun ?? '-' }}</p>
+                    <p><strong>Tahun Pembangunan:</strong> {{ $sk->tahun_pembangunan ?? '-' }}</p>
+                    <p><strong>Luas:</strong> {{ $sk->luas ?? '-' }} m²</p>
+                    <p><strong>Biaya Pembangunan:</strong> Rp {{ number_format($sk->biaya_pembangunan ?? 0,0,',','.') }}</p>
+                    <hr>
+                    <p><strong>File SK:</strong></p>
+                    @php $ext = pathinfo($sk->file_sk, PATHINFO_EXTENSION); @endphp
+                    @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif']))
+                        <img src="{{ asset('storage/' . $sk->file_sk) }}" alt="File SK" class="img-fluid rounded">
+                    @else
+                        <iframe src="{{ asset('storage/' . $sk->file_sk) }}" frameborder="0" width="100%" height="400px"></iframe>
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
         </div>
     </div>
+    @endforeach
 </div>
 
 <script>

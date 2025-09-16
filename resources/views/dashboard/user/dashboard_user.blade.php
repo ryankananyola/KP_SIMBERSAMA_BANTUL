@@ -1,34 +1,56 @@
 @extends('layouts.layout_user')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        {{-- Konten Utama --}}
-        <div class="col-md-9 col-lg-10 p-5">
-            <h4 class="fw-bold">Hallo, {{ Auth::user()->nama }}</h4>
-            <p class="text-muted">Selamat Datang di Sistem Informasi Pengolahan Sampah Kab. Bantul!</p>
-            <hr>
+<div class="container py-4">
 
-            <div class="row text-center">
-                <div class="col-md-4 mb-3">
-                    <a href="{{ route('user.data_umum') }}" class="btn btn-lg btn-success w-100 py-4 shadow-sm">
-                        <i class="bi bi-file-earmark-text fs-3"></i><br>
-                        Data Umum
-                    </a>
+    <div class="card shadow-sm">
+        <div class="card-body text-center">
+            <h5 class="fw-bold mb-3">Hallo, {{ auth()->user()->name }}</h5>
+            <p class="text-muted">Selamat Datang di Sistem Informasi Pengolahan Sampah Kab. Bantul!</p>
+
+            @php
+                $latestSK = \App\Models\DokumenSK::where('user_id', auth()->id())->latest()->first();
+                $status = $latestSK->status ?? 'Belum Upload';
+            @endphp
+
+            @if($status == 'Belum Upload')
+                <div class="alert alert-danger d-flex align-items-center">
+                    <span class="material-icons me-2">warning</span>
+                    <div>
+                        <strong>Anda Belum Melengkapi SK, Organisasi dan Bangunan!</strong>
+                        <hr>
+                        Silakan lengkapi data tersebut agar akun Anda <span class="fw-bold text-success">Terverifikasi</span> 
+                        dan bisa melakukan <span class="fw-bold">Input Data Periodik</span>.
+                        <br><br>
+                        <a href="{{ route('user.upload_sk.store') }}" class="btn btn-sm btn-danger">Upload SK Sekarang</a>
+                    </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <a href="{{ route('user.data_periodik') }}" class="btn btn-lg btn-success w-100 py-4 shadow-sm">
-                        <i class="bi bi-file-earmark fs-3"></i><br>
-                        Data Periodik
-                    </a>
+
+            @elseif($status == 'Pending')
+                <div class="alert alert-warning">
+                    <h6 class="fw-bold text-warning">Menunggu Verifikasi Dokumen</h6>
+                    <p class="mb-0">Mohon tunggu, dokumen Anda sedang diverifikasi oleh petugas.</p>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <a href="{{ route('user.upload_sk') }}" class="btn btn-lg btn-success w-100 py-4 shadow-sm">
-                        <i class="bi bi-award fs-3"></i><br>
-                        SK, Organisasi & Bangunan
-                    </a>
+
+            @elseif($status == 'Revisi' || $status == 'Perlu Perbaikan')
+                <div class="alert alert-danger">
+                    <h6 class="fw-bold">Dokumen SK Perlu Perbaikan</h6>
+                    <p class="mb-0">Silakan update dokumen sesuai catatan dari petugas.</p>
+                    <a href="{{ route('user.upload_sk.store') }}" class="btn btn-sm btn-outline-danger mt-2">Perbaiki SK</a>
                 </div>
-            </div>
+
+            @elseif($status == 'Diterima')
+                <div class="alert alert-success">
+                    <h6 class="fw-bold">SK Diterima</h6>
+                    <p class="mb-0">Dokumen Anda telah diterima. Menunggu jadwal survey dari petugas.</p>
+                </div>
+
+            @elseif($status == 'Survey Selesai')
+                <div class="alert alert-info">
+                    <h6 class="fw-bold">Survey Selesai</h6>
+                    <p class="mb-0">Selamat, survey sudah selesai. Proses pendaftaran Anda berhasil 🎉</p>
+                </div>
+            @endif
         </div>
     </div>
 </div>

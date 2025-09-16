@@ -10,7 +10,7 @@
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped align-middle">
-            <thead class="table-dark">
+            <thead class="table-success">
                 <tr>
                     <th class="text-center" style="width: 60px;">No</th>
                     <th class="text-center">Tanggal Pelaporan</th>

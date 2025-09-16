@@ -53,7 +53,6 @@ class DokumenSKController extends Controller
         $dibangun_oleh = $request->dibangun_oleh === 'Lainnya' ? $request->dibangun_oleh_lainnya : $request->dibangun_oleh;
         $pihak_membangun = $request->pihak_membangun === 'Lainnya' ? $request->pihak_membangun_lainnya : $request->pihak_membangun;
 
-        // Simpan ke database
         DokumenSK::create([
             'user_id' => Auth::id(),
             'sk' => $sk,
@@ -72,4 +71,49 @@ class DokumenSKController extends Controller
 
         return redirect()->back()->with('success', 'Dokumen SK berhasil diupload!');
     }
+
+    public function update(Request $request, $id)
+    {
+        $dokumen = DokumenSK::where('id', $id)
+                            ->where('user_id', Auth::id())
+                            ->firstOrFail();
+
+        $request->validate([
+            'sk' => 'required|string|max:255',
+            'no_sk' => 'required|string|max:255',
+            'diperlukan_oleh' => 'required|string|max:255',
+            'file_sk' => 'nullable|mimes:pdf,doc,docx,jpg,png|max:4096',
+            'struktur_organisasi' => 'nullable|string|max:255',
+            'kondisi_bangunan' => 'nullable|string|max:255',
+            'dibangun_oleh' => 'nullable|string|max:255',
+            'pihak_membangun' => 'nullable|string|max:255',
+            'tahun_pembangunan' => 'nullable|digits:4|integer',
+            'luas' => 'nullable|numeric',
+            'biaya_pembangunan' => 'nullable|numeric',
+        ]);
+
+        if ($request->file('file_sk')) {
+            $path = $request->file('file_sk')->store('dokumen_sk', 'public');
+            $dokumen->file_sk = $path;
+        }
+
+        $dokumen->sk = $request->sk === 'Lainnya' ? $request->sk_lainnya : $request->sk;
+        $dokumen->no_sk = $request->no_sk;
+        $dokumen->diperlukan_oleh = $request->diperlukan_oleh === 'Lainnya' ? $request->diperlukan_oleh_lainnya : $request->diperlukan_oleh;
+        $dokumen->struktur_organisasi = $request->struktur_organisasi;
+        $dokumen->kondisi_bangunan = $request->kondisi_bangunan === 'Lainnya' ? $request->kondisi_bangunan_lainnya : $request->kondisi_bangunan;
+        $dokumen->dibangun_oleh = $request->dibangun_oleh === 'Lainnya' ? $request->dibangun_oleh_lainnya : $request->dibangun_oleh;
+        $dokumen->pihak_membangun = $request->pihak_membangun === 'Lainnya' ? $request->pihak_yang_membangun_lainnya : $request->pihak_membangun;
+        $dokumen->tahun_pembangunan = $request->tahun_pembangunan;
+        $dokumen->luas = $request->luas;
+        $dokumen->biaya_pembangunan = $request->biaya_pembangunan;
+
+        $dokumen->status = 'Pending';
+        $dokumen->catatan_petugas = null;
+
+        $dokumen->save();
+
+        return redirect()->back()->with('success', 'Dokumen SK berhasil diperbarui! Dokumen sedang menunggu verifikasi ulang.');
+    }
+
 }
