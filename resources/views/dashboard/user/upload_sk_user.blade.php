@@ -15,7 +15,6 @@
                     ->get();
     @endphp
 
-    {{-- Pending --}}
     @if($status === 'Pending')
         <div class="alert alert-warning"> <h6 class="fw-bold">Upload SK Sudah Dilakukan</h6>
             <p>Anda sudah mengupload SK dengan status <strong>{{ $status ?? '-' }}</strong>.
@@ -60,11 +59,34 @@
     @elseif($status === 'Diterima')
         <div class="alert alert-info">
             <h6 class="fw-bold text-info">Dokumen SK Diterima</h6> 
-            <p>Dokumen SK Anda telah diterima oleh petugas, tetapi Anda masih perlu menunggu hasil <strong>survey lapangan</strong> sebelum dapat menginput data periodik.</p> 
-            <p class="text-muted"><small>Silahkan menunggu hasil survey oleh petugas.</small></p> 
+            <p>Dokumen SK Anda telah diterima oleh petugas. Silakan menunggu jadwal survey lapangan sebelum akun aktif.</p> 
         </div>
         <div class="card shadow-sm">
             <div class="card-header bg-info text-white">
+                <h6 class="mb-0">Ringkasan Dokumen SK</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Jenis SK:</strong> {{ $latestSK->sk }}</p>
+                <p><strong>No SK:</strong> {{ $latestSK->no_sk }}</p>
+                <p><strong>Status:</strong> {{ $latestSK->status }}</p>
+                <p><strong>Struktur Organisasi:</strong> {{ $latestSK->struktur_organisasi ?? '-' }}</p>
+                <p><strong>Kondisi Bangunan:</strong> {{ $latestSK->kondisi_bangunan ?? '-' }}</p>
+                <p><strong>Dibangun Oleh:</strong> {{ $latestSK->dibangun_oleh ?? '-' }}</p>
+                <p><strong>Pihak yang Membangun:</strong> {{ $latestSK->pihak_membangun ?? '-' }}</p>
+                <p><strong>Tahun Pembangunan:</strong> {{ $latestSK->tahun_pembangunan ?? '-' }}</p>
+                <p><strong>Luas:</strong> {{ $latestSK->luas ?? '-' }} m²</p>
+                <p><strong>Biaya Pembangunan:</strong> Rp {{ number_format($latestSK->biaya_pembangunan ?? 0,0,',','.') }}</p>
+            </div>
+        </div>
+
+       @elseif($status === 'Aktif')
+        <div class="alert alert-success">
+            <h6 class="fw-bold text-success">Akun Anda Aktif</h6> 
+            <p>Selamat! Dokumen SK Anda telah diverifikasi, akun Anda sudah aktif, dan Anda dapat mulai menginput data periodik.</p> 
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-success text-white">
                 <h6 class="mb-0">Ringkasan Dokumen SK</h6>
             </div>
             <div class="card-body">
@@ -89,7 +111,7 @@
             </div>
         </div>
 
-    {{-- Revisi / Perlu Perbaikan / Ditolak / Belum ada SK --}}
+
     @elseif(in_array($status, ['Revisi', 'Perlu Perbaikan', 'Ditolak']) || !$latestSK)
         @if($latestSK && in_array($status, ['Revisi', 'Perlu Perbaikan', 'Ditolak']) && $latestSK->catatan_petugas)
             <div class="alert alert-warning">
@@ -97,13 +119,11 @@
                 <p>{{ $latestSK->catatan_petugas }}</p>
             </div>
         @endif
-        {{-- Form Upload / Revisi --}}
         <form action="{{ $latestSK ? route('user.upload_sk.update', $latestSK->id) : route('user.upload_sk.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @if($latestSK) @method('PUT') @endif
 
             <div class="row g-3">
-                {{-- Jenis SK --}}
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">SK <span class="text-danger">*</span></label>
                     <select name="sk" id="sk_select" class="form-select" required>
@@ -119,13 +139,11 @@
                     <input type="text" name="sk_lainnya" id="sk_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->sk ?? '', $sk_options)) d-none @endif" placeholder="Isi jenis SK lainnya" value="{{ $latestSK && !in_array($latestSK->sk, $sk_options) ? $latestSK->sk : '' }}">
                 </div>
 
-                {{-- No. SK --}}
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">No. SK <span class="text-danger">*</span></label>
                     <input type="text" name="no_sk" class="form-control" value="{{ $latestSK->no_sk ?? '' }}" required>
                 </div>
 
-                {{-- Diperlukan Oleh --}}
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Di Perlukan Oleh <span class="text-danger">*</span></label>
                     @php
@@ -141,7 +159,6 @@
                     <input type="text" name="diperlukan_oleh_lainnya" id="diperlukan_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->diperlukan_oleh ?? '', $diperlukan_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->diperlukan_oleh ?? '', $diperlukan_options) ? $latestSK->diperlukan_oleh : '' }}">
                 </div>
 
-                {{-- Upload File SK --}}
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Upload File SK <span class="text-danger">*</span></label>
                     <input type="file" name="file_sk" class="form-control">
@@ -150,13 +167,11 @@
                     @endif
                 </div>
 
-                {{-- Struktur Organisasi --}}
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Struktur Organisasi</label>
                     <input type="text" name="struktur_organisasi" class="form-control" value="{{ $latestSK->struktur_organisasi ?? '' }}">
                 </div>
 
-                {{-- Kondisi Bangunan --}}
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Kondisi Bangunan</label>
                     @php
@@ -172,7 +187,6 @@
                     <input type="text" name="kondisi_bangunan_lainnya" id="kondisi_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->kondisi_bangunan ?? '', $kondisi_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->kondisi_bangunan ?? '', $kondisi_options) ? $latestSK->kondisi_bangunan : '' }}">
                 </div>
 
-                {{-- Dibangun Oleh --}}
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Dibangun Oleh</label>
                     @php $dibangun_options = ['Pemerintah Daerah','PT XYZ','Kontraktor XYZ']; @endphp
@@ -186,7 +200,6 @@
                     <input type="text" name="dibangun_oleh_lainnya" id="dibangun_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->dibangun_oleh ?? '', $dibangun_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->dibangun_oleh ?? '', $dibangun_options) ? $latestSK->dibangun_oleh : '' }}">
                 </div>
 
-                {{-- Pihak yang Membangun --}}
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Pihak yang Membangun</label>
                     @php $pihak_options = ['Pemerintah Kota/Kabupaten','Kontraktor','Pengelola Sumber Daya']; @endphp
@@ -200,19 +213,16 @@
                     <input type="text" name="pihak_membangun_lainnya" id="pihak_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->pihak_membangun ?? '', $pihak_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->pihak_membangun ?? '', $pihak_options) ? $latestSK->pihak_membangun : '' }}">
                 </div>
 
-                {{-- Tahun Pembangunan --}}
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Tahun Pembangunan</label>
                     <input type="number" name="tahun_pembangunan" min="1900" max="2100" class="form-control" value="{{ $latestSK->tahun_pembangunan ?? '' }}">
                 </div>
 
-                {{-- Luas --}}
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Luas (m²)</label>
                     <input type="number" step="0.01" name="luas" class="form-control" value="{{ $latestSK->luas ?? '' }}">
                 </div>
 
-                {{-- Biaya Pembangunan --}}
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Biaya Pembangunan (Rp)</label>
                     <input type="number" step="0.01" name="biaya_pembangunan" class="form-control" value="{{ $latestSK->biaya_pembangunan ?? '' }}">
@@ -224,7 +234,6 @@
             </div>
         </form>
 
-        {{-- Tabel Riwayat --}}
         <div class="card shadow-sm mt-4">
             <div class="card-body">
                 <h5 class="fw-bold mb-3">Riwayat Upload SK</h5>
@@ -267,7 +276,6 @@
         </div>
     @endif
 
-    {{-- Modal Detail untuk semua SK --}}
     @foreach($sk_list as $sk)
     <div class="modal fade" id="detailModal-{{ $sk->id }}" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg">

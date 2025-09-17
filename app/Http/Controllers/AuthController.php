@@ -15,6 +15,7 @@ class AuthController extends Controller
         $request->validate([
             'username' => 'required',
             'password' => 'required',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
         $akun = Akun::where('username', $request->username)->first();
 

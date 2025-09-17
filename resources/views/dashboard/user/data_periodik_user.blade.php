@@ -9,18 +9,18 @@
     @endphp
 
     {{-- Jika SK belum upload atau belum diverifikasi --}}
-    @if($status != 'Survey Selesai')
+    @if($status != 'Aktif')
         <div class="card shadow-sm">
             <div class="card-body text-center">
                 <h5 class="fw-bold mb-3">Hallo, {{ auth()->user()->name }}</h5>
                 <p class="text-muted">Selamat Datang di Sistem Informasi Pengolahan Sampah Kab. Bantul!</p>
 
                 @if($status == 'Belum Upload')
-                    <div class="alert alert-danger d-flex align-items-center">
-                        <span class="material-icons me-2">warning</span>
+                    <div class="alert alert-danger d-flex justify-content-center align-items-center text-center">
+                        <span class="material-icons mb-3 me-2 fs-5">warning</span>
                         <div>
                             <strong>Anda Belum Melengkapi SK, Organisasi dan Bangunan!</strong>
-                            <hr>
+                            <hr class="my-2">
                             Silakan lengkapi data tersebut agar akun Anda <span class="fw-bold text-success">Terverifikasi</span> 
                             dan bisa melakukan <span class="fw-bold">Input Data Periodik</span>.
                             <br><br>
@@ -40,8 +40,9 @@
                     </div>
                 @else
                     <div class="alert alert-info">
-                        <h6 class="fw-bold">Dokumen Sedang Diproses</h6>
+                        <h6 class="fw-bold">Dokumen Telah Diproses</h6>
                         <p class="mb-0">Status dokumen Anda: <strong>{{ $status }}</strong></p>
+                        <small class="mb-0">Catatan: Harap menunggu hasil <strong> survey lapangan </strong> untuk dapat melakukan input data periodik</small>
                     </div>
                 @endif
             </div>

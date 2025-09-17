@@ -5,20 +5,23 @@
 
     <div class="card shadow-sm">
         <div class="card-body text-center">
-            <h5 class="fw-bold mb-3">Hallo, {{ auth()->user()->name }}</h5>
+            <h5 class="fw-bold mb-3">Hallo, {{ auth()->user()->nama }}</h5>
             <p class="text-muted">Selamat Datang di Sistem Informasi Pengolahan Sampah Kab. Bantul!</p>
 
             @php
+                use Carbon\Carbon;
+
                 $latestSK = \App\Models\DokumenSK::where('user_id', auth()->id())->latest()->first();
                 $status = $latestSK->status ?? 'Belum Upload';
+                $surveyDate = $latestSK ? $latestSK->survey_date : null;
             @endphp
 
             @if($status == 'Belum Upload')
-                <div class="alert alert-danger d-flex align-items-center">
-                    <span class="material-icons me-2">warning</span>
+                <div class="alert alert-danger d-flex justify-content-center align-items-center text-center">
+                    <span class="material-icons mb-3 me-2 fs-5">warning</span>
                     <div>
                         <strong>Anda Belum Melengkapi SK, Organisasi dan Bangunan!</strong>
-                        <hr>
+                        <hr class="my-2">
                         Silakan lengkapi data tersebut agar akun Anda <span class="fw-bold text-success">Terverifikasi</span> 
                         dan bisa melakukan <span class="fw-bold">Input Data Periodik</span>.
                         <br><br>
@@ -45,10 +48,22 @@
                     <p class="mb-0">Dokumen Anda telah diterima. Menunggu jadwal survey dari petugas.</p>
                 </div>
 
-            @elseif($status == 'Survey Selesai')
+            @elseif($status == 'Survey')
+                <div class="alert alert-primary">
+                    <h6 class="fw-bold">Informasi Survey</h6>
+                    <p class="mb-0">Petugas telah menjadwalkan survey.</p>
+                    @if($surveyDate)
+                        <hr>
+                        <p class="mb-0 fw-bold">
+                            Jadwal Survey Anda: {{ Carbon::parse($surveyDate)->translatedFormat('d F Y, H:i') }}
+                        </p>
+                    @endif
+                </div>
+
+            @elseif($status == 'Aktif')
                 <div class="alert alert-info">
                     <h6 class="fw-bold">Survey Selesai</h6>
-                    <p class="mb-0">Selamat, survey sudah selesai. Proses pendaftaran Anda berhasil 🎉</p>
+                    <p class="mb-0">Selamat, survey sudah selesai. Proses pendaftaran Anda berhasil dan akun anda Aktif 🎉</p>
                 </div>
             @endif
         </div>

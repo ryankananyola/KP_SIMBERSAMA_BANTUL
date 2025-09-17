@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Akun;
 use App\Models\Adminstaf;
+use App\Http\Controllers\Controller;
 
 class DataUmumAdminController extends Controller
 {

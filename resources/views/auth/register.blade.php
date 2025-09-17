@@ -151,12 +151,11 @@
                     </div>
                 </div>
             </div>
-            {{-- <!-- Google reCAPTCHA -->
             <div class="flex justify-center my-6">
                 <div class="scale-90 md:scale-100 transform origin-center">
                     {!! NoCaptcha::display() !!}
                 </div>
-            </div> --}}
+            </div>
             <div class="flex justify-center mt-8">
                 <button type="submit" 
                     class="w-full md:w-3/4 lg:w-1/2 bg-green-800 text-white font-bold py-3 rounded-lg shadow hover:bg-green-900 transition flex justify-center items-center gap-2">
@@ -235,9 +234,9 @@ const matchStatus = document.getElementById('password-match-status');
 
 function setIconColor(icon, valid) {
     if (valid) {
-        icon.style.color = '#38c172'; // hijau
+        icon.style.color = '#38c172'; 
     } else {
-        icon.style.color = '#e3342f'; // merah
+        icon.style.color = '#e3342f';
     }
 }
 function validatePassword(password) {

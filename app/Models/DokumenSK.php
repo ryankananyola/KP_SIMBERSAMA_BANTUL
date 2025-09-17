@@ -24,6 +24,8 @@ class DokumenSK extends Model
         'luas',
         'biaya_pembangunan',
         'status',
+        'survey_result',
+        'survey_date', 
     ];
 
     public function user()
