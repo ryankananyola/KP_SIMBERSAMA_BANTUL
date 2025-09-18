@@ -138,9 +138,9 @@
         <main id="content" class="px-md-4 content">
             <div class="d-flex align-items-center py-3 mb-3 border-bottom bg-white px-3" style="min-height:56px;">
                 <span id="topbarToggle" class="material-icons me-3" onclick="toggleSidebar()">menu</span>
-                <a href="{{ route('user.profile') }}" class="ms-auto" style="text-decoration:none; display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; border:2px solid #256d5a; background:#fff; color:#256d5a;">
-                    @if(Auth::user()->foto)
-                        <img src="{{ asset('storage/' . Auth::user()->foto) }}"
+                <a href="{{ route('petugas.profile') }}" class="ms-auto" style="text-decoration:none; display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; border:2px solid #256d5a; background:#fff; color:#256d5a;">
+                    @if(Auth::guard('adminstaf')->check() && Auth::guard('adminstaf')->user()->foto)
+                        <img src="{{ asset('storage/' . Auth::guard('adminstaf')->user()->foto) }}"
                             alt="Foto Profil"
                             class="rounded-circle"
                             style="width:36px; height:36px; object-fit:cover;">

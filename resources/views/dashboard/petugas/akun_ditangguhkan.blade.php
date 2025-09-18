@@ -7,6 +7,7 @@
     <h1 class="h3 mb-4 fw-bold text-center">Daftar Akun Ditanggukan</h1>
     <div class="card shadow">
         <div class="card-body">
+            <div class="table-responsive">
             <table class="table table-bordered align-middle text-center">
                 <thead class="table-light">
                     <tr>
@@ -47,7 +48,7 @@
                                 <form action="{{ route('petugas.akun_ditangguhkan.setSurvey', $item->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <input type="text" name="survey_date_display" 
+                                    <input type="text" name="survey_date" 
                                         class="form-control datetimepicker mb-2" 
                                         placeholder="Pilih Tanggal & Jam" 
                                         value="{{ $item->survey_date ?? '' }}"
@@ -56,9 +57,9 @@
                                         <input type="hidden" name="survey_date" value="{{ $item->survey_date }}">
                                     @endif
                                     <button type="submit" class="btn w-100" 
-                                        style="background-color: {{ $isActive ? '#6c757d' : '#6c757d' }}; color:white;" 
+                                        style="background-color: {{ $isActive ? '#6c757d' : '#20b2aa' }}; color:white;" 
                                         {{ $isActive ? 'disabled' : '' }}>
-                                        {{ $isActive ? 'Akun Telah Aktif' : 'Simpan Jadwal' }}
+                                        {{ $isActive ? 'Akun Aktif' : 'Simpan Jadwal' }}
                                     </button>
                                 </form>
                             </td>
@@ -75,7 +76,7 @@
                                     <button type="submit" class="btn w-100" 
                                         style="background-color: {{ $isActive ? '#6c757d' : '#20b2aa' }}; color:white;" 
                                         {{ $isActive ? 'disabled' : '' }}>
-                                        {{ $isActive ? 'Akun Telah Aktif' : 'Simpan Hasil' }}
+                                        {{ $isActive ? 'Akun Aktif' : 'Simpan Hasil' }}
                                     </button>
                                 </form>
                             </td>
@@ -89,6 +90,7 @@
                     @endif
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>

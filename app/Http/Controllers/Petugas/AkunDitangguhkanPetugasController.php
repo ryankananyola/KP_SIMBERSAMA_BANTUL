@@ -10,24 +10,36 @@ class AkunDitangguhkanPetugasController extends Controller
     public function index()
     {
         $data = DokumenSK::with('user')->get();
-
         return view('dashboard.petugas.akun_ditangguhkan', compact('data'));
     }
 
     public function show($id)
     {
         $sk = DokumenSK::with('user')->findOrFail($id);
-
         return view('dashboard.petugas.detail_akun_ditangguhkan', compact('sk'));
     }
 
-    public function updateStatus(Request $request, $id)
+    public function verify(Request $request, $id)
     {
+        $request->validate([
+            'action' => 'required|in:terima,revisi',
+            'catatan_petugas' => 'nullable|string|max:500'
+        ]);
+
         $sk = DokumenSK::findOrFail($id);
-        $sk->status = $request->status;
+
+        if ($request->action === 'terima') {
+            $sk->status = 'Diterima'; 
+            $sk->catatan_petugas = null;
+        } else {
+            $sk->status = 'Revisi';
+            $sk->catatan_petugas = $request->catatan_petugas; 
+        }
+
         $sk->save();
 
-        return redirect()->back()->with('success', 'Status berhasil diperbarui');
+        return redirect()->route('petugas.akun_ditangguhkan.index')
+            ->with('success', 'Status dokumen berhasil diperbarui');
     }
 
     public function setSurvey(Request $request, $id)
@@ -58,10 +70,10 @@ class AkunDitangguhkanPetugasController extends Controller
 
             $akun = $sk->user;
             if ($akun) {
-                $akun->update(['role' => 0]);
+                $akun->update(['role' => 0]); 
             }
         } else {
-            $sk->status = 'Dokumen Ditolak';
+            $sk->status = 'Perlu Revisi';
         }
 
         $sk->save();

@@ -9,7 +9,15 @@ class Adminstaf extends Authenticatable
 {
     use Notifiable;
 
-    protected $table = 'adminstaf'; // tabel adminstaf
-    protected $fillable = ['nama', 'username', 'password', 'email', 'no_hp', 'alamat', 'role'];
+    protected $table = 'adminstaf'; 
+    protected $fillable = [
+        'nama',
+        'username',
+        'password',
+        'email',
+        'no_hp',
+        'alamat',
+        'role'
+    ];
     protected $hidden = ['password'];
 }

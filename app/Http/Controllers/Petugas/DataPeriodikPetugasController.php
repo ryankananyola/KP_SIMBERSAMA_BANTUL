@@ -8,11 +8,24 @@ use App\Models\LaporanPeriodik;
 
 class DataPeriodikPetugasController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $laporan = LaporanPeriodik::with('user')
-                    ->latest()
-                    ->get();
+        $request->validate([
+            'periode' => 'nullable|in:1,2', 
+            'tahun'   => 'nullable|integer|min:2020|max:' . date('Y'), 
+        ]);
+
+        $query = LaporanPeriodik::query();
+
+        if ($request->filled('periode')) {
+            $query->where('periode', $request->periode);
+        }
+
+        if ($request->filled('tahun')) {
+            $query->where('tahun', $request->tahun);
+        }
+
+        $laporan = $query->with('user')->get();
 
         return view('dashboard.petugas.data_periodik_petugas', compact('laporan'));
     }

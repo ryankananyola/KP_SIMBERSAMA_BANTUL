@@ -12,7 +12,7 @@
     @if($status != 'Aktif')
         <div class="card shadow-sm">
             <div class="card-body text-center">
-                <h5 class="fw-bold mb-3">Hallo, {{ auth()->user()->name }}</h5>
+                <h5 class="fw-bold mb-3">Hallo, {{ auth()->user()->nama }}</h5>
                 <p class="text-muted">Selamat Datang di Sistem Informasi Pengolahan Sampah Kab. Bantul!</p>
 
                 @if($status == 'Belum Upload')

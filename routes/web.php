@@ -59,8 +59,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/upload-sk', [DokumenSKUserController::class, 'store'])->name('upload_sk.store');
         Route::put('/upload-sk/{id}', [DokumenSKUserController::class, 'update'])->name('upload_sk.update');
 
-        Route::get('/profile', [DashboardUserController::class, 'profile'])->name('profile');
-        Route::put('/profile', [DashboardUserController::class, 'updateProfile'])->name('update_profile');
+        Route::get('/profile-user', [DashboardUserController::class, 'profile'])->name('profile');
+        Route::put('/profile-user', [DashboardUserController::class, 'updateProfile'])->name('update_profile');
     });
 });
 
@@ -76,9 +76,13 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/akun-ditangguhkan', [AkunDitangguhkanPetugasController::class, 'index'])->name('akun_ditangguhkan.index');
         Route::get('/akun-ditangguhkan/{id}', [AkunDitangguhkanPetugasController::class, 'show'])->name('akun_ditangguhkan.show');
+        Route::put('/akun-ditangguhkan/{id}/verify', [AkunDitangguhkanPetugasController::class, 'verify'])->name('akun_ditangguhkan.verify');
         Route::put('/akun-ditangguhkan/{id}/status', [AkunDitangguhkanPetugasController::class, 'updateStatus'])->name('akun_ditangguhkan.updateStatus');
         Route::put('/akun-ditangguhkan/{id}/survey', [AkunDitangguhkanPetugasController::class, 'setSurvey'])->name('akun_ditangguhkan.setSurvey');
         Route::put('/akun-ditangguhkan/{id}/hasil-survey', [AkunDitangguhkanPetugasController::class, 'setHasilSurvey'])->name('akun_ditangguhkan.setHasilSurvey');
+
+        Route::get('/profile-petugas', [DashboardPetugasController::class, 'profile'])->name('profile');
+        Route::put('/profile-petugas', [DashboardPetugasController::class, 'updateProfile'])->name('profile.update');
     });
 });
 

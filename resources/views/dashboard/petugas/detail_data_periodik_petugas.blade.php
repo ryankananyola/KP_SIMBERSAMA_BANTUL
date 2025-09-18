@@ -35,7 +35,7 @@
             </table>
     </div>
     <div class="mt-3 text-end">
-        <a href="{{ route('petugas.data_periodik_petugas') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('petugas.data_periodik') }}" class="btn btn-secondary">Kembali</a>
     </div>
 </div>
 @endsection

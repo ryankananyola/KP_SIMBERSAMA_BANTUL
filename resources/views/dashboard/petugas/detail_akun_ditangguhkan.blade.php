@@ -45,10 +45,48 @@
                 <p class="text-muted">Belum ada file SK diupload.</p>
             @endif
         </div>
+
+        <form action="{{ route('petugas.akun_ditangguhkan.verify', $sk->id) }}" method="POST" class="d-flex gap-2">
+            @csrf
+            @method('PUT')
+            <button type="submit" name="action" value="terima" class="btn btn-success">
+                Terima Dokumen
+            </button>
+
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#revisiModal">
+                Revisi
+            </button>
+        </form>
     </div>
 
     <div class="mt-3 text-end">
         <a href="{{ route('petugas.akun_ditangguhkan.index') }}" class="btn btn-secondary">Kembali</a>
     </div>
+</div>
+
+<div class="modal fade" id="revisiModal" tabindex="-1" aria-labelledby="revisiModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="{{ route('petugas.akun_ditangguhkan.verify', $sk->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+        <input type="hidden" name="action" value="revisi">
+        <div class="modal-content">
+          <div class="modal-header bg-warning text-dark">
+            <h5 class="modal-title" id="revisiModalLabel">Catatan Revisi</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+                <label for="catatan_petugas" class="form-label">Masukkan Catatan</label>
+                <textarea name="catatan_petugas" id="catatan_petugas" class="form-control" rows="4" required></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-warning">Kirim Revisi</button>
+          </div>
+        </div>
+    </form>
+  </div>
 </div>
 @endsection

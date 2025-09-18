@@ -76,6 +76,45 @@
                 <p><strong>Tahun Pembangunan:</strong> {{ $latestSK->tahun_pembangunan ?? '-' }}</p>
                 <p><strong>Luas:</strong> {{ $latestSK->luas ?? '-' }} m²</p>
                 <p><strong>Biaya Pembangunan:</strong> Rp {{ number_format($latestSK->biaya_pembangunan ?? 0,0,',','.') }}</p>
+                <hr>
+                <p><strong>File SK:</strong></p>
+                @php $ext = pathinfo($latestSK->file_sk, PATHINFO_EXTENSION); @endphp
+                @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif']))
+                    <img src="{{ asset('storage/' . $latestSK->file_sk) }}" alt="File SK" class="img-fluid rounded">
+                @else
+                    <iframe src="{{ asset('storage/' . $latestSK->file_sk) }}" frameborder="0" width="100%" height="400px"></iframe>
+                @endif
+            </div>
+        </div>
+
+        @elseif($status === 'Survey')
+        <div class="alert alert-info">
+            <h6 class="fw-bold text-info">Dokumen SK Diterima dan Jadwal Survey telah ditentukan</h6> 
+            <p>Dokumen SK Anda telah diterima oleh petugas. Jadwal survey lapangan telah ditentukan, silahkan melihat di dashboard.</p> 
+        </div>
+        <div class="card shadow-sm">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0">Ringkasan Dokumen SK</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Jenis SK:</strong> {{ $latestSK->sk }}</p>
+                <p><strong>No SK:</strong> {{ $latestSK->no_sk }}</p>
+                <p><strong>Status:</strong> {{ $latestSK->status }}</p>
+                <p><strong>Struktur Organisasi:</strong> {{ $latestSK->struktur_organisasi ?? '-' }}</p>
+                <p><strong>Kondisi Bangunan:</strong> {{ $latestSK->kondisi_bangunan ?? '-' }}</p>
+                <p><strong>Dibangun Oleh:</strong> {{ $latestSK->dibangun_oleh ?? '-' }}</p>
+                <p><strong>Pihak yang Membangun:</strong> {{ $latestSK->pihak_membangun ?? '-' }}</p>
+                <p><strong>Tahun Pembangunan:</strong> {{ $latestSK->tahun_pembangunan ?? '-' }}</p>
+                <p><strong>Luas:</strong> {{ $latestSK->luas ?? '-' }} m²</p>
+                <p><strong>Biaya Pembangunan:</strong> Rp {{ number_format($latestSK->biaya_pembangunan ?? 0,0,',','.') }}</p>
+                <hr>
+                <p><strong>File SK:</strong></p>
+                @php $ext = pathinfo($latestSK->file_sk, PATHINFO_EXTENSION); @endphp
+                @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif']))
+                    <img src="{{ asset('storage/' . $latestSK->file_sk) }}" alt="File SK" class="img-fluid rounded">
+                @else
+                    <iframe src="{{ asset('storage/' . $latestSK->file_sk) }}" frameborder="0" width="100%" height="400px"></iframe>
+                @endif
             </div>
         </div>
 
