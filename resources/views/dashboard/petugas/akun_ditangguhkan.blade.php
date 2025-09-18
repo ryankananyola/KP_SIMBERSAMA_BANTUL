@@ -11,7 +11,7 @@
             <table class="table table-bordered align-middle text-center">
                 <thead class="table-light">
                     <tr>
-                        <th>#</th>
+                        <th>No</th>
                         <th>Username</th>
                         <th>Nama Bank Sampah</th>
                         <th>Aksi</th>

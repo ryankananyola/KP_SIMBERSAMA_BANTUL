@@ -68,7 +68,7 @@
             <div class="card-body">
                 <p><strong>Jenis SK:</strong> {{ $latestSK->sk }}</p>
                 <p><strong>No SK:</strong> {{ $latestSK->no_sk }}</p>
-                <p><strong>Status:</strong> {{ $latestSK->status }}</p>
+                <p><strong>Status SK:</strong> Diterima</p>
                 <p><strong>Struktur Organisasi:</strong> {{ $latestSK->struktur_organisasi ?? '-' }}</p>
                 <p><strong>Kondisi Bangunan:</strong> {{ $latestSK->kondisi_bangunan ?? '-' }}</p>
                 <p><strong>Dibangun Oleh:</strong> {{ $latestSK->dibangun_oleh ?? '-' }}</p>
@@ -99,7 +99,7 @@
             <div class="card-body">
                 <p><strong>Jenis SK:</strong> {{ $latestSK->sk }}</p>
                 <p><strong>No SK:</strong> {{ $latestSK->no_sk }}</p>
-                <p><strong>Status:</strong> {{ $latestSK->status }}</p>
+                <p><strong>Status SK:</strong> Diterima</p>
                 <p><strong>Struktur Organisasi:</strong> {{ $latestSK->struktur_organisasi ?? '-' }}</p>
                 <p><strong>Kondisi Bangunan:</strong> {{ $latestSK->kondisi_bangunan ?? '-' }}</p>
                 <p><strong>Dibangun Oleh:</strong> {{ $latestSK->dibangun_oleh ?? '-' }}</p>
@@ -131,7 +131,7 @@
             <div class="card-body">
                 <p><strong>Jenis SK:</strong> {{ $latestSK->sk }}</p>
                 <p><strong>No SK:</strong> {{ $latestSK->no_sk }}</p>
-                <p><strong>Status:</strong> {{ $latestSK->status }}</p>
+                <p><strong>Status SK:</strong> Diterima</p>
                 <p><strong>Struktur Organisasi:</strong> {{ $latestSK->struktur_organisasi ?? '-' }}</p>
                 <p><strong>Kondisi Bangunan:</strong> {{ $latestSK->kondisi_bangunan ?? '-' }}</p>
                 <p><strong>Dibangun Oleh:</strong> {{ $latestSK->dibangun_oleh ?? '-' }}</p>
