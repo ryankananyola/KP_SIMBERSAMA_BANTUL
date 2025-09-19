@@ -8,9 +8,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RegisterPetugasController;
 use App\Http\Controllers\RegisterAdminController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Admin\DataUmumAdminController;
 use App\Http\Controllers\User\DashboardUserController;
-use App\Http\Controllers\Admin\DokumenSKAdminController;;
 use App\Http\Controllers\User\DokumenSKUserController;
 use App\Http\Controllers\User\LaporanPeriodikController;
 use App\Http\Controllers\Petugas\DashboardPetugasController;
@@ -37,10 +35,6 @@ Route::get('/wilayah/kapanewon', [WilayahController::class, 'getKapanewon']);
 Route::get('/wilayah/kelurahan/{kapanewon_id}', [WilayahController::class, 'getKelurahan']);
 Route::get('/wilayah/padukuhan/{kelurahan_id}', [WilayahController::class, 'getPadukuhan']);
 
-Route::get('/dashboard_admin', fn() => view('dashboard.admin.dashboard_admin'));
-Route::get('/dashboard_admin/data-umum', fn() => view('dashboard.admin.data_umum_admin'));
-Route::get('/dashboard_admin/data-umum', [DataUmumAdminController::class, 'index'])->name('data.umum.index');
-Route::get('/dashboard_admin/data-umum/{id}', [DataUmumAdminController::class, 'show'])->name('data.umum.show');
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard_user')->name('user.')->group(function () {

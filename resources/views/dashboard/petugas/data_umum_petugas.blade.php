@@ -1,7 +1,7 @@
 @extends('layouts.layout_petugas')
 @section('content')
 <div class="container-fluid p-4">
-    <h1 class="h3 mb-4 fw-bold text-center">Data Umum</h1>
+    <h1 class="h3 mb-4 fw-bold text-center">Data Umum User</h1>
     <div class="card">
         <div class="card-body">
 
