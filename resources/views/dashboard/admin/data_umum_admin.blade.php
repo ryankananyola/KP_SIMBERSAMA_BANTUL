@@ -4,7 +4,7 @@
     <h1 class="h3 mb-4 fw-bold text-center">Data Umum</h1>
     <div class="card">
         <div class="card-body">
-            <form method="GET" action="{{ route('data.umum.index') }}" class="mb-3 text-end">
+            <form method="GET" action="{{ route('admin.data_umum.index') }}" class="mb-3 text-end">
                 <select name="filter" class="form-select d-inline w-auto" onchange="this.form.submit()">
                     <option value="petugas" {{ $filter === 'petugas' ? 'selected' : '' }}>Petugas</option>
                     <option value="user" {{ $filter === 'user' ? 'selected' : '' }}>User</option>
@@ -25,7 +25,7 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>
-                                <a href="{{ route('data.umum.show', $item->id) }}?filter={{ $filter }}" class="btn btn-info text-white">
+                                <a href="{{ route('admin.data_umum.show', $item->id) }}?filter={{ $filter }}" class="btn btn-info text-white">
                                     Detail
                                 </a>
                             </td>

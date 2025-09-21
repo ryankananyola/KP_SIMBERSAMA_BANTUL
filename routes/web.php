@@ -15,6 +15,11 @@ use App\Http\Controllers\Petugas\DashboardPetugasController;
 use App\Http\Controllers\Petugas\DataUmumPetugasController;
 use App\Http\Controllers\Petugas\DataPeriodikPetugasController;
 use App\Http\Controllers\Petugas\AkunDitangguhkanPetugasController;
+use App\Http\Controllers\Admin\DashboardAdminController;
+use App\Http\Controllers\Admin\AkunAdminController;
+use App\Http\Controllers\Admin\DataUmumAdminController;
+use App\Http\Controllers\Admin\DataPeriodikAdminController;
+use App\Http\Controllers\Admin\AkunDitangguhkanAdminController;
 
 Route::get('/', fn() => view('landing'));
 Route::get('/home', fn() => view('home'));
@@ -79,6 +84,30 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/profile-petugas', [DashboardPetugasController::class, 'updateProfile'])->name('profile.update');
     });
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('dashboard_admin')->name('admin.')->group(function () {
+        Route::get('/', [DashboardAdminController::class, 'dashboard'])->name('dashboard');
+
+        Route::get('/data-umum', [App\Http\Controllers\Admin\DataUmumAdminController::class, 'index'])->name('data_umum.index');
+        Route::get('/data-umum/{id}', [App\Http\Controllers\Admin\DataUmumAdminController::class, 'show'])->name('data_umum.show');
+
+        Route::get('/data-periodik', [App\Http\Controllers\Admin\DataPeriodikAdminController::class, 'index'])->name('data_periodik');
+        Route::get('/data-periodik/{id}', [App\Http\Controllers\Admin\DataPeriodikAdminController::class, 'show'])->name('data_periodik.show'); 
+
+        Route::get('/akun-ditangguhkan', [AkunDitangguhkanAdminController::class, 'index'])->name('akun_ditangguhkan_admin.index');
+        Route::get('/akun-ditangguhkan/{id}', [AkunDitangguhkanAdminController::class, 'show'])->name('akun_ditangguhkan_admin.show');
+        Route::put('/akun-ditangguhkan/{id}/verify', [AkunDitangguhkanAdminController::class, 'verify'])->name('akun_ditangguhkan_admin.verify');
+        Route::put('/akun-ditangguhkan/{id}/status', [AkunDitangguhkanAdminController::class, 'updateStatus'])->name('akun_ditangguhkan_admin.updateStatus');
+        Route::put('/akun-ditangguhkan/{id}/survey', [AkunDitangguhkanAdminController::class, 'setSurvey'])->name('akun_ditangguhkan_admin.setSurvey');
+        Route::put('/akun-ditangguhkan/{id}/hasil-survey', [AkunDitangguhkanAdminController::class, 'setHasilSurvey'])->name('akun_ditangguhkan_admin.setHasilSurvey');
+
+        Route::get('/akun/create', [App\Http\Controllers\Admin\AkunAdminController::class, 'create'])->name('akun.create');
+        Route::post('/akun/store', [App\Http\Controllers\Admin\AkunAdminController::class, 'store'])->name('akun.store');   
+    });
+});
+
+
 
 Route::post('/logout', function () {
     Auth::logout();

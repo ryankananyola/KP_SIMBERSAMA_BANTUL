@@ -65,9 +65,14 @@
                                 <option value="2">Juli - Desember</option>
                             </select>
                         </div>
-                        <div class="col-md-6">
+                       <div class="col-md-6">
                             <label for="tahun" class="form-label">Tahun</label>
-                            <input type="number" name="tahun" id="tahun" class="form-control" placeholder="Contoh: 2025" required>
+                            <select name="tahun" id="tahun" class="form-select" required>
+                                <option value="">-- Pilih Tahun --</option>
+                                @for ($year = 2020; $year <= date('Y'); $year++)
+                                    <option value="{{ $year }}">{{ $year }}</option>
+                                @endfor
+                            </select>
                         </div>
                     </div>
 

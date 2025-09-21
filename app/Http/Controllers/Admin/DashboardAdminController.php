@@ -1,37 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\Petugas;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; // <- tambahkan ini
 
-class DashboardPetugasController extends Controller
+class DashboardAdminController extends Controller
 {
     public function dashboard()
     {
-        return view('dashboard.petugas.dashboard_petugas');
+        return view('dashboard.admin.dashboard_admin');
     }
 
     public function dataUmum()
     {
-        return view('dashboard.petugas.data_umum_petugas');
+        return view('dashboard.admin.data_umum_admin');
     }
     
     public function dataPeriodik()
     {
-        return view('dashboard.petugas.data_periodik_petugas');
+        return view('dashboard.admin.data_periodik_admin');
     }
 
     public function akunDitangguhkan()
     {
-        return view('dashboard.petugas.akun_ditangguhkan');
+        return view('dashboard.admin.akun_ditangguhkan');
     }
 
     public function profile()
     {
         $user = Auth::guard('adminstaf')->user();
-        return view('dashboard.petugas.profile_petugas', compact('user'));
+        return view('dashboard.admin.profile_admin', compact('user'));
     }
 
     public function updateProfile(Request $request)

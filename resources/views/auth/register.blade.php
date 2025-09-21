@@ -178,7 +178,7 @@
     {!! NoCaptcha::renderJs() !!}
     </main>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script>
+<script>
 const kecamatanSelect = document.getElementById('kecamatan');
 const kelurahanSelect = document.getElementById('kelurahan');
 const padukuhanSelect = document.getElementById('padukuhan');
