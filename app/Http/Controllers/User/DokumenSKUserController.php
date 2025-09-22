@@ -83,7 +83,7 @@ class DokumenSKUserController extends Controller
             'sk' => 'required|string|max:255',
             'no_sk' => 'required|string|max:255',
             'diperlukan_oleh' => 'required|string|max:255',
-            'file_sk' => 'nullable|mimes:pdf,doc,docx,jpg,png|max:4096',
+            'file_sk' => 'required|mimetypes:application/pdf|max:2048',
             'struktur_organisasi' => 'nullable|string|max:255',
             'kondisi_bangunan' => 'nullable|string|max:255',
             'dibangun_oleh' => 'nullable|string|max:255',

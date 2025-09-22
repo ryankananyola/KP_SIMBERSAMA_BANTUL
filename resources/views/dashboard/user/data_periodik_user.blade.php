@@ -8,7 +8,6 @@
         $status = $latestSK->status ?? 'Belum Upload';
     @endphp
 
-    {{-- Jika SK belum upload atau belum diverifikasi --}}
     @if($status != 'Aktif')
         <div class="card shadow-sm">
             <div class="card-body text-center">
@@ -58,7 +57,7 @@
                     @csrf
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="periode" class="form-label">Periode</label>
+                            <label for="periode" class="form-label">Periode<span class="text-danger">*</span></label>
                             <select name="periode" id="periode" class="form-select" required>
                                 <option value="">-- Pilih Periode --</option>
                                 <option value="1">Januari - Juni</option>
@@ -66,7 +65,7 @@
                             </select>
                         </div>
                        <div class="col-md-6">
-                            <label for="tahun" class="form-label">Tahun</label>
+                            <label for="tahun" class="form-label">Tahun<span class="text-danger">*</span></label>
                             <select name="tahun" id="tahun" class="form-select" required>
                                 <option value="">-- Pilih Tahun --</option>
                                 @for ($year = 2020; $year <= date('Y'); $year++)
@@ -76,33 +75,142 @@
                         </div>
                     </div>
 
-                    <h6 class="mt-4">Komposisi Sampah Organik</h6>
-                    <div class="row mb-3">
-                        <div class="col-md-4"><label class="form-label">Rumah Tangga (Kg)</label><input type="number" step="0.01" name="organik_rumah_tangga" class="form-control"></div>
-                        <div class="col-md-4"><label class="form-label">Pasar (Kg)</label><input type="number" step="0.01" name="organik_pasar" class="form-control"></div>
-                        <div class="col-md-4"><label class="form-label">Perkantoran (Kg)</label><input type="number" step="0.01" name="organik_kantor" class="form-control"></div>
+                   <h6 class="mt-4">Komposisi Sampah Jenis Organik Berdasarkan Jenis Sumber Sampah</h6>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body text-center">
+                                    <img src="{{ asset('assets/images/sampah/organik_rumah_tangga.jpg') }}" 
+                                    alt="Organik Rumah Tangga" 
+                                    class="img-fluid mb-3" style="max-height:150px; object-fit:contain;">
+
+                                    <h6 class="fw-bold">Sampah Organik : Rumah Tangga</h6>
+                                    <label class="form-label">Quantity (Kg)</label>
+                                    <input type="number" step="0.01" name="organik_rumah_tangga" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body text-center">
+                                    <img src="{{ asset('assets/images/sampah/organik_pasar.jpg') }}" 
+                                    alt="Organik Pasar" 
+                                    class="img-fluid mb-3" style="max-height:150px; object-fit:contain;">
+
+                                    <h6 class="fw-bold">Sampah Organik : Pasar</h6>
+                                    <label class="form-label">Quantity (Kg)</label>
+                                    <input type="number" step="0.01" name="organik_pasar" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body text-center">
+                                    <img src="{{ asset('assets/images/sampah/organik_kantor.jpg') }}" 
+                                    alt="Organik Kantor" 
+                                    class="img-fluid mb-3" style="max-height:150px; object-fit:contain;">
+
+                                    <h6 class="fw-bold">Sampah Organik : Kantor</h6>
+                                    <label class="form-label">Quantity (Kg)</label>
+                                    <input type="number" step="0.01" name="organik_kantor" class="form-control">
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <h6 class="mt-4">Komposisi Sampah Anorganik</h6>
-                    <div class="row mb-3">
-                        <div class="col-md-4"><label class="form-label">Rumah Tangga (Kg)</label><input type="number" step="0.01" name="anorganik_rumah_tangga" class="form-control"></div>
-                        <div class="col-md-4"><label class="form-label">Pasar (Kg)</label><input type="number" step="0.01" name="anorganik_pasar" class="form-control"></div>
-                        <div class="col-md-4"><label class="form-label">Perkantoran (Kg)</label><input type="number" step="0.01" name="anorganik_kantor" class="form-control"></div>
-                    </div>
+                    <h6 class="mt-4">Komposisi Sampah Jenis Anorganik Berdasarkan Jenis Sumber Sampah</h6>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <img src="{{ asset('assets/images/sampah/anorganik_rumah_tangga.jpg') }}" 
+                                        alt="Anorganik Rumah Tangga" 
+                                        class="img-fluid mb-3" style="max-height:150px; object-fit:contain;">
 
-                    <h6 class="mt-4">Komposisi Sampah B3</h6>
-                    <div class="row mb-3">
-                        <div class="col-md-4"><label class="form-label">Rumah Tangga (Kg)</label><input type="number" step="0.01" name="b3_rumah_tangga" class="form-control"></div>
-                        <div class="col-md-4"><label class="form-label">Pasar (Kg)</label><input type="number" step="0.01" name="b3_pasar" class="form-control"></div>
-                        <div class="col-md-4"><label class="form-label">Perkantoran (Kg)</label><input type="number" step="0.01" name="b3_kantor" class="form-control"></div>
-                    </div>
+                                        <h6 class="fw-bold">Sampah Anorganik : Rumah Tangga</h6>
+                                        <label class="form-label">Quantity (Kg)</label>
+                                        <input type="number" step="0.01" name="anorganik_rumah_tangga" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <img src="{{ asset('assets/images/sampah/anorganik_pasar.jpg') }}" 
+                                        alt="Anorganik Pasar" 
+                                        class="img-fluid mb-3" style="max-height:150px; object-fit:contain;">
 
-                    <div class="d-flex justify-content-end">
+                                        <h6 class="fw-bold">Sampah Anorganik : Pasar</h6>
+                                        <label class="form-label">Quantity (Kg)</label>
+                                        <input type="number" step="0.01" name="anorganik_pasar" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <img src="{{ asset('assets/images/sampah/anorganik_kantor.jpg') }}" 
+                                        alt="Anorganik Kantor" 
+                                        class="img-fluid mb-3" style="max-height:150px; object-fit:contain;">
+
+                                        <h6 class="fw-bold">Sampah Anorganik : Kantor</h6>
+                                        <label class="form-label">Quantity (Kg)</label>
+                                        <input type="number" step="0.01" name="anorganik_kantor" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    <h6 class="mt-4">Komposisi Sampah Jenis B3 Berdasarkan Jenis Sumber Sampah</h6>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <img src="{{ asset('assets/images/sampah/b3_rumah_tangga.jpg') }}" 
+                                        alt="B3 Rumah Tangga" 
+                                        class="img-fluid mb-3" style="max-height:150px; object-fit:contain;">
+
+                                        <h6 class="fw-bold">Sampah B3 : Rumah Tangga</h6>
+                                        <label class="form-label">Quantity (Kg)</label>
+                                        <input type="number" step="0.01" name="b3_rumah_tangga" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <img src="{{ asset('assets/images/sampah/b3_pasar.jpg') }}" 
+                                        alt="B3 Pasar" 
+                                        class="img-fluid mb-3" style="max-height:150px; object-fit:contain;">
+
+                                        <h6 class="fw-bold">Sampah B3 : Pasar</h6>
+                                        <label class="form-label">Quantity (Kg)</label>
+                                        <input type="number" step="0.01" name="b3_pasar" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <img src="{{ asset('assets/images/sampah/b3_kantor.jpg') }}" 
+                                        alt="B3 Kantor" 
+                                        class="img-fluid mb-3" style="max-height:150px; object-fit:contain;">
+
+                                        <h6 class="fw-bold">Sampah B3 : Kantor</h6>
+                                        <label class="form-label">Quantity (Kg)</label>
+                                        <input type="number" step="0.01" name="b3_kantor" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="d-flex justify-content-end mt-4">
                         <button type="submit" class="btn btn-success">
                             <span class="material-icons align-middle">save</span>
                             <span class="align-middle">Simpan Laporan</span>
                         </button>
                     </div>
+
                 </form>
             </div>
         </div>

@@ -164,7 +164,7 @@
 
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">SK <span class="text-danger">*</span></label>
+                    <label class="form-label fw-semibold">SK<span class="text-danger">*</span></label>
                     <select name="sk" id="sk_select" class="form-select" required>
                         <option value="">-- Pilih 1 --</option>
                         @php
@@ -179,12 +179,12 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">No. SK <span class="text-danger">*</span></label>
+                    <label class="form-label fw-semibold">No. SK<span class="text-danger">*</span></label>
                     <input type="text" name="no_sk" class="form-control" value="{{ $latestSK->no_sk ?? '' }}" required>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Di Perlukan Oleh <span class="text-danger">*</span></label>
+                    <label class="form-label fw-semibold">Di Perlukan Oleh<span class="text-danger">*</span></label>
                     @php
                         $diperlukan_options = ['Kepala Dinas','Pihak Pengelola','Departemen Teknik','Tim Pengadaan'];
                     @endphp
@@ -199,20 +199,27 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Upload File SK <span class="text-danger">*</span></label>
-                    <input type="file" name="file_sk" class="form-control">
+                    <label class="form-label fw-semibold">
+                        Upload File SK<span class="text-danger">*</span>
+                    </label>
+                    <input type="file" name="file_sk" class="form-control" accept=".pdf" required>
+                    <small class="text-muted">* Hanya diperbolehkan upload file berformat PDF</small>
+                    
                     @if($latestSK && $latestSK->file_sk)
-                        <small>File lama: <a href="{{ asset('storage/' . $latestSK->file_sk) }}" target="_blank">Lihat</a></small>
+                        <br>
+                        <small>File lama: 
+                            <a href="{{ asset('storage/' . $latestSK->file_sk) }}" target="_blank">Lihat</a>
+                        </small>
                     @endif
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Struktur Organisasi</label>
+                    <label class="form-label fw-semibold">Struktur Organisasi<span class="text-danger">*</span></label>
                     <input type="text" name="struktur_organisasi" class="form-control" value="{{ $latestSK->struktur_organisasi ?? '' }}">
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Kondisi Bangunan</label>
+                    <label class="form-label fw-semibold">Kondisi Bangunan<span class="text-danger">*</span></label>
                     @php
                         $kondisi_options = ['Baru Dibangun','Renovasi','Perlu Perbaikan','Rusak Berat','Baik'];
                     @endphp
@@ -227,7 +234,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Dibangun Oleh</label>
+                    <label class="form-label fw-semibold">Dibangun Oleh<span class="text-danger">*</span></label>
                     @php $dibangun_options = ['Pemerintah Daerah','PT XYZ','Kontraktor XYZ']; @endphp
                     <select name="dibangun_oleh" id="dibangun_select" class="form-select">
                         <option value="">-- Pilih 1 --</option>
@@ -240,7 +247,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Pihak yang Membangun</label>
+                    <label class="form-label fw-semibold">Pihak yang Membangun<span class="text-danger">*</span></label>
                     @php $pihak_options = ['Pemerintah Kota/Kabupaten','Kontraktor','Pengelola Sumber Daya']; @endphp
                     <select name="pihak_membangun" id="pihak_select" class="form-select">
                         <option value="">-- Pilih 1 --</option>
@@ -253,17 +260,17 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Tahun Pembangunan</label>
+                    <label class="form-label fw-semibold">Tahun Pembangunan<span class="text-danger">*</span></label>
                     <input type="number" name="tahun_pembangunan" min="1900" max="2100" class="form-control" value="{{ $latestSK->tahun_pembangunan ?? '' }}">
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Luas (m²)</label>
+                    <label class="form-label fw-semibold">Luas (m²)<span class="text-danger">*</span></label>
                     <input type="number" step="0.01" name="luas" class="form-control" value="{{ $latestSK->luas ?? '' }}">
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Biaya Pembangunan (Rp)</label>
+                    <label class="form-label fw-semibold">Biaya Pembangunan (Rp)<span class="text-danger">*</span></label>
                     <input type="number" step="0.01" name="biaya_pembangunan" class="form-control" value="{{ $latestSK->biaya_pembangunan ?? '' }}">
                 </div>
             </div>

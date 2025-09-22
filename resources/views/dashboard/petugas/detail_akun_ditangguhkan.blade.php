@@ -46,17 +46,19 @@
             @endif
         </div>
 
-        <form action="{{ route('petugas.akun_ditangguhkan.verify', $sk->id) }}" method="POST" class="d-flex gap-2">
-            @csrf
-            @method('PUT')
-            <button type="submit" name="action" value="terima" class="btn btn-success">
-                Terima Dokumen
-            </button>
+        @if($sk->status === 'Pending')
+            <form action="{{ route('petugas.akun_ditangguhkan.verify', $sk->id) }}" method="POST" class="d-flex gap-2">
+                @csrf
+                @method('PUT')
+                <button type="submit" name="action" value="terima" class="btn btn-success">
+                    Terima Dokumen
+                </button>
 
-            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#revisiModal">
-                Revisi
-            </button>
-        </form>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#revisiModal">
+                    Revisi
+                </button>
+            </form>
+        @endif
     </div>
 
     <div class="mt-3 text-end">

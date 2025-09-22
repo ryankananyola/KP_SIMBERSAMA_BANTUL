@@ -13,20 +13,17 @@
         </div>
     @endif
 
-    {{-- SUCCESS ALERT --}}
     @if (session('success'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
             {{ session('success') }}
         </div>
     @endif
 
-    {{-- FORM REGISTRASI --}}
     <form class="bg-white rounded-xl shadow p-4 space-y-6"
           method="POST" 
           action="{{ route('admin.akun.store') }}">
         @csrf
 
-        <!-- DATA AKUN -->
         <div class="border rounded-lg p-4 mb-6">
             <div class="flex items-center mb-2">
                 <span class="material-icons text-[#256d5a] mr-2">person_add</span>
@@ -62,7 +59,6 @@
             </div>
         </div>
 
-        <!-- LOCATION -->
         <div>
             <div class="flex items-center mb-2">
                 <span class="material-icons text-[#256d5a] mr-2">location_on</span>
@@ -106,7 +102,6 @@
             </div>
         </div>
 
-        <!-- KEAMANAN LOGIN AKUN -->
         <div>
             <div class="flex items-center mb-2">
                 <span class="material-icons text-[#256d5a] mr-2">vpn_key</span>
@@ -143,7 +138,6 @@
             </div>
         </div>
 
-        <!-- SUBMIT BUTTON -->
         <div class="flex justify-center mt-8">
             <button type="submit" 
                 class="w-full md:w-3/4 lg:w-1/2 bg-green-800 text-white font-bold py-3 rounded-lg shadow hover:bg-green-900 transition flex justify-center items-center gap-2">
