@@ -90,28 +90,30 @@
                         Semua user sudah mengisi laporan pada periode ini 🎉
                     </div>
                 @else
-                    <table class="table table-bordered align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Bank Sampah</th>
-                                <th>Nama Pengelola</th>
-                                <th>Email</th>
-                                <th>No WhatsApp</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($belumIsi as $user)
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle">
+                            <thead class="table-light">
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $user->nama_bank_sampah ?? '-' }}</td>
-                                    <td>{{ $user->nama ?? '-' }}</td>
-                                    <td>{{ $user->email ?? '-' }}</td>
-                                    <td>{{ $user->nomor_wa ?? '-' }}</td>
+                                    <th>No</th>
+                                    <th>Nama Bank Sampah</th>
+                                    <th>Nama Pengelola</th>
+                                    <th>Email</th>
+                                    <th>No WhatsApp</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($belumIsi as $user)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $user->nama_bank_sampah ?? '-' }}</td>
+                                        <td>{{ $user->nama ?? '-' }}</td>
+                                        <td>{{ $user->email ?? '-' }}</td>
+                                        <td>{{ $user->nomor_wa ?? '-' }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 @endif
             </div>
         </div>
