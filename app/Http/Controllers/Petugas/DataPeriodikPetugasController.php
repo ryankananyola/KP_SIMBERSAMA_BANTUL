@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\LaporanPeriodik;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Akun;
+
 
 class DataPeriodikPetugasController extends Controller
 {
@@ -28,7 +30,18 @@ class DataPeriodikPetugasController extends Controller
 
         $laporan = $query->with('user')->get();
 
-        return view('dashboard.petugas.data_periodik_petugas', compact('laporan'));
+        $users = Akun::all();
+
+        $sudahIsi = $laporan->pluck('user_id')->toArray();
+
+        $belumIsi = $users->whereNotIn('id', $sudahIsi);
+
+        return view('dashboard.petugas.data_periodik_petugas', [
+            'laporan'   => $laporan,
+            'belumIsi'  => $belumIsi,
+            'periode'   => $request->periode,
+            'tahun'     => $request->tahun,
+        ]);
     }
 
     public function show($id)
