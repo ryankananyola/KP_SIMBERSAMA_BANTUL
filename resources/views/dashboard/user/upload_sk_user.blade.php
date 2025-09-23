@@ -61,94 +61,21 @@
             <h6 class="fw-bold text-info">Dokumen SK Diterima</h6> 
             <p>Dokumen SK Anda telah diterima oleh petugas. Silakan menunggu jadwal survey lapangan sebelum akun aktif.</p> 
         </div>
-        <div class="card shadow-sm">
-            <div class="card-header bg-info text-white">
-                <h6 class="mb-0">Ringkasan Dokumen SK</h6>
-            </div>
-            <div class="card-body">
-                <p><strong>Jenis SK:</strong> {{ $latestSK->sk }}</p>
-                <p><strong>No SK:</strong> {{ $latestSK->no_sk }}</p>
-                <p><strong>Status SK:</strong> Diterima</p>
-                <p><strong>Struktur Organisasi:</strong> {{ $latestSK->struktur_organisasi ?? '-' }}</p>
-                <p><strong>Kondisi Bangunan:</strong> {{ $latestSK->kondisi_bangunan ?? '-' }}</p>
-                <p><strong>Dibangun Oleh:</strong> {{ $latestSK->dibangun_oleh ?? '-' }}</p>
-                <p><strong>Pihak yang Membangun:</strong> {{ $latestSK->pihak_membangun ?? '-' }}</p>
-                <p><strong>Tahun Pembangunan:</strong> {{ $latestSK->tahun_pembangunan ?? '-' }}</p>
-                <p><strong>Luas:</strong> {{ $latestSK->luas ?? '-' }} m²</p>
-                <p><strong>Biaya Pembangunan:</strong> Rp {{ number_format($latestSK->biaya_pembangunan ?? 0,0,',','.') }}</p>
-                <hr>
-                <p><strong>File SK:</strong></p>
-                @php $ext = pathinfo($latestSK->file_sk, PATHINFO_EXTENSION); @endphp
-                @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif']))
-                    <img src="{{ asset('storage/' . $latestSK->file_sk) }}" alt="File SK" class="img-fluid rounded">
-                @else
-                    <iframe src="{{ asset('storage/' . $latestSK->file_sk) }}" frameborder="0" width="100%" height="400px"></iframe>
-                @endif
-            </div>
-        </div>
+        @include('dashboard.user.partials.ringkasan_sk', ['headerClass' => 'bg-info'])
 
         @elseif($status === 'Survey')
         <div class="alert alert-info">
             <h6 class="fw-bold text-info">Dokumen SK Diterima dan Jadwal Survey telah ditentukan</h6> 
             <p>Dokumen SK Anda telah diterima oleh petugas. Jadwal survey lapangan telah ditentukan, silahkan melihat di dashboard.</p> 
         </div>
-        <div class="card shadow-sm">
-            <div class="card-header bg-info text-white">
-                <h6 class="mb-0">Ringkasan Dokumen SK</h6>
-            </div>
-            <div class="card-body">
-                <p><strong>Jenis SK:</strong> {{ $latestSK->sk }}</p>
-                <p><strong>No SK:</strong> {{ $latestSK->no_sk }}</p>
-                <p><strong>Status SK:</strong> Diterima</p>
-                <p><strong>Struktur Organisasi:</strong> {{ $latestSK->struktur_organisasi ?? '-' }}</p>
-                <p><strong>Kondisi Bangunan:</strong> {{ $latestSK->kondisi_bangunan ?? '-' }}</p>
-                <p><strong>Dibangun Oleh:</strong> {{ $latestSK->dibangun_oleh ?? '-' }}</p>
-                <p><strong>Pihak yang Membangun:</strong> {{ $latestSK->pihak_membangun ?? '-' }}</p>
-                <p><strong>Tahun Pembangunan:</strong> {{ $latestSK->tahun_pembangunan ?? '-' }}</p>
-                <p><strong>Luas:</strong> {{ $latestSK->luas ?? '-' }} m²</p>
-                <p><strong>Biaya Pembangunan:</strong> Rp {{ number_format($latestSK->biaya_pembangunan ?? 0,0,',','.') }}</p>
-                <hr>
-                <p><strong>File SK:</strong></p>
-                @php $ext = pathinfo($latestSK->file_sk, PATHINFO_EXTENSION); @endphp
-                @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif']))
-                    <img src="{{ asset('storage/' . $latestSK->file_sk) }}" alt="File SK" class="img-fluid rounded">
-                @else
-                    <iframe src="{{ asset('storage/' . $latestSK->file_sk) }}" frameborder="0" width="100%" height="400px"></iframe>
-                @endif
-            </div>
-        </div>
+        @include('dashboard.user.partials.ringkasan_sk', ['headerClass' => 'bg-info'])
 
        @elseif($status === 'Aktif')
         <div class="alert alert-success">
             <h6 class="fw-bold text-success">Akun Anda Aktif</h6> 
             <p>Selamat! Dokumen SK Anda telah diverifikasi, akun Anda sudah aktif, dan Anda dapat mulai menginput data periodik.</p> 
         </div>
-
-        <div class="card shadow-sm mb-4">
-            <div class="card-header bg-success text-white">
-                <h6 class="mb-0">Ringkasan Dokumen SK</h6>
-            </div>
-            <div class="card-body">
-                <p><strong>Jenis SK:</strong> {{ $latestSK->sk }}</p>
-                <p><strong>No SK:</strong> {{ $latestSK->no_sk }}</p>
-                <p><strong>Status SK:</strong> Diterima</p>
-                <p><strong>Struktur Organisasi:</strong> {{ $latestSK->struktur_organisasi ?? '-' }}</p>
-                <p><strong>Kondisi Bangunan:</strong> {{ $latestSK->kondisi_bangunan ?? '-' }}</p>
-                <p><strong>Dibangun Oleh:</strong> {{ $latestSK->dibangun_oleh ?? '-' }}</p>
-                <p><strong>Pihak yang Membangun:</strong> {{ $latestSK->pihak_membangun ?? '-' }}</p>
-                <p><strong>Tahun Pembangunan:</strong> {{ $latestSK->tahun_pembangunan ?? '-' }}</p>
-                <p><strong>Luas:</strong> {{ $latestSK->luas ?? '-' }} m²</p>
-                <p><strong>Biaya Pembangunan:</strong> Rp {{ number_format($latestSK->biaya_pembangunan ?? 0,0,',','.') }}</p>
-                <hr>
-                <p><strong>File SK:</strong></p>
-                @php $ext = pathinfo($latestSK->file_sk, PATHINFO_EXTENSION); @endphp
-                @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif']))
-                    <img src="{{ asset('storage/' . $latestSK->file_sk) }}" alt="File SK" class="img-fluid rounded">
-                @else
-                    <iframe src="{{ asset('storage/' . $latestSK->file_sk) }}" frameborder="0" width="100%" height="400px"></iframe>
-                @endif
-            </div>
-        </div>
+        @include('dashboard.user.partials.ringkasan_sk', ['headerClass' => 'bg-success'])
 
 
     @elseif(in_array($status, ['Revisi', 'Perlu Perbaikan', 'Ditolak']) || !$latestSK)
@@ -321,43 +248,6 @@
                 Tunggu konfirmasi petugas sebelum upload lagi.</p>
         </div>
     @endif
-
-    @foreach($sk_list as $sk)
-    <div class="modal fade" id="detailModal-{{ $sk->id }}" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title">Detail Dokumen SK</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Jenis SK:</strong> {{ $sk->sk }}</p>
-                    <p><strong>No. SK:</strong> {{ $sk->no_sk }}</p>
-                    <p><strong>Diperlukan Oleh:</strong> {{ $sk->diperlukan_oleh }}</p>
-                    <p><strong>Status:</strong> {{ $sk->status ?? '-' }}</p>
-                    <p><strong>Struktur Organisasi:</strong> {{ $sk->struktur_organisasi ?? '-' }}</p>
-                    <p><strong>Kondisi Bangunan:</strong> {{ $sk->kondisi_bangunan ?? '-' }}</p>
-                    <p><strong>Dibangun Oleh:</strong> {{ $sk->dibangun_oleh ?? '-' }}</p>
-                    <p><strong>Pihak yang Membangun:</strong> {{ $sk->pihak_membangun ?? '-' }}</p>
-                    <p><strong>Tahun Pembangunan:</strong> {{ $sk->tahun_pembangunan ?? '-' }}</p>
-                    <p><strong>Luas:</strong> {{ $sk->luas ?? '-' }} m²</p>
-                    <p><strong>Biaya Pembangunan:</strong> Rp {{ number_format($sk->biaya_pembangunan ?? 0,0,',','.') }}</p>
-                    <hr>
-                    <p><strong>File SK:</strong></p>
-                    @php $ext = pathinfo($sk->file_sk, PATHINFO_EXTENSION); @endphp
-                    @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif']))
-                        <img src="{{ asset('storage/' . $sk->file_sk) }}" alt="File SK" class="img-fluid rounded">
-                    @else
-                        <iframe src="{{ asset('storage/' . $sk->file_sk) }}" frameborder="0" width="100%" height="400px"></iframe>
-                    @endif
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endforeach
 </div>
 
 <script>

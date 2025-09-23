@@ -35,6 +35,9 @@
             </table>
     </div>
     <div class="mt-3 text-end">
+        <a href="{{ route('petugas.data_periodik.exportSinglePdf', $laporan->id) }}" class="btn btn-danger" target="_blank">
+            Export PDF
+        </a>
         <a href="{{ route('petugas.data_periodik') }}" class="btn btn-secondary">Kembali</a>
     </div>
 </div>

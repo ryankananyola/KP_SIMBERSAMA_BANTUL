@@ -33,6 +33,17 @@
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-primary">Filter</button>
                     <a href="{{ route('petugas.data_periodik') }}" class="btn btn-secondary">Reset</a>
+
+                    @if(request()->hasAny(['periode', 'tahun']))
+                        {{-- <a href="{{ route('petugas.data_periodik.exportPdf', request()->all()) }}" 
+                        class="btn btn-danger">
+                            Export PDF
+                        </a> --}}
+                        <a href="{{ route('petugas.data_periodik.exportPdf', ['periode' => request('periode'), 'tahun' => request('tahun')]) }}" 
+                            class="btn btn-danger">
+                            Export PDF
+                        </a>
+                    @endif
                 </div>
             </form>
         </div>

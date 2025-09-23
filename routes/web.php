@@ -70,8 +70,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/data-umum', [DataUmumPetugasController::class, 'index'])->name('data_umum');
         Route::get('/data-umum/{id}', [DataUmumPetugasController::class, 'show'])->name('data_umum.show');
 
+        Route::get('/data-periodik/export-pdf', [DataPeriodikPetugasController::class, 'exportPdf']) ->name('data_periodik.exportPdf');
         Route::get('/data-periodik', [DataPeriodikPetugasController::class, 'index'])->name('data_periodik');
         Route::get('/data-periodik/{id}', [DataPeriodikPetugasController::class, 'show'])->name('data_periodik.show');
+        Route::get('/data-periodik/{id}/export-pdf', [\App\Http\Controllers\Petugas\DataPeriodikPetugasController::class, 'exportSinglePdf'])->name('data_periodik.exportSinglePdf');
 
         Route::get('/akun-ditangguhkan', [AkunDitangguhkanPetugasController::class, 'index'])->name('akun_ditangguhkan.index');
         Route::get('/akun-ditangguhkan/{id}', [AkunDitangguhkanPetugasController::class, 'show'])->name('akun_ditangguhkan.show');

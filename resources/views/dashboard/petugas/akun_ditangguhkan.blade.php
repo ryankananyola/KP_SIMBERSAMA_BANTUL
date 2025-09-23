@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <div class="container-fluid p-4">
-    <h1 class="h3 mb-4 fw-bold text-center">Daftar Akun Ditanggukan</h1>
+    <h1 class="h3 mb-4 fw-bold text-center">Daftar Akun Ditangguhkan</h1>
     <div class="card shadow">
         <div class="card-body">
             <div class="table-responsive">
@@ -26,12 +26,12 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->user->username }}</td>
                             <td>{{ $item->user->nama_bank_sampah ?? '-' }}</td>
-                            <td>
-                                <a href="{{ route('petugas.akun_ditangguhkan.show', $item->id) }}" 
-                                   class="btn btn-info text-white">
-                                    Cek Dokumen
-                                </a>
-                            </td>
+                                <td>
+                                    <a href="{{ route('petugas.akun_ditangguhkan.show', $item->id) }}" 
+                                    class="btn btn-info text-white {{ in_array($item->status, ['Diterima', 'Survey', 'Aktif']) ? 'disabled' : '' }}">
+                                        Cek Dokumen
+                                    </a>
+                                </td>
                             <td>
                                 @if($item->status == 'Pending')
                                     <span class="btn btn-danger w-100">Menunggu Verifikasi Dokumen</span>
