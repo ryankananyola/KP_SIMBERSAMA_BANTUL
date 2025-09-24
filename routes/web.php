@@ -41,7 +41,7 @@ Route::get('/wilayah/kelurahan/{kapanewon_id}', [WilayahController::class, 'getK
 Route::get('/wilayah/padukuhan/{kelurahan_id}', [WilayahController::class, 'getPadukuhan']);
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:akun'])->group(function () {
     Route::prefix('dashboard_user')->name('user.')->group(function () {
         Route::get('/', [DashboardUserController::class, 'dashboard'])->name('dashboard');
 
@@ -63,7 +63,7 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:adminstaf'])->group(function () {
     Route::prefix('dashboard_petugas')->name('petugas.')->group(function () {
         Route::get('/', [DashboardPetugasController::class, 'dashboard'])->name('dashboard');
 

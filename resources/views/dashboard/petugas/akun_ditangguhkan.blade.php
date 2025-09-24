@@ -17,7 +17,7 @@
                         <th>Aksi</th>
                         <th>Status</th>
                         <th>Survei</th>
-                        <th>Hasil Survey</th>
+                        <th>Hasil Survei</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +28,9 @@
                             <td>{{ $item->user->nama_bank_sampah ?? '-' }}</td>
                                 <td>
                                     <a href="{{ route('petugas.akun_ditangguhkan.show', $item->id) }}" 
-                                    class="btn btn-info text-white {{ in_array($item->status, ['Diterima', 'Survey', 'Aktif']) ? 'disabled' : '' }}">
+                                    class="btn {{ in_array($item->status, ['Diterima','Survey','Aktif']) 
+                                                    ? 'btn-secondary disabled' 
+                                                    : 'btn-info text-white' }}">
                                         Cek Dokumen
                                     </a>
                                 </td>
@@ -44,6 +46,18 @@
                                 @endif
                             </td>
                             <td>
+                                @if(is_null($item->survey_date))
+                                    <span class="badge bg-secondary mb-2">Belum Dijadwalkan</span>
+                                @elseif($item->status_survey == 'Menunggu')
+                                    <span class="badge bg-warning mb-2">Menunggu Survey</span>
+                                @elseif($item->status_survey == 'Layak')
+                                    <span class="badge bg-success mb-2">Layak</span>
+                                @elseif($item->status_survey == 'Perlu Perbaikan')
+                                    <span class="badge bg-danger mb-2">Perlu Perbaikan</span>
+                                @else
+                                    <span class="badge bg-dark mb-2">{{ $item->status_survey ?? $item->status }}</span>
+                                @endif
+
                                 @php $isActive = $item->status === 'Aktif'; @endphp
                                 <form action="{{ route('petugas.akun_ditangguhkan.setSurvey', $item->id) }}" method="POST">
                                     @csrf
@@ -63,18 +77,23 @@
                                     </button>
                                 </form>
                             </td>
+
                             <td>
-                                <form action="{{ route('petugas.akun_ditangguhkan.setHasilSurvey', $item->id) }}" method="POST">
+                                <form action="{{ route('petugas.akun_ditangguhkan.setHasilSurvey', $item->id) }}" method="POST" class="hasil-survey-form">
                                     @csrf
                                     @method('PUT')
-                                    <select name="survey_result" class="form-control mb-2" 
+
+                                    <select name="survey_result" class="form-control mb-2 survey-result" data-id="{{ $item->id }}"
                                         {{ $isActive ? 'disabled style=background-color:#e9ecef;' : 'required' }}>
                                         <option value="">-- Pilih Hasil --</option>
-                                        <option value="Layak" {{ $isActive ? 'selected' : '' }}>Layak</option>
-                                        <option value="Perlu Perbaikan" {{ $isActive ? 'disabled' : '' }}>Perlu Perbaikan</option>
+                                        <option value="Layak" {{ $isActive && $item->survey_result == 'Layak' ? 'selected' : '' }}>Layak</option>
+                                        <option value="Perlu Perbaikan" {{ $isActive && $item->survey_result == 'Perlu Perbaikan' ? 'selected' : '' }}>Perlu Perbaikan</option>
                                     </select>
-                                    <button type="submit" class="btn w-100" 
-                                        style="background-color: {{ $isActive ? '#6c757d' : '#20b2aa' }}; color:white;" 
+
+                                    <input type="hidden" name="catatan_petugas" id="catatan-{{ $item->id }}">
+
+                                    <button type="submit" class="btn w-100"
+                                        style="background-color: {{ $isActive ? '#6c757d' : '#20b2aa' }}; color:white;"
                                         {{ $isActive ? 'disabled' : '' }}>
                                         {{ $isActive ? 'Akun Aktif' : 'Simpan Hasil' }}
                                     </button>
@@ -90,6 +109,25 @@
                     @endif
                 </tbody>
             </table>
+            <!-- Modal Catatan Petugas -->
+            <div class="modal fade" id="modalCatatan" tabindex="-1" aria-labelledby="modalCatatanLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="modalCatatanLabel">Catatan Petugas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="inputCatatan" class="form-control" rows="4" placeholder="Tuliskan catatan perbaikan..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-success" id="simpanCatatan">Simpan Catatan</button>
+                </div>
+                </div>
+            </div>
+            </div>
+
             </div>
         </div>
     </div>
@@ -104,5 +142,37 @@
         minDate: "today"
     });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let currentId = null; // id baris yang dipilih
+
+    // buka modal kalau pilih "Perlu Perbaikan"
+    document.querySelectorAll('.survey-result').forEach(select => {
+        select.addEventListener('change', function() {
+            if (this.value === 'Perlu Perbaikan') {
+                currentId = this.getAttribute('data-id');
+                var modal = new bootstrap.Modal(document.getElementById('modalCatatan'));
+                modal.show();
+            }
+        });
+    });
+
+    // simpan catatan ke hidden input
+    document.getElementById('simpanCatatan').addEventListener('click', function() {
+        const catatan = document.getElementById('inputCatatan').value.trim();
+        if (!catatan) {
+            alert("Catatan harus diisi!");
+            return;
+        }
+        document.getElementById('catatan-' + currentId).value = catatan;
+
+        // close modal
+        var modalEl = document.getElementById('modalCatatan');
+        var modal = bootstrap.Modal.getInstance(modalEl);
+        modal.hide();
+    });
+});
+</script>
+
 
 @endsection

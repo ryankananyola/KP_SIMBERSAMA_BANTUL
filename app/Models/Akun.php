@@ -22,11 +22,12 @@ class Akun extends Authenticatable
         'kapanewon_id',
         'kelurahan_id',
         'padukuhan_id',
+        'link_maps',
         'username',
         'role',
     ];
 
-    protected $hidden = ['password'];
+    protected $hidden = ['password','remember_token'];
 
     public function kapanewon()
     {

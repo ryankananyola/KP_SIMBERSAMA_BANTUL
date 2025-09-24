@@ -81,6 +81,19 @@
                         <input type="text" class="form-control bg-light text-muted border-0" 
                             value="{{ $akun->kapanewon->nama ?? '-' }}" readonly>
                     </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Link Google Maps</label>
+                        @if (!empty($akun->link_maps))
+                            <a href="{{ $akun->link_maps }}" target="_blank" 
+                            class="d-flex align-items-center gap-2 p-2 rounded bg-light border text-primary text-decoration-none">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>Lihat di Google Maps</span>
+                            </a>
+                        @else
+                            <input type="text" class="form-control bg-light text-muted border-0" 
+                                value="-" readonly>
+                        @endif
+                    </div>
                 </div>
 
                 <div class="mt-4 text-end">

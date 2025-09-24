@@ -14,15 +14,16 @@
             overflow-x: hidden;
         }
         .sidebar {
-            background: #256d5a;
+            background: #fff;
             min-height: 100vh;
-            color: #fff;
+            color: #000000;
             width: 16.5rem;
             transition: all 0.3s;
             position: fixed;
             top: 0;
             left: 0;
             z-index: 1000; 
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
         }
         .sidebar.collapsed {
             margin-left: -16.5rem;
@@ -39,7 +40,7 @@
         }
         .sidebar .nav-link, 
         .sidebar .nav-link:visited { 
-            color: #fff; 
+            color: #000000; 
         }
         .sidebar .nav-link.active {
             background: #004d40;
@@ -55,7 +56,7 @@
             font-weight: bold;
             margin-top: 1.5rem;
             margin-bottom: 0.5rem;
-            color: #b2dfdb;
+            color: #000000;
         }
         .sidebar .material-icons { 
             vertical-align: middle; 
@@ -71,7 +72,7 @@
         
         #topbarToggle { 
             display: inline-block; 
-            color: #256d5a;
+            color: #ffffff;
             cursor: pointer;
         }
 
@@ -94,7 +95,6 @@
     <div class="row">
         <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar py-3 px-0">
             <div class="d-flex align-items-center mb-4 px-3">
-                <span class="material-icons me-2" onclick="toggleSidebar()" style="cursor:pointer;">menu</span>
                 <img src="{{ asset('assets/images/LogoBantul.png') }}" alt="Logo Bantul" 
                      style="width:40px; height:40px; object-fit:contain;" class="me-2">
                 <span class="fw-bold">SIMBERSAMA</span>
@@ -129,7 +129,7 @@
                 </li>
                 <li class="nav-item mt-4">
                     <button type="button" 
-                            class="nav-link btn btn-link text-white w-100 text-start" 
+                            class="nav-link btn btn-link text-black w-100 text-start" 
                             data-bs-toggle="modal" data-bs-target="#logoutModal">
                         <span class="material-icons">logout</span> Logout
                     </button>
@@ -138,7 +138,7 @@
         </nav>
 
         <main id="content" class="px-md-4 content">
-            <div class="d-flex align-items-center py-3 mb-3 border-bottom bg-white px-3" style="min-height:56px;">
+            <div class="d-flex align-items-center py-3 mb-3 border-bottom px-3 sticky-top" style="min-height:56px; z-index: 1020; background-color:#004d40; color:white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                 <span id="topbarToggle" class="material-icons me-3" onclick="toggleSidebar()">menu</span>
             </div>
 

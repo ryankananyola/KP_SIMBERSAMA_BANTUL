@@ -26,6 +26,8 @@ class DokumenSK extends Model
         'status',
         'survey_result',
         'survey_date', 
+        'status_survey',
+        'catatan_petugas',
     ];
 
     public function user()

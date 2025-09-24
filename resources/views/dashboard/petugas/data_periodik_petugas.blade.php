@@ -56,7 +56,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th>No</th>
-                                <th>Nama User</th>
+                                <th>Nama Bank Sampah</th>
                                 <th>Periode</th>
                                 <th>Tahun</th>
                                 <th class="text-center">Aksi</th>
@@ -66,7 +66,7 @@
                             @foreach ($laporan as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->user->nama ?? '-' }}</td>
+                                    <td>{{ $item->user->nama_bank_sampah ?? '-' }}</td>
                                     <td>{{ $item->periode == 1 ? 'Januari - Juni' : 'Juli - Desember' }}</td>
                                     <td>{{ $item->tahun }}</td>
                                     <td class="text-center">

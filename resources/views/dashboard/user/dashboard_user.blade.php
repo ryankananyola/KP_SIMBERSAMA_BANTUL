@@ -14,6 +14,11 @@
                 $latestSK = \App\Models\DokumenSK::where('user_id', auth()->id())->latest()->first();
                 $status = $latestSK->status ?? 'Belum Upload';
                 $surveyDate = $latestSK ? $latestSK->survey_date : null;
+                $status_survey = $latestSK ? $latestSK->status_survey : null;
+                $catatanPetugas = $latestSK ? $latestSK->catatan_petugas : null;
+                $bankName = $latestSK && $latestSK->user && !empty($latestSK->user->nama_bank_sampah)
+                ? $latestSK->user->nama_bank_sampah
+                : (auth()->user()->nama_bank_sampah ?? 'Bank Sampah Anda');
             @endphp
 
             @if($status == 'Belum Upload')
@@ -28,7 +33,6 @@
                         <a href="{{ route('user.upload_sk.store') }}" class="btn btn-sm btn-danger">Upload SK Sekarang</a>
                     </div>
                 </div>
-
             @elseif($status == 'Pending')
                 <div class="alert alert-warning">
                     <h6 class="fw-bold text-warning">Menunggu Verifikasi Dokumen</h6>
@@ -45,27 +49,42 @@
             @elseif($status == 'Diterima')
                 <div class="alert alert-success">
                     <h6 class="fw-bold">SK Diterima</h6>
-                    <p class="mb-0">Dokumen Anda telah diterima. Menunggu jadwal survey dari petugas.</p>
+                    <p class="mb-0">Dokumen Anda telah diterima. Menunggu jadwal survei dari petugas.</p>
                 </div>
 
-            @elseif($status == 'Survey')
+            @elseif($status == 'Survey' && $status_survey != 'Perlu Perbaikan')
                 <div class="alert alert-primary">
-                    <h6 class="fw-bold">Informasi Survey</h6>
-                    <p class="mb-0">Petugas telah menjadwalkan survey.</p>
+                    <h6 class="fw-bold">Informasi Survei</h6>
+                    <p class="mb-0">Petugas telah menjadwalkan survei.</p>
                     @if($surveyDate)
                         <hr>
                         <p class="mb-0 fw-bold">
-                            Jadwal Survey Anda: {{ Carbon::parse($surveyDate)->translatedFormat('d F Y, H:i') }}
+                            Jadwal Survei Anda: {{ Carbon::parse($surveyDate)->translatedFormat('d F Y, H:i') }}
                         </p>
                     @endif
                 </div>
+            @endif
 
-            @elseif($status == 'Aktif')
-                <div class="alert alert-info">
-                    <h6 class="fw-bold">Survey Selesai</h6>
-                    <p class="mb-0">Selamat, survey sudah selesai. Proses pendaftaran Anda berhasil dan akun anda Aktif 🎉</p>
+            @if($status_survey == 'Perlu Perbaikan')
+                <div class="alert alert-danger mt-3">
+                    <h6 class="fw-bold text-danger">Hasil Survei: Perlu Perbaikan</h6>
+                    <p>Petugas menyatakan hasil survei <strong>{{ $bankName }}</strong> perlu perbaikan. Silakan perbaiki sesuai catatan di bawah:</p>
+                    @if($catatanPetugas)
+                        <div class="alert alert-light border mt-2 text-start">
+                            <strong>Catatan Petugas:</strong> <br>
+                            {{ $catatanPetugas }}
+                        </div>
+                    @endif
                 </div>
             @endif
+
+            @if($status == 'Aktif')
+                <div class="alert alert-info">
+                    <h6 class="fw-bold">Survei Selesai</h6>
+                    <p class="mb-0">Selamat, survei sudah selesai. Proses pendaftaran Anda berhasil dan akun anda Aktif 🎉</p>
+                </div>
+            @endif
+
         </div>
     </div>
 </div>

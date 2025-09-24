@@ -28,26 +28,9 @@
                 @else
                     <div class="table-responsive">
                         <table class="table table-bordered align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Jenis SK</th>
-                                    <th>Tanggal Upload</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
                             <tbody>
                                 @foreach ($sk_list as $index => $sk)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $sk->sk }}</td>
-                                    <td>{{ $sk->created_at->format('d-m-Y H:i') }}</td>
-                                    <td>{{ $sk->status ?? '-' }}</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#detailModal-{{ $sk->id }}">Detail</button>
-                                    </td>
-                                </tr>
+                                    @include('dashboard.user.partials.detail_sk', ['sk' => $sk])
                                 @endforeach
                             </tbody>
                         </table>
@@ -215,26 +198,9 @@
                 @else
                     <div class="table-responsive">
                         <table class="table table-bordered align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Jenis SK</th>
-                                    <th>Tanggal Upload</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
                             <tbody>
                                 @foreach ($sk_list as $index => $sk)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $sk->sk }}</td>
-                                    <td>{{ $sk->created_at->format('d-m-Y H:i') }}</td>
-                                    <td>{{ $sk->status ?? '-' }}</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#detailModal-{{ $sk->id }}">Detail</button>
-                                    </td>
-                                </tr>
+                                    @include('dashboard.user.partials.detail_sk', ['sk' => $sk])
                                 @endforeach
                             </tbody>
                         </table>

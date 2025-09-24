@@ -80,14 +80,6 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-semibold mb-1">Pilih Wilayah</label>
-                        <select class="w-full border rounded px-3 py-2" name="wilayah">
-                            <option>--Pilih Wilayah--</option>
-                            <option>Ibukota Kabupaten</option></option>
-                            <option>Non-Ibukota Kabupaten</option>
-                        </select>
-                    </div>
-                    <div>
                         <label class="block text-sm font-semibold mb-1">Alamat Bank Sampah</label>
                         <input type="text" class="w-full border rounded px-3 py-2" name="alamat" placeholder="Cth: J. Wiyoro Kidul, Wirono">
                     </div>
