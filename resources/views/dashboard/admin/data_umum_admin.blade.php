@@ -10,29 +10,42 @@
                     <option value="user" {{ $filter === 'user' ? 'selected' : '' }}>User</option>
                 </select>
             </form>
-
             <table class="table table-bordered align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th style="width: 50px;">#</th>
-                        <th>Nama {{ ucfirst($filter) }}</th>
-                        <th style="width: 120px;">Action</th>
+                        <th style="width: 50px;">No</th>
+                        @if($filter === 'petugas')
+                            <th>Username</th>
+                        @else
+                            <th>Nama Bank Sampah</th>
+                        @endif
+                        <th style="width: 120px;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $index => $item)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->nama }}</td>
+
+                            @if($filter === 'petugas')
+                                <td>{{ $item->username }}</td>
+                            @else
+                                <td>{{ $item->nama_bank_sampah }}</td>
+                            @endif
+
                             <td>
-                                <a href="{{ route('admin.data_umum.show', $item->id) }}?filter={{ $filter }}" class="btn btn-info text-white">
+                                <a href="{{ route('admin.data_umum.show', $item->id) }}?filter={{ $filter }}" 
+                                class="btn btn-info text-white">
                                     Detail
                                 </a>
                             </td>
                         </tr>
                     @endforeach
+
                     @if ($data->isEmpty())
-                        <tr><td colspan="3" class="text-center">Tidak ada data</td></tr>
+                        <tr>
+                            <td colspan="3" class="text-center">Tidak ada data</td>
+                        </tr>
                     @endif
                 </tbody>
             </table>

@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIMBERSAMA - Bantul Bersama</title>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-[#f5f7f6] font-[Instrument Sans]">
+<body class="bg-[#f5f7f6] font-['Inter']">
     <header class="bg-green-800 py-4 px-8 flex justify-between items-center shadow-md">
         <div class="text-white text-2xl font-bold tracking-wide">SIMBERSAMA</div>
         <a href="/login" class="bg-white text-green-800 font-bold px-6 py-2 rounded hover:bg-[#ffe066] transition">MASUK</a>

@@ -9,27 +9,27 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <label class="form-label">Nama Pengelola</label>
-                    <input type="text" class="form-control" value="{{ $akun->nama }}" readonly>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->nama }}" readonly>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Username</label>
-                    <input type="text" class="form-control" value="{{ $akun->username }}" readonly>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->username }}" readonly>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Email</label>
-                    <input type="email" class="form-control" value="{{ $akun->email }}" readonly>
+                    <input type="text" class="form-control bg-light text-muted border-0"" value="{{ $akun->email }}" readonly>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Nomor WhatsApp</label>
-                    <input type="text" class="form-control" value="{{ $akun->nomor_wa }}" readonly>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->nomor_wa }}" readonly>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Jenis Fasilitas</label>
-                    <input type="text" class="form-control" value="{{ $akun->jenis_fasilitas }}" readonly>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->jenis_fasilitas }}" readonly>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Nama Bank Sampah</label>
-                    <input type="text" class="form-control" value="{{ $akun->nama_bank_sampah }}" readonly>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->nama_bank_sampah }}" readonly>
                 </div>
             </div>
 
@@ -37,19 +37,32 @@
             <div class="row g-3">
                 <div class="col-md-12">
                     <label class="form-label">Alamat</label>
-                    <input type="text" class="form-control" value="{{ $akun->alamat }}" readonly>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->alamat }}" readonly>
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Padukuhan</label>
-                    <input type="text" class="form-control" value="{{ $akun->padukuhan->nama ?? '-' }}" readonly>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->padukuhan->nama ?? '-' }}" readonly>
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Kelurahan</label>
-                    <input type="text" class="form-control" value="{{ $akun->kelurahan->nama ?? '-' }}" readonly>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->kelurahan->nama ?? '-' }}" readonly>
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Kapanewon</label>
-                    <input type="text" class="form-control" value="{{ $akun->kapanewon->nama ?? '-' }}" readonly>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->kapanewon->nama ?? '-' }}" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Link Google Maps</label>
+                        @if (!empty($akun->link_maps))
+                            <a href="{{ $akun->link_maps }}" target="_blank" 
+                            class="d-flex align-items-center gap-2 p-2 rounded bg-light border text-primary text-decoration-none">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>Lihat di Google Maps</span>
+                            </a>
+                        @else
+                            <input type="text" class="form-control bg-light text-muted border-0" 
+                                value="-" readonly>
+                        @endif
                 </div>
             </div>
 

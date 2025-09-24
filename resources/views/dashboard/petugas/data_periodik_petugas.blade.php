@@ -39,12 +39,19 @@
         </div>
     </div>
 
-    {{-- Jika sudah pilih filter --}}
     @if(request()->hasAny(['periode', 'tahun']))
-        {{-- Tabel Sudah Isi --}}
+        <div class="mb-3 text-end">
+            <a href="{{ route('petugas.data_periodik.exportPdf', request()->only(['periode', 'tahun'])) }}" 
+            class="btn btn-danger">
+            Export PDF
+            </a>
+        </div>
+    @endif
+    
+    @if(request()->hasAny(['periode', 'tahun']))
         <div class="card mb-4">
             <div class="card-header bg-success text-white fw-bold">
-                User yang Sudah Isi Laporan
+                Bank Sampah yang Sudah Isi Laporan
             </div>
             <div class="card-body">
                 @if($laporan->isEmpty())
@@ -82,12 +89,12 @@
 
         <div class="card">
             <div class="card-header bg-danger text-white fw-bold">
-                User yang Belum Isi Laporan
+                Bank Sampah yang Belum Isi Laporan
             </div>
             <div class="card-body">
                 @if($belumIsi->isEmpty())
                     <div class="alert alert-success text-center">
-                        Semua user sudah mengisi laporan pada periode ini 🎉
+                        Semua Bank Sampah sudah mengisi laporan pada periode ini 🎉
                     </div>
                 @else
                     <div class="table-responsive">

@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <div class="container-fluid p-4">
-    <h1 class="h3 mb-4 fw-bold text-center">Daftar Akun Ditanggukan</h1>
+    <h1 class="h3 mb-4 fw-bold text-center">Daftar Akun Ditangguhkan</h1>
     <div class="card shadow">
         <div class="card-body">
             <div class="table-responsive">
@@ -17,7 +17,7 @@
                         <th>Aksi</th>
                         <th>Status</th>
                         <th>Survei</th>
-                        <th>Hasil Survey</th>
+                        <th>Hasil Survei</th>
                     </tr>
                 </thead>
                 <tbody>

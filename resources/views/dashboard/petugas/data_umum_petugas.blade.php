@@ -17,7 +17,7 @@
                     @foreach ($data as $index => $item)
                         <tr class="border rounded shadow-sm mb-2">
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->nama_bank_sampah }}</td>
                             <td class="text-center">
                                 <a href="{{ route('petugas.data_umum.show', $item->id) }}" 
                                     class="btn btn-info btn-sm text-white">

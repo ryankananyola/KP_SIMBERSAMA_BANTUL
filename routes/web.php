@@ -87,15 +87,17 @@ Route::middleware(['auth:adminstaf'])->group(function () {
     });
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:adminstaf'])->group(function () {
     Route::prefix('dashboard_admin')->name('admin.')->group(function () {
         Route::get('/', [DashboardAdminController::class, 'dashboard'])->name('dashboard');
 
         Route::get('/data-umum', [App\Http\Controllers\Admin\DataUmumAdminController::class, 'index'])->name('data_umum.index');
         Route::get('/data-umum/{id}', [App\Http\Controllers\Admin\DataUmumAdminController::class, 'show'])->name('data_umum.show');
 
+        Route::get('/data-periodik/export-pdf', [DataPeriodikAdminController::class, 'exportPdf']) ->name('data_periodik.exportPdf');
         Route::get('/data-periodik', [App\Http\Controllers\Admin\DataPeriodikAdminController::class, 'index'])->name('data_periodik');
         Route::get('/data-periodik/{id}', [App\Http\Controllers\Admin\DataPeriodikAdminController::class, 'show'])->name('data_periodik.show'); 
+        Route::get('/data-periodik/{id}/export-pdf', [\App\Http\Controllers\Admin\DataPeriodikAdminController::class, 'exportSinglePdf'])->name('data_periodik.exportSinglePdf');
 
         Route::get('/akun-ditangguhkan', [AkunDitangguhkanAdminController::class, 'index'])->name('akun_ditangguhkan_admin.index');
         Route::get('/akun-ditangguhkan/{id}', [AkunDitangguhkanAdminController::class, 'show'])->name('akun_ditangguhkan_admin.show');
@@ -108,8 +110,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/akun/store', [App\Http\Controllers\Admin\AkunAdminController::class, 'store'])->name('akun.store');   
     });
 });
-
-
 
 Route::post('/logout', function () {
     Auth::logout();
