@@ -1,11 +1,11 @@
 <?php
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\DokumenSK;
 use Illuminate\Http\Request;
 
-class AkunDitangguhkanadminController extends Controller
+class AkunDitangguhkanAdminController extends Controller
 {
     public function index()
     {
@@ -50,30 +50,45 @@ class AkunDitangguhkanadminController extends Controller
 
         $sk = DokumenSK::findOrFail($id);
         $sk->survey_date = $request->survey_date;
-        $sk->status = 'Survey';
+        $sk->status = 'Menunggu';
+
+        if ($sk->status === 'Diterima') {
+            $sk->status = 'Survey';
+        }  
+
         $sk->save();
 
-        return redirect()->back()->with('success', 'Tanggal survey berhasil diset');
+        return redirect()->back()->with('success', 'Tanggal survey berhasil diset & status berubah ke Survey');
     }
 
     public function setHasilSurvey(Request $request, $id)
     {
-        $request->validate([
-            'survey_result' => 'required|in:Layak,Perlu Perbaikan'
-        ]);
+        $rules = [
+            'survey_result' => 'required|in:Lauak,Perlu Perbaikan',
+        ];
+
+        if ($request->survey_result === 'Perlu Perbaikan') {
+            $rules['catatan_petugas'] = 'required|string|max:500';
+        }
+
+        $request->validate($rules);
 
         $sk = DokumenSK::with('user')->findOrFail($id);
-        $sk->survey_result = $request->survey_result;
 
-        if ($request->survey_result == 'Layak') {
-            $sk->status = 'Aktif';
+        $sk->status_survey = $request->survey_result;
+
+        if ($request->survey_result === 'Layak') {
+            $sk->status_survey = 'Layak';
+            $sk->status = 'Aktif'; 
+            $sk->catatan_petugas = null;
 
             $akun = $sk->user;
             if ($akun) {
-                $akun->update(['role' => 0]); 
+                $akun->update(['role' => 0]);
             }
         } else {
-            $sk->status = 'Perlu Revisi';
+            $sk->status_survey = 'Perlu Perbaikan';
+            $sk->catatan_petugas = $request->catatan_petugas;
         }
 
         $sk->save();

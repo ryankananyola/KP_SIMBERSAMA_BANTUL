@@ -13,27 +13,31 @@ class DataPeriodikAdminController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'periode' => 'nullable|in:1,2', 
-            'tahun'   => 'nullable|integer|min:2020|max:' . date('Y'), 
+            'periode' => 'nullable|in:1,2',
+            'tahun'   => 'nullable|integer|min:2020|max:' . date('Y'),
         ]);
 
-        $query = LaporanPeriodik::query();
+        $periode = $request->periode;
+        $tahun   = $request->tahun;
 
-        if ($request->filled('periode')) {
-            $query->where('periode', $request->periode);
+        $query = LaporanPeriodik::with('user');
+
+        if (!empty($periode)) {
+            $query->where('periode', $periode);
         }
 
-        if ($request->filled('tahun')) {
-            $query->where('tahun', $request->tahun);
+        if (!empty($tahun)) {
+            $query->where('tahun', $tahun);
         }
 
-        $laporan = $query->with('user')->get();
+        $sudahIsi = (clone $query)->pluck('user_id')->toArray();
 
-        $users = Akun::all();
+        $laporan = $query->paginate(5, ['*'], 'laporan_page')
+                        ->appends($request->query());
 
-        $sudahIsi = $laporan->pluck('user_id')->toArray();
-
-        $belumIsi = $users->whereNotIn('id', $sudahIsi);
+        $belumIsi = Akun::whereNotIn('id', $sudahIsi)
+                        ->paginate(5, ['*'], 'belum_page')
+                        ->appends($request->query());
 
         return view('dashboard.admin.data_periodik_admin', [
             'laporan'   => $laporan,

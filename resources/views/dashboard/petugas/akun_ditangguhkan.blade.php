@@ -70,10 +70,19 @@
                                     @if($isActive)
                                         <input type="hidden" name="survey_date" value="{{ $item->survey_date }}">
                                     @endif
+                                    @php
+                                        $hasSchedule = !is_null($item->survey_date); 
+                                    @endphp
                                     <button type="submit" class="btn w-100" 
                                         style="background-color: {{ $isActive ? '#6c757d' : '#20b2aa' }}; color:white;" 
                                         {{ $isActive ? 'disabled' : '' }}>
-                                        {{ $isActive ? 'Akun Aktif' : 'Simpan Jadwal' }}
+                                        @if($isActive)
+                                            Akun Aktif
+                                        @elseif($hasSchedule)
+                                            Revisi Jadwal
+                                        @else
+                                            Simpan Jadwal
+                                        @endif
                                     </button>
                                 </form>
                             </td>
@@ -109,7 +118,10 @@
                     @endif
                 </tbody>
             </table>
-            <!-- Modal Catatan Petugas -->
+            <div class="d-flex justify-content-center mt-3">
+                {{ $data->links('pagination::bootstrap-5') }}
+            </div>
+
             <div class="modal fade" id="modalCatatan" tabindex="-1" aria-labelledby="modalCatatanLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -144,9 +156,8 @@
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    let currentId = null; // id baris yang dipilih
+    let currentId = null;
 
-    // buka modal kalau pilih "Perlu Perbaikan"
     document.querySelectorAll('.survey-result').forEach(select => {
         select.addEventListener('change', function() {
             if (this.value === 'Perlu Perbaikan') {
@@ -157,7 +168,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // simpan catatan ke hidden input
     document.getElementById('simpanCatatan').addEventListener('click', function() {
         const catatan = document.getElementById('inputCatatan').value.trim();
         if (!catatan) {
@@ -166,7 +176,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         document.getElementById('catatan-' + currentId).value = catatan;
 
-        // close modal
         var modalEl = document.getElementById('modalCatatan');
         var modal = bootstrap.Modal.getInstance(modalEl);
         modal.hide();

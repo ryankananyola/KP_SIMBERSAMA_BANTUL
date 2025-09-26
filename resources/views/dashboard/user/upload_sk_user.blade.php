@@ -20,7 +20,7 @@
             <p>Anda sudah mengupload SK dengan status <strong>{{ $status ?? '-' }}</strong>.
                 Tunggu konfirmasi petugas sebelum upload lagi.</p>
         </div>
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mt-4">
             <div class="card-body">
                 <h5 class="fw-bold mb-3">Riwayat Upload SK</h5>
                 @if($sk_list->isEmpty())
@@ -28,9 +28,23 @@
                 @else
                     <div class="table-responsive">
                         <table class="table table-bordered align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Jenis dan Nomor SK</th>
+                                    <th>Diperlukan Oleh</th>
+                                    <th>Struktur Organisasi</th>
+                                    <th>Kondisi Bangunan</th>
+                                    <th>Dibangun Oleh</th>
+                                    <th>Pihak yang Membangun</th>
+                                    <th>Tahun Pembangunan</th>
+                                    <th>Luas (m²)</th>
+                                    <th>Biaya Pembangunan</th>
+                                    <th>File SK</th>
+                                </tr>
+                            </thead>
                             <tbody>
-                                @foreach ($sk_list as $index => $sk)
-                                    @include('dashboard.user.partials.detail_sk', ['sk' => $sk])
+                                @foreach ($sk_list as $sk)
+                                    @include('dashboard.user.partials.sk_row', ['sk' => $sk])
                                 @endforeach
                             </tbody>
                         </table>
@@ -200,7 +214,7 @@
                         <table class="table table-bordered align-middle">
                             <tbody>
                                 @foreach ($sk_list as $index => $sk)
-                                    @include('dashboard.user.partials.detail_sk', ['sk' => $sk])
+                                    @include('dashboard.user.partials.ringkasan_sk', ['headerClass' => 'bg-success'])
                                 @endforeach
                             </tbody>
                         </table>

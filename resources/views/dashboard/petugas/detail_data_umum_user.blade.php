@@ -83,6 +83,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 <!-- Styling CSS langsung di dalam file -->
@@ -193,3 +194,6 @@
     }
 }
 </style>
+
+@endsection
+
