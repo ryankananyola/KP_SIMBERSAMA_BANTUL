@@ -10,7 +10,7 @@ class DataUmumPetugasController extends Controller
 {
     public function index()
     {
-        $data = Akun::where('role', 0)->get();
+        $data = Akun::where('role', 0)->paginate(10);
 
         return view('dashboard.petugas.data_umum_petugas', compact('data'));
     }

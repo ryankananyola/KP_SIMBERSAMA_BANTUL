@@ -35,8 +35,7 @@
             <table class="table table-bordered table-striped align-middle text-center">
                 <thead class="table-primary">
                     <tr>
-                        <th>Jenis SK</th>
-                        <th>No SK</th>
+                        <th>Jenis dan Nomor SK</th>
                         <th>Diperlukan Oleh</th>
                         <th>Struktur Organisasi</th>
                         <th>Kondisi Bangunan</th>
@@ -50,8 +49,12 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ $sk->sk ?? '-' }}</td>
-                        <td>{{ $sk->no_sk ?? '-' }}</td>
+                        <td>
+                            {{ $sk->sk ?? '-' }} 
+                            @if(!empty($sk->no_sk))
+                                ({{ $sk->no_sk }})
+                            @endif
+                        </td>
                         <td>{{ $sk->diperlukan_oleh ?? '-' }}</td>
                         <td>{{ $sk->struktur_organisasi ?? '-' }}</td>
                         <td>{{ $sk->kondisi_bangunan ?? '-' }}</td>
@@ -65,12 +68,12 @@
                                 @php $ext = pathinfo($sk->file_sk, PATHINFO_EXTENSION); @endphp
                                 @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif']))
                                     <img src="{{ asset('storage/' . $sk->file_sk) }}" 
-                                         alt="File SK" 
-                                         class="img-fluid rounded" style="max-height:120px">
+                                        alt="File SK" 
+                                        class="img-fluid rounded" style="max-height:120px">
                                 @elseif(strtolower($ext) === 'pdf')
-                                    <a href="{{ asset('storage/' . $sk->file_sk) }}" target="_blank" class="btn btn-sm btn-primary">
-                                        Lihat PDF
-                                    </a>
+                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#pdfModal">
+                                        Lihat File
+                                    </button>
                                 @else
                                     <a href="{{ asset('storage/' . $sk->file_sk) }}" target="_blank" class="btn btn-sm btn-primary">
                                         Download File
@@ -108,7 +111,20 @@
     </div>
 </div>
 
-{{-- Modal Revisi --}}
+<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl"> 
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="pdfModalLabel">Pratinjau Dokumen SK (PDF)</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body">
+        <iframe src="{{ asset('storage/' . $sk->file_sk) }}" width="100%" height="600px" style="border:none;"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="revisiModal" tabindex="-1" aria-labelledby="revisiModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <form action="{{ route('petugas.akun_ditangguhkan.verify', $sk->id) }}" method="POST">

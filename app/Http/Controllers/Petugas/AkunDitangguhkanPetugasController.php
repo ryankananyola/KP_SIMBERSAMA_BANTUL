@@ -9,7 +9,7 @@ class AkunDitangguhkanPetugasController extends Controller
 {
     public function index()
     {
-        $data = DokumenSK::with('user')->get();
+        $data = DokumenSK::with('user')->paginate(5);
         return view('dashboard.petugas.akun_ditangguhkan', compact('data'));
     }
 
@@ -89,7 +89,6 @@ class AkunDitangguhkanPetugasController extends Controller
             }
         } else {
             $sk->status_survey = 'Perlu Perbaikan';
-            $sk->status = 'Perlu Perbaikan';
             $sk->catatan_petugas = $request->catatan_petugas;
         }
 
