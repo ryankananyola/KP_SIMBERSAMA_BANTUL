@@ -5,7 +5,6 @@
     <h1 class="h3 mb-4 fw-bold text-center">Data Umum User</h1>
     <div class="card">
         <div class="card-body">
-            <!-- Tabel Data Bank Sampah -->
             <table class="table table-hover align-middle">
                 <thead>
                     <tr>
@@ -20,7 +19,6 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->nama_bank_sampah }}</td>
                             <td class="text-center">
-                                <!-- Tombol Detail -->
                                 <a href="{{ route('petugas.data_umum.show', $item->id) }}" 
                                     class="btn btn-primary btn-sm text-white">
                                     Detail

@@ -86,9 +86,7 @@
 
 @endsection
 
-<!-- Styling CSS langsung di dalam file -->
 <style>
-    /* Perbaikan Card Styling */
 .card {
     border-radius: 20px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
@@ -96,7 +94,6 @@
     background-color: #fff;
 }
 
-/* Styling untuk Form Input */
 .form-control {
     border-radius: 10px;
     padding: 12px 15px;
@@ -111,12 +108,11 @@
     font-size: 1.25rem;
     color: #276561;
     border-radius: 5px;
-    border: 1px solid #000000; /* Menambahkan border hitam di luar card */
-    padding: 10px; /* Menambahkan padding agar terlihat lebih rapi */
-    margin: 0; /* Menghapus margin default */
+    border: 1px solid #000000; 
+    padding: 10px; 
+    margin: 0;
 }
 
-/* Styling untuk Tabel */
 .table {
     width: 100%;
     margin-top: 20px;
@@ -137,7 +133,6 @@
     background-color: #ffffff;
 }
 
-/* Link Google Maps */
 .d-flex {
     display: flex;
     gap: 15px;
@@ -165,7 +160,6 @@
     text-align: right;
 }
 
-/* Tombol Styling */
 .btn {
     font-size: 1rem;
     padding: 0.6rem 1.5rem;
@@ -182,7 +176,6 @@
     border-color: #6c757d;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .row.g-3 {
         flex-direction: column;
