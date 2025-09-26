@@ -1,16 +1,17 @@
 @extends('layouts.layout_petugas')
+
 @section('content')
 <div class="container-fluid p-4">
     <h1 class="h3 mb-4 fw-bold text-center">Data Umum User</h1>
     <div class="card">
         <div class="card-body">
-
-            <table class="table table-borderless align-middle">
+            <!-- Tabel Data Bank Sampah -->
+            <table class="table table-hover align-middle">
                 <thead>
                     <tr>
-                        <th style="width: 50px;">No</th>
+                        <th>#</th>
                         <th>Nama Bank Sampah</th>
-                        <th style="width: 120px;" class="text-center">Aksi</th>
+                        <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -19,13 +20,15 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->nama_bank_sampah }}</td>
                             <td class="text-center">
+                                <!-- Tombol Detail -->
                                 <a href="{{ route('petugas.data_umum.show', $item->id) }}" 
-                                    class="btn btn-info btn-sm text-white">
+                                    class="btn btn-primary btn-sm text-white">
                                     Detail
                                 </a>
                             </td>
                         </tr>
                     @endforeach
+
                     @if ($data->isEmpty())
                         <tr>
                             <td colspan="3" class="text-center">Tidak ada data user</td>
@@ -36,7 +39,6 @@
             <div class="d-flex justify-content-center mt-3">
                 {{ $data->links('pagination::bootstrap-5') }}
             </div>
-
         </div>
     </div>
 </div>
