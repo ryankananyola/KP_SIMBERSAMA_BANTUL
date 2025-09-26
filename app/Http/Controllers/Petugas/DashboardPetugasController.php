@@ -5,12 +5,27 @@ namespace App\Http\Controllers\Petugas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\LaporanPeriodik;
 
 class DashboardPetugasController extends Controller
 {
     public function dashboard()
-    {
-        return view('dashboard.petugas.dashboard_petugas');
+    {   
+        $laporan = LaporanPeriodik::selectRaw('
+                sum(organik_rumah_tangga) as organik_rumah_tangga,
+                sum(organik_pasar) as organik_pasar,
+                sum(organik_kantor) as organik_kantor,
+                sum(anorganik_rumah_tangga) as anorganik_rumah_tangga,
+                sum(anorganik_pasar) as anorganik_pasar,
+                sum(anorganik_kantor) as anorganik_kantor,
+                sum(b3_rumah_tangga) as b3_rumah_tangga,
+                sum(b3_pasar) as b3_pasar,
+                sum(b3_kantor) as b3_kantor
+            ')
+            ->groupBy('periode', 'tahun')
+            ->get();
+
+        return view('dashboard.petugas.dashboard_petugas',compact('laporan'));
     }
 
     public function dataUmum()
