@@ -4,6 +4,7 @@
 <div class="container-fluid p-4">
     <h1 class="h3 mb-4 fw-bold text-center">Data Periodik</h1>
 
+    {{-- Filter --}}
     <div class="card mb-3">
         <div class="card-body">
             <form action="{{ route('admin.data_periodik') }}" method="GET" class="row g-3 align-items-end">
@@ -38,16 +39,15 @@
         </div>
     </div>
 
-    @if(request()->hasAny(['periode', 'tahun']))
-        <div class="mb-3 text-end">
-            <a href="{{ route('admin.data_periodik.exportPdf', request()->only(['periode', 'tahun'])) }}" 
-            class="btn btn-danger">
-            Export PDF
-            </a>
-        </div>
-    @endif
+    <div class="mb-3 text-end">
+        <a href="{{ route('admin.data_periodik.exportPdf', request()->only(['periode', 'tahun'])) }}" 
+        class="btn btn-danger">
+        Export PDF
+        </a>
+    </div>
 
-    @if(request()->hasAny(['periode', 'tahun']))
+    
+    @if($laporan->count() || $belumIsi->count())
         <div class="card mb-4">
             <div class="card-header bg-success text-white fw-bold">
                 Bank Sampah yang Sudah Isi Laporan
@@ -82,9 +82,13 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-end">
+                        {{ $laporan->appends(request()->query())->links('pagination::bootstrap-5') }}
+                    </div>
                 @endif
             </div>
         </div>
+        
 
         <div class="card">
             <div class="card-header bg-danger text-white fw-bold">
@@ -119,6 +123,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-end">
+                            {{ $belumIsi->appends(request()->query())->links('pagination::bootstrap-5') }}
+                        </div>
                     </div>
                 @endif
             </div>
