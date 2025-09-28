@@ -116,6 +116,9 @@
                     @endif
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center mt-3">
+                {{ $data->links('pagination::bootstrap-5') }}
+            </div>
             <div class="modal fade" id="modalCatatan" tabindex="-1" aria-labelledby="modalCatatanLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">

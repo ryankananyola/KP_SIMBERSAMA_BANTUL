@@ -14,9 +14,9 @@ class DataUmumAdminController extends Controller
         $filter = $request->get('filter', 'petugas'); 
 
         if ($filter === 'user') {
-            $data = Akun::where('role', 0)->get(); 
+            $data = Akun::where('role', 0)->paginate(10); 
         } else {
-            $data = Adminstaf::where('role', 1)->get(); 
+            $data = Adminstaf::where('role', 1)->paginate(10); 
         }
 
         return view('dashboard.admin.data_umum_admin', compact('data', 'filter'));
