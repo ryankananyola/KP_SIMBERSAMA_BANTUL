@@ -16,28 +16,40 @@
             </h5>            
             <div class="row g-3">
                 <div class="col-md-6">
+                    <div class="field-card">
                     <label class="form-label">Nama Pengelola</label>
                     <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->nama }}" readonly>
+                    </div>
                 </div>
                 <div class="col-md-6">
+                    <div class="field-card">
                     <label class="form-label">Username</label>
                     <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->username }}" readonly>
+                    </div>
                 </div>
                 <div class="col-md-6">
+                    <div class="field-card">
                     <label class="form-label">Email</label>
                     <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->email }}" readonly>
+                    </div>
                 </div>
                 <div class="col-md-6">
+                    <div class="field-card">
                     <label class="form-label">Nomor WhatsApp</label>
                     <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->nomor_wa }}" readonly>
+                    </div>
                 </div>
                 <div class="col-md-6">
+                    <div class="field-card">
                     <label class="form-label">Jenis Fasilitas</label>
                     <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->jenis_fasilitas }}" readonly>
+                    </div>
                 </div>
                 <div class="col-md-6">
+                    <div class="field-card">
                     <label class="form-label">Nama Bank Sampah</label>
                     <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->nama_bank_sampah }}" readonly>
+                    </div>
                 </div>
             </div>
 
@@ -47,23 +59,14 @@
                 <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
             </h5>
             <div class="row g-3">
-                <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="field-card">
                     <label class="form-label">Alamat</label>
                     <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->alamat }}" readonly>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <label class="form-label">Padukuhan</label>
-                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->padukuhan->nama ?? '-' }}" readonly>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Kelurahan</label>
-                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->kelurahan->nama ?? '-' }}" readonly>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Kapanewon</label>
-                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->kapanewon->nama ?? '-' }}" readonly>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
+                    <div class="field-card">
                     <label class="form-label">Link Google Maps</label>
                     @if (!empty($akun->link_maps))
                         <a href="{{ $akun->link_maps }}" target="_blank" class="d-flex align-items-center gap-2 p-2 rounded bg-light border text-primary text-decoration-none">
@@ -74,6 +77,26 @@
                         <input type="text" class="form-control bg-light text-muted border-0" value="-" readonly>
                     @endif
                 </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="field-card">
+                    <label class="form-label">Padukuhan</label>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->padukuhan->nama ?? '-' }}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="field-card">
+                    <label class="form-label">Kelurahan</label>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->kelurahan->nama ?? '-' }}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="field-card">
+                    <label class="form-label">Kapanewon</label>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->kapanewon->nama ?? '-' }}" readonly>
+                    </div>
+                </div>
+               
             </div>
 
             <!-- Tombol Kembali -->
@@ -86,9 +109,31 @@
 
 @endsection
 
-<!-- Styling CSS langsung di dalam file -->
 <style>
-    /* Perbaikan Card Styling */
+
+.field-card{
+  border: 1px solid #6e6e6e;
+  border-radius: 5px;           
+  background: #fff;
+  padding: 0px 14px;    
+  padding-left: 15px;
+}
+
+.field-card .form-label{
+  font-weight: 700;
+  font-size: .875rem;
+  margin-bottom: .35rem;
+  color: #2c2c2c;
+}
+.field-card .form-control{
+  background-color: #f8f9fa;
+  border: 0;                    
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #495057;
+}
+
+
 .card {
     border-radius: 20px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
@@ -96,7 +141,6 @@
     background-color: #fff;
 }
 
-/* Styling untuk Form Input */
 .form-control {
     border-radius: 10px;
     padding: 12px 15px;
@@ -110,13 +154,12 @@
     font-weight: 600;
     font-size: 1.25rem;
     color: #276561;
-    border-radius: 5px;
-    border: 1px solid #000000; /* Menambahkan border hitam di luar card */
-    padding: 10px; /* Menambahkan padding agar terlihat lebih rapi */
-    margin: 0; /* Menghapus margin default */
+    border-radius: 5px; 
+    border: 1px solid #000000; 
+    padding: 10px; 
+    margin: 0;
 }
 
-/* Styling untuk Tabel */
 .table {
     width: 100%;
     margin-top: 20px;
@@ -137,7 +180,6 @@
     background-color: #ffffff;
 }
 
-/* Link Google Maps */
 .d-flex {
     display: flex;
     gap: 15px;
@@ -165,7 +207,6 @@
     text-align: right;
 }
 
-/* Tombol Styling */
 .btn {
     font-size: 1rem;
     padding: 0.6rem 1.5rem;
@@ -182,7 +223,6 @@
     border-color: #6c757d;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .row.g-3 {
         flex-direction: column;
@@ -195,5 +235,4 @@
 }
 </style>
 
-@endsection
 

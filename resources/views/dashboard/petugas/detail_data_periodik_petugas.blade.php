@@ -4,7 +4,7 @@
 <div class="container-fluid p-4">
     <h1 class="h3 mb-4 fw-bold">Detail Laporan Periodik</h1>
             <table class="table table-sm table-bordered mt-2">
-                <thead class="table-light">
+                <thead class="table-secondary">
                     <tr>
                         <th>Sumber / Jenis</th>
                         <th>Organik (kg)</th>
@@ -42,3 +42,9 @@
     </div>
 </div>
 @endsection
+
+<style>.table tbody td{
+    text-align: center;
+    vertical-align: middle;
+  }
+</style>
