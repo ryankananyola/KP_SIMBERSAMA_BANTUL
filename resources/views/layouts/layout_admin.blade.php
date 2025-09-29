@@ -128,12 +128,12 @@
                             <span class="material-icons">person_add</span> Registrasi Baru
                         </a>
                     </li>
-                    {{-- <li class="nav-item mb-1">
-                        <a class="nav-link {{ request()->routeIs('admin.akun_ditangguhkan.*') ? 'active' : '' }}" 
-                            href="{{ route('admin.akun_ditangguhkan.index') }}">
+                    <li class="nav-item mb-1">
+                        <a class="nav-link {{ request()->routeIs('admin.petugas.*') ? 'active' : '' }}" 
+                            href="{{ route('admin.petugas.create') }}">
                             <span class="material-icons">group_add</span> Registrasi Petugas
                         </a>
-                    </li> --}}
+                    </li>
                     <li class="nav-item mb-1">
                         <a class="nav-link {{ request()->routeIs('admin.akun_ditangguhkan_admin.*') ? 'active' : '' }}" 
                             href="{{ route('admin.akun_ditangguhkan_admin.index') }}">
