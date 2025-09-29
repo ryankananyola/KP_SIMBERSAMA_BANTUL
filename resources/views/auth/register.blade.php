@@ -47,28 +47,31 @@
                     <div>
                         <label class="block text-sm font-semibold mb-1">Pilih Jenis Fasilitas</label>
                         <select class="w-full border rounded px-3 py-2" name="jenis_fasilitas">
-                            <option>--Pilih jenis Fasilitas--</option>
-                            <option>Bank Sampah</option>
-                            <option>Shodaqoh Sampah</option>
-                            <option>TPS3R</option>
-                            <option>Lainnya</option>
+                            <option value="">--Pilih jenis Fasilitas--</option>
+                            <option value="Bank Sampah" {{ old('jenis_fasilitas') == 'Bank Sampah' ? 'selected' : ''}}>Bank Sampah</option>
+                            <option value="Shodaqoh Sampah" {{ old('jenis_fasilitas') == 'Shodaqoh Sampah' ? 'selected' : ''}}>Shodaqoh Sampah</option>
+                            <option value="TPS3R" {{ old('jenis_fasilitas') == 'TPS3R'  ? 'selected' : ''}}>TPS3R</option>
+                            <option value="Lainnya" {{ old('jenis_fasilitas') == 'Lainnya'  ? 'selected' : ''}}>Lainnya</option>
                         </select>
+                        @error('jenis_fasilitas')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Nama Bank Sampah</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" name="nama_bank_sampah" placeholder="Cth: Bank Sampah UGM Jaya">
+                        <input type="text" class="w-full border rounded px-3 py-2" name="nama_bank_sampah" placeholder="Cth: Bank Sampah UGM Jaya" value="{{ old('nama_bank_sampah') }}">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Nama Pengelola</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" name="nama" placeholder="Cth: Saya Sendiri">
+                        <input type="text" class="w-full border rounded px-3 py-2" name="nama" placeholder="Cth: Saya Sendiri" value="{{ old('nama') }}">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Nomor Whatsapp</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" name="nomor_wa" placeholder="Cth: 081234567890">
+                        <input type="text" class="w-full border rounded px-3 py-2" name="nomor_wa" placeholder="Cth: 081234567890" value="{{ old('nomor_wa') }}">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Email</label>
-                        <input type="email" class="w-full border rounded px-3 py-2" name="email" placeholder="Cth: sayasendiri@gmail.com">
+                        <input type="email" class="w-full border rounded px-3 py-2" name="email" placeholder="Cth: sayasendiri@gmail.com" value="{{ old('email') }}">
                     </div>
                 </div>
             </div>
@@ -81,7 +84,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-semibold mb-1">Alamat Bank Sampah</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" name="alamat" placeholder="Cth: J. Wiyoro Kidul, Wirono">
+                        <input type="text" class="w-full border rounded px-3 py-2" name="alamat" placeholder="Cth: J. Wiyoro Kidul, Wirono" value="{{ old('alamat') }}">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Kecamatan</label>
@@ -103,7 +106,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-1">Link Google Maps</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" name="link_maps" placeholder="Cth: https://maps.app.goo.gl/xxx">
+                        <input type="text" class="w-full border rounded px-3 py-2" name="link_maps" placeholder="Cth: https://maps.app.goo.gl/xxx" value="{{ old('link_maps') }}">
                     </div>
                 </div>
             </div>
@@ -116,7 +119,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-semibold mb-1">Username</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" name="username" placeholder="Cth: sayasendiri12">
+                        <input type="text" class="w-full border rounded px-3 py-2" name="username" placeholder="Cth: sayasendiri12" value="{{ old('username') }}">
                     </div>
                     <div></div>
                     <div>
@@ -160,11 +163,7 @@
                     <span class="material-icons">login</span> Masuk
                 </a>
             </div>
-            <div class="flex justify-center mt-6">
-				<a href="/" class="bg-gray-200 text-[#256d5a] font-bold px-6 py-2 rounded shadow hover:bg-gray-300 transition flex items-center gap-2">
-					<span class="material-icons">arrow_back</span> Kembali ke Dashboard
-				</a>
-			</div>
+          
         </form>
 
     {!! NoCaptcha::renderJs() !!}

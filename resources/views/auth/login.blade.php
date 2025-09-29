@@ -48,11 +48,7 @@
 			<div class="text-white text-center mt-2 text-sm">
 				Lupa Password ? <a href="/password/reset" class="font-bold underline">Reset Password</a>
 			</div>
-			<div class="flex justify-center mt-6">
-				<a href="/" class="bg-gray-200 text-green-800 font-bold px-6 py-2 rounded shadow hover:bg-gray-300 transition flex items-center gap-2">
-					<span class="material-icons">arrow_back</span> Kembali ke Dashboard
-				</a>
-			</div>
+			
 		</div>
 	</div>
 	{!! NoCaptcha::renderJs() !!}
