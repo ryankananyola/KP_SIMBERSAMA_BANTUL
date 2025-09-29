@@ -6,15 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Akun;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Kapanewon;
 
 class AkunAdminController extends Controller
 {
-   public function create()
+    public function create()
     {
-        $kapanewon = Kapanewon::all();  
+        $kapanewon = \App\Models\Kapanewon::all();
         return view('dashboard.admin.registrasi_akun_baru', compact('kapanewon'));
     }
+
 
     public function store(Request $request)
     {
@@ -22,22 +22,22 @@ class AkunAdminController extends Controller
             'nama' => 'required|string|max:255',
             'email' => 'required|email|unique:akun,email',
             'password' => 'required|string|min:10',
-            'nomor_wa' => 'required|string|max:20',
-            'kapanewon' => 'required|string|max:255',
-            'kalurahan' => 'required|string|max:255',
-            'padukuhan' => 'required|string|max:255',
+            'username' => 'required|unique:akun,username',
+            'nomor_wa' => 'required|string',
+            'jenis_fasilitas' => 'nullable|string',
+            'nama_bank_sampah' => 'nullable|string',
+            'alamat' => 'nullable|string',
+            'kapanewon_id' => 'required|exists:kapanewon,id',
+            'kelurahan_id' => 'required|exists:kelurahan,id',
+            'padukuhan_id' => 'required|exists:padukuhan,id',
+            'link_maps' => 'nullable|url',
         ]);
 
-        Akun::create([
-            'nama' => $validated['nama'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'nomor_wa' => $validated['nomor_wa'],
-            'kapanewon' => $validated['kapanewon'],
-            'kalurahan' => $validated['kalurahan'],
-            'padukuhan' => $validated['padukuhan'],
-        ]);
+        $validated['password'] = Hash::make($validated['password']);
 
-        return redirect()->route('admin.dashboard')->with('success', 'Akun berhasil didaftarkan.');
+        Akun::create($validated);
+
+        return redirect()->route('admin.akun.create')->with('success', 'Akun berhasil dibuat!');
     }
 }
+

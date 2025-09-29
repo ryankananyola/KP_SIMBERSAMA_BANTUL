@@ -24,21 +24,18 @@ class AuthController extends Controller
             $akun = Adminstaf::where('username', $request->username)->first();
         }
 
-        // Jika tidak ditemukan sama sekali
         if (!$akun) {
             return back()->withErrors([
                 'username' => 'Username tidak ditemukan.',
             ])->withInput();
         }
 
-        // Cek password
         if (!Hash::check($request->password, $akun->password)) {
             return back()->withErrors([
                 'password' => 'Password salah.',
             ])->withInput();
         }
 
-        // Login sesuai model
         if ($akun instanceof \App\Models\Adminstaf) {
             Auth::guard('adminstaf')->login($akun);
         } else {

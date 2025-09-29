@@ -174,7 +174,6 @@ const kecamatanSelect = document.getElementById('kecamatan');
 const kelurahanSelect = document.getElementById('kelurahan');
 const padukuhanSelect = document.getElementById('padukuhan');
 
-// Ambil data kapanewon dari database
 fetch('/wilayah/kapanewon')
   .then(res => res.json())
   .then(data => {

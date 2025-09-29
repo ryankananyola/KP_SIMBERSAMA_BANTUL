@@ -9,7 +9,7 @@ class AkunDitangguhkanAdminController extends Controller
 {
     public function index()
     {
-        $data = DokumenSK::with('user')->get();
+        $data = DokumenSK::with('user')->orderBy('created_at', 'desc')->paginate(5);
         return view('dashboard.admin.akun_ditangguhkan_admin', compact('data'));
     }
 

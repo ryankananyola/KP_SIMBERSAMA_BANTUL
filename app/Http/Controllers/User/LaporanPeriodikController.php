@@ -3,6 +3,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Models\LaporanPeriodik;
+use App\Models\DokumenSK;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
@@ -10,7 +11,15 @@ class LaporanPeriodikController extends Controller
 {
     public function create()
     {
-        return view('dashboard.user.data_periodik_user');
+        $latestSK = DokumenSK::where('user_id', Auth::id())->latest()->first();
+        $statusSK = $latestSK->status ?? 'Belum Upload';
+
+        $laporanExist = LaporanPeriodik::where('user_id', Auth::id())
+            ->where('periode', 1) 
+            ->where('tahun', date('Y'))
+            ->exists();
+
+        return view('dashboard.user.data_periodik_user', compact('statusSK', 'laporanExist'));
     }
 
     public function store(Request $request)
@@ -28,6 +37,16 @@ class LaporanPeriodikController extends Controller
             'b3_pasar' => 'nullable|numeric',
             'b3_kantor' => 'nullable|numeric',
         ]);
+
+        $exists = LaporanPeriodik::where('user_id', Auth::id())
+            ->where('periode', $request->periode)
+            ->where('tahun', $request->tahun)
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()
+                ->with('error', 'Anda sudah pernah menginput laporan untuk periode dan tahun ini.');
+        }
 
         LaporanPeriodik::create([
             'user_id' => Auth::id(),

@@ -54,7 +54,6 @@ class RegisterController extends Controller
 
         $redirectUrl = null;
 
-        // cek header Location
         if (preg_match('/Location:\s*(.*)\s/i', $response, $matches)) {
             $redirectUrl = trim($matches[1]);
         }
