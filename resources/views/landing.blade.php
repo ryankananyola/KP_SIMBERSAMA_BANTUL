@@ -78,7 +78,6 @@
 <body class="bg-[var(--paper)]">
   <div class="landing-page-wrapper">
     <div class="content-wrapper">
-      <!-- Header -->
       <header class="bg-[var(--brand)] px-6 md:px-10 py-4">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
           <div class="flex items-center gap-3">
@@ -88,15 +87,13 @@
 
           <div class="flex items-center gap-3">
             <a href="/register" class="hidden sm:inline-block bg-white text-[var(--brand)] font-bold px-4 py-2 rounded-md hover:bg-yellow-300 hover:text-[var(--brand-2)] transition">Daftar</a>
-            <a href="/login" class="bg-white text-[var(--brand)] font-bold px-4 md:px-6 py-2 rounded-md hover:bg-yellow-300 hover:text-[var(--brand-2)] transition">Masuk</a>
+            <a href="/login" class="bg-green-600 text-white font-bold px-4 md:px-6 py-2 rounded-md hover:bg-yellow-300 hover:text-[var(--brand-2)] transition">Masuk</a>
           </div>
         </div>
       </header>
 
-      <!-- Main Card -->
       <main class="max-w-6xl mx-auto px-4 md:px-6">
         <section class="main-card p-6 md:p-9 mt-10">
-          <!-- Hero -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
               <h1 class="text-3xl md:text-4xl font-extrabold leading-tight text-gray-900">
@@ -119,7 +116,6 @@
               </div>
             </div>
 
-            <!-- Space untuk ilustrasi (gambar/komponen apa pun) -->
             <div class="w-full">
               <div class="w-full h-72 md:h-80 rounded-xl bg-white flex items-center justify-center">
                 <img
@@ -131,28 +127,27 @@
             </div>
           </div>
 
-          <!-- Statistic Cards -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-8">
-            <!-- Card 1 -->
             <div class="stat-card px-6 py-5 text-center">
               <div class="text-4xl font-extrabold text-gray-900">{{ $totalBankSampah }}</div>
               <div class="mt-1 text-gray-600">Bank Sampah</div>
             </div>
 
-            <!-- Card 2 -->
             <div class="stat-card px-6 py-5 text-center">
-              <div class="text-3xl font-extrabold text-gray-900">Organik</div>
+              <div class="text-3xl font-extrabold text-gray-900">
+                {{ $jenisTerbanyak ?? '-' }}
+              </div>
               <div class="mt-1 text-gray-600">Jenis Sampah Terbanyak</div>
             </div>
 
-            <!-- Card 3 -->
             <div class="stat-card px-6 py-5 text-center">
-              <div class="text-4xl font-extrabold text-gray-900">120 ton</div>
+              <div class="text-4xl font-extrabold text-gray-900">
+                {{ $formattedTotalSampah }}
+              </div>
               <div class="mt-1 text-gray-600">Total Sampah</div>
             </div>
           </div>
 
-          <!-- Download List -->
           <div class="mt-10">
             <div class="flex items-center justify-between mb-3">
               <div class="section-chip">Judul</div>
@@ -160,24 +155,14 @@
             </div>
 
             <div class="bg-white rounded-xl overflow-hidden border border-gray-200">
-              <!-- Row -->
               <div class="grid grid-cols-12 items-center px-4 py-3 border-b border-gray-100">
                 <div class="col-span-10 text-gray-800">Buku Panduan</div>
                 <div class="col-span-2 flex justify-end">
-                  <a href="#" class="btn-download">
+                  <a href="https://drive.google.com/file/d/1Sbv44XKbyC887ux-60rLcW-8jiz8h_b8/view" class="btn-download">
                     <span>⬇</span> Unduh
                   </a>
                 </div>
               </div>
-
-              {{-- <div class="grid grid-cols-12 items-center px-4 py-3 border-b border-gray-100">
-                <div class="col-span-10 text-gray-800">Template Surat Pembangunan Bumi</div>
-                <div class="col-span-2 flex justify-end">
-                  <a href="#" class="btn-download">
-                    <span>⬇</span> Unduh
-                  </a>
-                </div>
-              </div> --}}
 
               <div class="grid grid-cols-12 items-center px-4 py-3">
                 <div class="col-span-10 text-gray-800">Video Tutorial</div>
@@ -190,7 +175,6 @@
             </div>
           </div>
 
-          <!-- Info Kontak + Map -->
           <div class="mt-8">
             <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 sm:p-5">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -217,9 +201,8 @@
           </div>
         </section>
 
-        <!-- Footer -->
         <footer class="text-center text-[11px] md:text-xs text-gray-500 py-8">
-          Copyright © 2021 - 2025
+          Copyright © 2025
           <span class="font-bold text-[var(--brand)]">SIMBERSAMA</span> Allright Reserved.
           <br/>Dibuat dengan ❤️ oleh #UPNPLOPOR
         </footer>
