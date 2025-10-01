@@ -16,8 +16,6 @@ use App\Http\Controllers\Petugas\DataUmumPetugasController;
 use App\Http\Controllers\Petugas\DataPeriodikPetugasController;
 use App\Http\Controllers\Petugas\AkunDitangguhkanPetugasController;
 use App\Http\Controllers\Admin\DashboardAdminController;
-use App\Http\Controllers\Admin\AkunAdminController;
-use App\Http\Controllers\Admin\DataUmumAdminController;
 use App\Http\Controllers\Admin\DataPeriodikAdminController;
 use App\Http\Controllers\Admin\AkunDitangguhkanAdminController;
 
@@ -108,6 +106,9 @@ Route::middleware(['auth:adminstaf'])->group(function () {
 
         Route::get('/akun/create', [App\Http\Controllers\Admin\AkunAdminController::class, 'create'])->name('akun.create');
         Route::post('/akun/store', [App\Http\Controllers\Admin\AkunAdminController::class, 'store'])->name('akun.store');   
+
+        Route::get('/petugas/create', [App\Http\Controllers\Admin\RegisterPetugasBaruController::class, 'showForm'])->name('petugas.create');
+        Route::post('/petugas/store', [App\Http\Controllers\Admin\RegisterPetugasBaruController::class, 'store'])->name('petugas.store');   
     });
 });
 

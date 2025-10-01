@@ -133,7 +133,6 @@
   color: #495057;
 }
 
-
 .card {
     border-radius: 20px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
@@ -155,6 +154,7 @@
     font-size: 1.25rem;
     color: #276561;
     border-radius: 5px; 
+    border-radius: 5px;
     border: 1px solid #000000; 
     padding: 10px; 
     margin: 0;
@@ -234,5 +234,3 @@
     }
 }
 </style>
-
-

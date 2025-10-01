@@ -88,114 +88,136 @@
 
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">SK<span class="text-danger">*</span></label>
-                    <select name="sk" id="sk_select" class="form-select" required>
-                        <option value="">-- Pilih 1 --</option>
+                    <div class="field-card">
+                        <label class="form-label fw-semibold">SK<span class="text-danger">*</span></label>
+                        <select name="sk" id="sk_select" class="form-select" required>
+                            <option value="">-- Pilih 1 --</option>
+                            @php
+                                $sk_options = ['SK Pengadaan Bangunan','SK Pemanfaatan Aset','SK Penyerahan Aset','SK Penetapan Lokasi','SK Pemberian Tunjangan','SK Pembentukan Tim Kerja'];
+                            @endphp
+                            @foreach($sk_options as $option)
+                                <option value="{{ $option }}" @if($latestSK && $latestSK->sk === $option) selected @endif>{{ $option }}</option>
+                            @endforeach
+                            <option value="Lainnya" @if($latestSK && !in_array($latestSK->sk, $sk_options)) selected @endif>Lainnya</option>
+                        </select>
+                        <input type="text" name="sk_lainnya" id="sk_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->sk ?? '', $sk_options)) d-none @endif" placeholder="Isi jenis SK lainnya" value="{{ $latestSK && !in_array($latestSK->sk, $sk_options) ? $latestSK->sk : '' }}">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="field-card">
+                        <label class="form-label fw-semibold">No. SK<span class="text-danger">*</span></label>
+                        <input type="text" name="no_sk" class="form-control" value="{{ $latestSK->no_sk ?? '' }}" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="field-card">
+                        <label class="form-label fw-semibold">Di Perlukan Oleh<span class="text-danger">*</span></label>
                         @php
-                            $sk_options = ['SK Pengadaan Bangunan','SK Pemanfaatan Aset','SK Penyerahan Aset','SK Penetapan Lokasi','SK Pemberian Tunjangan','SK Pembentukan Tim Kerja'];
+                            $diperlukan_options = ['Kepala Dinas','Pihak Pengelola','Departemen Teknik','Tim Pengadaan'];
                         @endphp
-                        @foreach($sk_options as $option)
-                            <option value="{{ $option }}" @if($latestSK && $latestSK->sk === $option) selected @endif>{{ $option }}</option>
-                        @endforeach
-                        <option value="Lainnya" @if($latestSK && !in_array($latestSK->sk, $sk_options)) selected @endif>Lainnya</option>
-                    </select>
-                    <input type="text" name="sk_lainnya" id="sk_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->sk ?? '', $sk_options)) d-none @endif" placeholder="Isi jenis SK lainnya" value="{{ $latestSK && !in_array($latestSK->sk, $sk_options) ? $latestSK->sk : '' }}">
+                        <select name="diperlukan_oleh" id="diperlukan_select" class="form-select" required>
+                            <option value="">-- Pilih 1 --</option>
+                            @foreach($diperlukan_options as $opt)
+                                <option value="{{ $opt }}" @if($latestSK && $latestSK->diperlukan_oleh === $opt) selected @endif>{{ $opt }}</option>
+                            @endforeach
+                            <option value="Lainnya" @if($latestSK && !in_array($latestSK->diperlukan_oleh ?? '', $diperlukan_options)) selected @endif>Lainnya</option>
+                        </select>
+                        <input type="text" name="diperlukan_oleh_lainnya" id="diperlukan_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->diperlukan_oleh ?? '', $diperlukan_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->diperlukan_oleh ?? '', $diperlukan_options) ? $latestSK->diperlukan_oleh : '' }}">
+                    </div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">No. SK<span class="text-danger">*</span></label>
-                    <input type="text" name="no_sk" class="form-control" value="{{ $latestSK->no_sk ?? '' }}" required>
+                    <div class="field-card">
+                        <label class="form-label fw-semibold">
+                            Upload File SK<span class="text-danger">*</span>
+                        </label>
+                        <input type="file" name="file_sk" class="form-control" accept=".pdf" required>
+                        <small class="text-muted">* Hanya diperbolehkan upload file berformat PDF</small>
+                        
+                        @if($latestSK && $latestSK->file_sk)
+                            <br>
+                            <small>File lama: 
+                                <a href="{{ asset('storage/' . $latestSK->file_sk) }}" target="_blank">Lihat</a>
+                            </small>
+                        @endif
+                    </div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Di Perlukan Oleh<span class="text-danger">*</span></label>
-                    @php
-                        $diperlukan_options = ['Kepala Dinas','Pihak Pengelola','Departemen Teknik','Tim Pengadaan'];
-                    @endphp
-                    <select name="diperlukan_oleh" id="diperlukan_select" class="form-select" required>
-                        <option value="">-- Pilih 1 --</option>
-                        @foreach($diperlukan_options as $opt)
-                            <option value="{{ $opt }}" @if($latestSK && $latestSK->diperlukan_oleh === $opt) selected @endif>{{ $opt }}</option>
-                        @endforeach
-                        <option value="Lainnya" @if($latestSK && !in_array($latestSK->diperlukan_oleh ?? '', $diperlukan_options)) selected @endif>Lainnya</option>
-                    </select>
-                    <input type="text" name="diperlukan_oleh_lainnya" id="diperlukan_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->diperlukan_oleh ?? '', $diperlukan_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->diperlukan_oleh ?? '', $diperlukan_options) ? $latestSK->diperlukan_oleh : '' }}">
+                    <div class="field-card">
+                        <label class="form-label fw-semibold">Struktur Organisasi<span class="text-danger">*</span></label>
+                        <input type="text" name="struktur_organisasi" class="form-control" value="{{ $latestSK->struktur_organisasi ?? '' }}">
+                    </div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">
-                        Upload File SK<span class="text-danger">*</span>
-                    </label>
-                    <input type="file" name="file_sk" class="form-control" accept=".pdf" required>
-                    <small class="text-muted">* Hanya diperbolehkan upload file berformat PDF</small>
-                    
-                    @if($latestSK && $latestSK->file_sk)
-                        <br>
-                        <small>File lama: 
-                            <a href="{{ asset('storage/' . $latestSK->file_sk) }}" target="_blank">Lihat</a>
-                        </small>
-                    @endif
+                    <div class="field-card">
+                        <label class="form-label fw-semibold">Kondisi Bangunan<span class="text-danger">*</span></label>
+                        @php
+                            $kondisi_options = ['Baru Dibangun','Renovasi','Perlu Perbaikan','Rusak Berat','Baik'];
+                        @endphp
+                        <select name="kondisi_bangunan" id="kondisi_select" class="form-select">
+                            <option value="">-- Pilih 1 --</option>
+                            @foreach($kondisi_options as $opt)
+                                <option value="{{ $opt }}" @if($latestSK && $latestSK->kondisi_bangunan === $opt) selected @endif>{{ $opt }}</option>
+                            @endforeach
+                            <option value="Lainnya" @if($latestSK && !in_array($latestSK->kondisi_bangunan ?? '', $kondisi_options)) selected @endif>Lainnya</option>
+                        </select>
+                        <input type="text" name="kondisi_bangunan_lainnya" id="kondisi_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->kondisi_bangunan ?? '', $kondisi_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->kondisi_bangunan ?? '', $kondisi_options) ? $latestSK->kondisi_bangunan : '' }}">
+                    </div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Struktur Organisasi<span class="text-danger">*</span></label>
-                    <input type="text" name="struktur_organisasi" class="form-control" value="{{ $latestSK->struktur_organisasi ?? '' }}">
+                    <div class="field-card">
+                        <label class="form-label fw-semibold">Dibangun Oleh<span class="text-danger">*</span></label>
+                        @php $dibangun_options = ['Pemerintah Daerah','PT XYZ','Kontraktor XYZ']; @endphp
+                        <select name="dibangun_oleh" id="dibangun_select" class="form-select">
+                            <option value="">-- Pilih 1 --</option>
+                            @foreach($dibangun_options as $opt)
+                                <option value="{{ $opt }}" @if($latestSK && $latestSK->dibangun_oleh === $opt) selected @endif>{{ $opt }}</option>
+                            @endforeach
+                            <option value="Lainnya" @if($latestSK && !in_array($latestSK->dibangun_oleh ?? '', $dibangun_options)) selected @endif>Lainnya</option>
+                        </select>
+                        <input type="text" name="dibangun_oleh_lainnya" id="dibangun_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->dibangun_oleh ?? '', $dibangun_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->dibangun_oleh ?? '', $dibangun_options) ? $latestSK->dibangun_oleh : '' }}">
+                    </div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Kondisi Bangunan<span class="text-danger">*</span></label>
-                    @php
-                        $kondisi_options = ['Baru Dibangun','Renovasi','Perlu Perbaikan','Rusak Berat','Baik'];
-                    @endphp
-                    <select name="kondisi_bangunan" id="kondisi_select" class="form-select">
-                        <option value="">-- Pilih 1 --</option>
-                        @foreach($kondisi_options as $opt)
-                            <option value="{{ $opt }}" @if($latestSK && $latestSK->kondisi_bangunan === $opt) selected @endif>{{ $opt }}</option>
-                        @endforeach
-                        <option value="Lainnya" @if($latestSK && !in_array($latestSK->kondisi_bangunan ?? '', $kondisi_options)) selected @endif>Lainnya</option>
-                    </select>
-                    <input type="text" name="kondisi_bangunan_lainnya" id="kondisi_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->kondisi_bangunan ?? '', $kondisi_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->kondisi_bangunan ?? '', $kondisi_options) ? $latestSK->kondisi_bangunan : '' }}">
+                    <div class="field-card">
+                        <label class="form-label fw-semibold">Pihak yang Membangun<span class="text-danger">*</span></label>
+                        @php $pihak_options = ['Pemerintah Kota/Kabupaten','Kontraktor','Pengelola Sumber Daya']; @endphp
+                        <select name="pihak_membangun" id="pihak_select" class="form-select">
+                            <option value="">-- Pilih 1 --</option>
+                            @foreach($pihak_options as $opt)
+                                <option value="{{ $opt }}" @if($latestSK && $latestSK->pihak_membangun === $opt) selected @endif>{{ $opt }}</option>
+                            @endforeach
+                            <option value="Lainnya" @if($latestSK && !in_array($latestSK->pihak_membangun ?? '', $pihak_options)) selected @endif>Lainnya</option>
+                        </select>
+                        <input type="text" name="pihak_membangun_lainnya" id="pihak_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->pihak_membangun ?? '', $pihak_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->pihak_membangun ?? '', $pihak_options) ? $latestSK->pihak_membangun : '' }}">
+                    </div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Dibangun Oleh<span class="text-danger">*</span></label>
-                    @php $dibangun_options = ['Pemerintah Daerah','PT XYZ','Kontraktor XYZ']; @endphp
-                    <select name="dibangun_oleh" id="dibangun_select" class="form-select">
-                        <option value="">-- Pilih 1 --</option>
-                        @foreach($dibangun_options as $opt)
-                            <option value="{{ $opt }}" @if($latestSK && $latestSK->dibangun_oleh === $opt) selected @endif>{{ $opt }}</option>
-                        @endforeach
-                        <option value="Lainnya" @if($latestSK && !in_array($latestSK->dibangun_oleh ?? '', $dibangun_options)) selected @endif>Lainnya</option>
-                    </select>
-                    <input type="text" name="dibangun_oleh_lainnya" id="dibangun_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->dibangun_oleh ?? '', $dibangun_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->dibangun_oleh ?? '', $dibangun_options) ? $latestSK->dibangun_oleh : '' }}">
+                    <div class="field-card">
+                        <label class="form-label fw-semibold">Tahun Pembangunan<span class="text-danger">*</span></label>
+                        <input type="number" name="tahun_pembangunan" min="1900" max="2100" class="form-control" value="{{ $latestSK->tahun_pembangunan ?? '' }}">
+                    </div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Pihak yang Membangun<span class="text-danger">*</span></label>
-                    @php $pihak_options = ['Pemerintah Kota/Kabupaten','Kontraktor','Pengelola Sumber Daya']; @endphp
-                    <select name="pihak_membangun" id="pihak_select" class="form-select">
-                        <option value="">-- Pilih 1 --</option>
-                        @foreach($pihak_options as $opt)
-                            <option value="{{ $opt }}" @if($latestSK && $latestSK->pihak_membangun === $opt) selected @endif>{{ $opt }}</option>
-                        @endforeach
-                        <option value="Lainnya" @if($latestSK && !in_array($latestSK->pihak_membangun ?? '', $pihak_options)) selected @endif>Lainnya</option>
-                    </select>
-                    <input type="text" name="pihak_membangun_lainnya" id="pihak_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->pihak_membangun ?? '', $pihak_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->pihak_membangun ?? '', $pihak_options) ? $latestSK->pihak_membangun : '' }}">
+                    <div class="field-card">
+                        <label class="form-label fw-semibold">Luas (m²)<span class="text-danger">*</span></label>
+                        <input type="number" step="0.01" name="luas" class="form-control" value="{{ $latestSK->luas ?? '' }}">
+                    </div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Tahun Pembangunan<span class="text-danger">*</span></label>
-                    <input type="number" name="tahun_pembangunan" min="1900" max="2100" class="form-control" value="{{ $latestSK->tahun_pembangunan ?? '' }}">
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Luas (m²)<span class="text-danger">*</span></label>
-                    <input type="number" step="0.01" name="luas" class="form-control" value="{{ $latestSK->luas ?? '' }}">
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Biaya Pembangunan (Rp)<span class="text-danger">*</span></label>
-                    <input type="number" step="0.01" name="biaya_pembangunan" class="form-control" value="{{ $latestSK->biaya_pembangunan ?? '' }}">
+                    <div class="field-card">
+                        <label class="form-label fw-semibold">Biaya Pembangunan (Rp)<span class="text-danger">*</span></label>
+                        <input type="number" step="0.01" name="biaya_pembangunan" class="form-control" value="{{ $latestSK->biaya_pembangunan ?? '' }}">
+                    </div>
                 </div>
             </div>
 
@@ -203,25 +225,6 @@
                 <button type="submit" class="btn btn-success px-4">{{ $latestSK ? 'Update' : 'Simpan' }}</button>
             </div>
         </form>
-
-        <div class="card shadow-sm mt-4">
-            <div class="card-body">
-                <h5 class="fw-bold mb-3">Riwayat Upload SK</h5>
-                @if($sk_list->isEmpty())
-                    <p class="text-muted text-center">Belum ada data SK</p>
-                @else
-                    <div class="table-responsive">
-                        <table class="table table-bordered align-middle">
-                            <tbody>
-                                @foreach ($sk_list as $index => $sk)
-                                    @include('dashboard.user.partials.ringkasan_sk', ['headerClass' => 'bg-success'])
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                @endif
-            </div>
-        </div>
     @else
         <div class="alert alert-warning"> <h6 class="fw-bold">Upload SK Sudah Dilakukan</h6>
             <p>Anda sudah mengupload SK dengan status <strong>{{ $status ?? '-' }}</strong>.
@@ -256,3 +259,35 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 @endsection
+
+<style>
+
+    .field-card{
+      border: 1px solid #838383;
+      border-radius: 5px;           
+      background: #fff;
+      padding: 5px 14px;    
+      padding-left: 15px;
+    }
+
+    .field-card .form-label{
+  font-weight: 700;
+  font-size: .875rem;
+  margin-bottom: .35rem;
+  color: #2c2c2c;
+}
+.field-card .form-control{
+  background-color: #f8f9fa;
+  border: 0;                    
+  border-radius: 8px;
+  padding: 15px 12px;
+  color: #495057;
+}
+
+.card {
+    border-radius: 20px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    background-color: #fff;
+}
+</style>

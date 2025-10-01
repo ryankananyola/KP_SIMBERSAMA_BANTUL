@@ -5,6 +5,7 @@
     <h1 class="h3 mb-4 fw-bold">Detail Laporan Periodik</h1>
             <table class="table table-sm table-bordered mt-2">
                 <thead class="table-secondary">
+                <thead class="table-secondary">
                     <tr>
                         <th>Sumber / Jenis</th>
                         <th>Organik (kg)</th>
