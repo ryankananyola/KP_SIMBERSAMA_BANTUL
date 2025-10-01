@@ -159,6 +159,7 @@
               </a>
             </div>
           </div>
+          </div>
 
           <!-- contoh item lain -->
           <div class="grid grid-cols-12 items-center px-4 py-3">
