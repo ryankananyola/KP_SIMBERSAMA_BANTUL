@@ -18,8 +18,9 @@ use App\Http\Controllers\Petugas\AkunDitangguhkanPetugasController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\DataPeriodikAdminController;
 use App\Http\Controllers\Admin\AkunDitangguhkanAdminController;
+use App\Http\Controllers\LandingController;
 
-Route::get('/', fn() => view('landing'));
+Route::get('/', [LandingController::class, 'index']);
 Route::get('/home', fn() => view('home'));
 
 Route::get('/login', fn() => view('auth.login'))->name('login');

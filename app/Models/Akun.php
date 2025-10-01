@@ -43,4 +43,10 @@ class Akun extends Authenticatable
     {
         return $this->belongsTo(Padukuhan::class, 'padukuhan_id');
     }
+
+    public function dokumenSk()
+    {
+        return $this->hasOne(DokumenSK::class, 'user_id');
+    }
+
 }
