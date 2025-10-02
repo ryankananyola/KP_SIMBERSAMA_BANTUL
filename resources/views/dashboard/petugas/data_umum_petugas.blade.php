@@ -8,7 +8,7 @@
             <table class="table table-hover align-middle">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>No</th>
                         <th>Nama Bank Sampah</th>
                         <th class="text-center">Aksi</th>
                     </tr>

@@ -9,7 +9,7 @@ class AkunDitangguhkanPetugasController extends Controller
 {
     public function index()
     {
-        $data = DokumenSK::with('user')->paginate(5);
+        $data = DokumenSK::with('user')->orderBy('created_at', 'desc')->paginate(5);
         return view('dashboard.petugas.akun_ditangguhkan', compact('data'));
     }
 
