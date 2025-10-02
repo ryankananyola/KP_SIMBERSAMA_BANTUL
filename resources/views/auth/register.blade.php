@@ -6,6 +6,7 @@
     <title>Registrasi - SIMBERSAMA</title>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body class="bg-white font-[Instrument Sans] min-h-screen">
     <header class="bg-green-800 py-4 px-8 flex items-center">
@@ -34,17 +35,20 @@
                 {{ session('success') }}
             </div>
         @endif
-        <form class="bg-white rounded-xl shadow p-4 space-y-8 overflow-y-auto max-h-[80vh]" method="POST" action="{{ route('register.user') }}">
+        <form class="bg-white rounded-xl border-2 border-black-300 shadow p-4 space-y-2 overflow-y-auto max-h-[80vh]" method="POST" action="{{ route('register.user') }}">
             @csrf
             
             <!-- DATA AKUN -->
             <div class="border rounded-lg p-4 mb-6">
-                <div class="flex items-center mb-2">
-                    <span class="material-icons text-[#256d5a] mr-2">person_add</span>
-                    <span class="font-bold text-[#256d5a] text-lg">DATA AKUN</span>
+                <div class="card-body">
+                <h5 class="mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
+                    <i class="bi bi-person-circle"></i> DATA AKUN
+                    <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
+                </h5>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
+                        <div class="field-card">
                         <label class="block text-sm font-semibold mb-1">Pilih Jenis Fasilitas</label>
                         <select class="w-full border rounded px-3 py-2" name="jenis_fasilitas">
                             <option value="">--Pilih jenis Fasilitas--</option>
@@ -56,73 +60,100 @@
                         @error('jenis_fasilitas')
                             <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                         @enderror
+                        </div>
                     </div>
                     <div>
+                        <div class="field-card">
                         <label class="block text-sm font-semibold mb-1">Nama Bank Sampah</label>
                         <input type="text" class="w-full border rounded px-3 py-2" name="nama_bank_sampah" placeholder="Cth: Bank Sampah UGM Jaya" value="{{ old('nama_bank_sampah') }}">
+                        </div>
                     </div>
                     <div>
+                        <div class="field-card">
                         <label class="block text-sm font-semibold mb-1">Nama Pengelola</label>
                         <input type="text" class="w-full border rounded px-3 py-2" name="nama" placeholder="Cth: Saya Sendiri" value="{{ old('nama') }}">
+                        </div>
                     </div>
                     <div>
+                        <div class="field-card">
                         <label class="block text-sm font-semibold mb-1">Nomor Whatsapp</label>
                         <input type="text" class="w-full border rounded px-3 py-2" name="nomor_wa" placeholder="Cth: 081234567890" value="{{ old('nomor_wa') }}">
+                        </div>
                     </div>
                     <div>
+                        <div class="field-card">
                         <label class="block text-sm font-semibold mb-1">Email</label>
                         <input type="email" class="w-full border rounded px-3 py-2" name="email" placeholder="Cth: sayasendiri@gmail.com" value="{{ old('email') }}">
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- LOCATION -->
             <div>
-                <div class="flex items-center mb-2">
-                    <span class="material-icons text-[#256d5a] mr-2">location_on</span>
-                    <span class="font-bold text-[#256d5a] text-lg">LOCATION</span>
+                <div class="card-body">
+                <h5 class="mt-4 mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
+                    <i class="bi bi-geo-alt-fill"></i> LOKASI
+                    <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
+                </h5>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
+                        <div class="field-card">
                         <label class="block text-sm font-semibold mb-1">Alamat Bank Sampah</label>
                         <input type="text" class="w-full border rounded px-3 py-2" name="alamat" placeholder="Cth: J. Wiyoro Kidul, Wirono" value="{{ old('alamat') }}">
+                        </div>
                     </div>
                     <div>
+                        <div class="field-card">
                         <label class="block text-sm font-semibold mb-1">Kecamatan</label>
                         <select id="kecamatan" class="w-full border rounded px-3 py-2" name="kapanewon_id">
                             <option>--Pilih Kapanewon--</option>
                         </select>
+                        </div>
                     </div>
                     <div>
+                        <div class="field-card">
                         <label class="block text-sm font-semibold mb-1">Kelurahan</label>
                         <select id="kelurahan" class="w-full border rounded px-3 py-2" name="kelurahan_id">
                             <option>--Pilih Kelurahan--</option>
                         </select>
+                        </div>
                     </div>
                     <div>
+                        <div class="field-card">
                         <label class="block text-sm font-semibold mb-1">Padukuhan</label>
                         <select id="padukuhan" class="w-full border rounded px-3 py-2" name="padukuhan_id">
                             <option>--Pilih Padukuhan--</option>
                         </select>
+                        </div>
                     </div>
                     <div>
+                        <div class="field-card">
                         <label class="block text-sm font-semibold mb-1">Link Google Maps</label>
                         <input type="text" class="w-full border rounded px-3 py-2" name="link_maps" placeholder="Cth: https://maps.app.goo.gl/xxx" value="{{ old('link_maps') }}">
+                    </div>
                     </div>
                 </div>
             </div>
             <!-- KEAMANAN LOGIN AKUN -->
             <div>
-                <div class="flex items-center mb-2">
-                    <span class="material-icons text-[#256d5a] mr-2">vpn_key</span>
-                    <span class="font-bold text-[#256d5a] text-lg">KEAMANAN LOGIN AKUN</span>
+                <div class="card-body">
+                <h5 class="mt-4 mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
+                    <i class="bi bi-lock"></i> KEAMANAN LOGIN AKUN 
+                    <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
+                </h5>
                 </div>
+                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
+                        <div class="field-card">
                         <label class="block text-sm font-semibold mb-1">Username</label>
                         <input type="text" class="w-full border rounded px-3 py-2" name="username" placeholder="Cth: sayasendiri12" value="{{ old('username') }}">
+                        </div>
                     </div>
                     <div></div>
                     <div>
+                        <div class="field-card">
                         <label class="block text-sm font-semibold mb-1">Password</label>
                         <div class="relative">
                             <input type="password" id="password" class="w-full border rounded px-3 py-2 pr-10 mb-2" name="password" placeholder="Masukkan Password Anda..">
@@ -135,14 +166,17 @@
                             <span id="rule-upper" class="text-red-600"><span id="icon-upper" style="color:#e3342f">&#10006;</span> Kombinasi <span class="font-bold">huruf besar</span></span><br>
                             <span id="rule-number" class="text-red-600"><span id="icon-number" style="color:#e3342f">&#10006;</span> Kombinasi <span class="font-bold">angka</span></span>
                         </div>
+                        </div>
                     </div>
                     <div>
+                        <div class="field-card">
                         <label class="block text-sm font-semibold mb-1">Ulangi Password</label>
                         <div class="relative">
                             <input type="password" id="password_confirmation" class="w-full border rounded px-3 py-2 pr-10" name="password_confirmation" placeholder="Ulangi Password Anda..">
                             <span class="material-icons absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400" id="toggle-confirm" onclick="togglePassword('password_confirmation', 'toggle-confirm')">visibility_off</span>
                         </div>
                         <div id="password-match-status" class="text-xs mt-1"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -311,4 +345,48 @@ passwordInput.addEventListener('input', function() {
 passwordConfirm.addEventListener('input', checkPasswordMatch);
 </script>
 </body>
+
+<style>
+
+    .field-card{
+      border: 1px solid #838383;
+      border-radius: 5px;           
+      background: #fff;
+      padding: 5px 14px;    
+      padding-left: 15px;
+    }
+
+    .field-card .form-label{
+  font-weight: 700;
+  font-size: .875rem;
+  margin-bottom: .35rem;
+  color: #2c2c2c;
+}
+.field-card .form-control{
+  background-color: #f8f9fa;
+  border: 0;                    
+  border-radius: 8px;
+  padding: 15px 12px;
+  color: #495057;
+}
+
+.card {
+    border-radius: 20px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    background-color: #fff;
+}
+
+.card-body h5 {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #276561;
+    border-radius: 5px; 
+    border-radius: 5px;
+    border: 1px solid #000000; 
+    padding: 10px; 
+    margin: 0;
+    margin-bottom: 10px;
+}
+</style>
 </html>

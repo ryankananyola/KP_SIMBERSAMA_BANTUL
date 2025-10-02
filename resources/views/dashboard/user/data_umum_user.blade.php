@@ -14,7 +14,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <div class="card shadow-sm border-0">
+    <div class="card shadow-sm border-1">
         <div class="card-body">
             <form action="{{ route('user.data_umum.update') }}" method="POST">
                 @csrf
@@ -27,7 +27,7 @@
                 </h5>
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <div class="field-card">
+                        <div class="field-card-costum">
                         <label class="form-label">Nama Pengelola</label>
                         <input type="text" class="form-control @error('nama') is-invalid @enderror" 
                             name="nama" value="{{ old('nama', $akun->nama) }}">
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="field-card">
+                        <div class="field-card-costum">
                         <label class="form-label">Username</label>
                         <input type="text" class="form-control @error('username') is-invalid @enderror" 
                             name="username" value="{{ old('username', $akun->username) }}">
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="field-card">
+                        <div class="field-card-costum">
                         <label class="form-label">Email</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" 
                             name="email" value="{{ old('email', $akun->email) }}">
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="field-card">
+                        <div class="field-card-costum">
                         <label class="form-label">Nomor WhatsApp</label>
                         <input type="text" class="form-control @error('nomor_wa') is-invalid @enderror" 
                             name="nomor_wa" value="{{ old('nomor_wa', $akun->nomor_wa) }}">
@@ -78,7 +78,7 @@
 
                 {{-- Lokasi --}}
                 <h5 class="mt-4 mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
-                    <i class="bi bi-geo-alt-fill"></i> LOCATION
+                    <i class="bi bi-geo-alt-fill"></i> LOKASI
                     <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
                 </h5>
                 <div class="row g-3">
@@ -182,6 +182,21 @@
   color: #495057;
 }
 
+.field-card-costum{
+      border: 1px solid #838383;
+      border-radius: 5px;           
+      background: #fff;
+      padding: 5px 14px;    
+      padding-left: 15px;
+    }
+
+.field-card-costum .form-control{
+  background-color: #ffffff;
+  border: 1px solid #1fea9f;                    
+  border-radius: 8px;
+  padding: 15px 12px;
+}
+
 .card {
     border-radius: 20px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
@@ -199,4 +214,6 @@
     padding: 10px; 
     margin: 0;
 }
+
+
 </style>
