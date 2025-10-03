@@ -15,7 +15,7 @@
       --brand-2:#1e5a4b;
       --paper:#f5f7f6;
     }
-    body{ font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+    body{ font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; !important}
     
     .stat-card{
       border-radius: 18px;

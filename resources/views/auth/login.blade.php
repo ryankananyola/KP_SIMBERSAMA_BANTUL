@@ -4,11 +4,16 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Login - SIMBERSAMA</title>
-	<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<style>
+		body {
+			font-family: 'Inter', sans-serif !important;
+		}
+	</style>
 </head>
-<body class="bg-white font-[Instrument Sans] min-h-screen flex items-center justify-center">
+<body class="bg-white min-h-screen flex items-center justify-center">
 	<div class="flex flex-col lg:flex-row items-center justify-center w-full max-w-5xl mx-auto gap-8 p-4">
 		<div class="flex flex-col items-center flex-1">
 			<img src="{{ asset('assets/images/LogoBantul.png') }}" alt="Logo Bantul"

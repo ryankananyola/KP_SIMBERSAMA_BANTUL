@@ -50,7 +50,7 @@ class AkunDitangguhkanAdminController extends Controller
 
         $sk = DokumenSK::findOrFail($id);
         $sk->survey_date = $request->survey_date;
-        $sk->status = 'Menunggu';
+        $sk->status = 'Survey';
 
         if ($sk->status === 'Diterima') {
             $sk->status = 'Survey';

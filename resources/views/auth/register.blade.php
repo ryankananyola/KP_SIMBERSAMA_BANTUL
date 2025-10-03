@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrasi - SIMBERSAMA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+		body {
+		font-family: 'Inter', sans-serif !important;
+		}
+	</style>
 </head>
-<body class="bg-white font-[Instrument Sans] min-h-screen">
+<body class="bg-white min-h-screen">
     <header class="bg-green-800 py-4 px-8 flex items-center">
         <span class="text-white text-2xl font-bold tracking-wide">SIMBERSAMA</span>
     </header>
