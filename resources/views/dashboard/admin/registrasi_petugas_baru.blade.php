@@ -1,8 +1,14 @@
 @extends('layouts.layout_admin')
 
 @section('content')
-<main class="max-w-3xl mx-auto p-6">
-    <h1 class="text-center text-xl font-bold mb-6">Input Petugas</h2>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<main class="max-w-5xl mx-auto p-4 font-[Instrument Sans]">
+    <h1 class="h3 mb-4 fw-bold text-center">Input Petugas</h1>
+
     @if(session('success'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
             {{ session('success') }}
@@ -19,52 +25,54 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.petugas.store') }}" method="POST">
+    <form action="{{ route('admin.petugas.store') }}" method="POST" 
+          class="bg-white rounded-xl border-2 border-gray-300 shadow p-6 space-y-6">
         @csrf
-        <div class="border rounded mb-6">
-            <div class="bg-gray-100 p-3 font-semibold flex items-center">
-                <i class="fa fa-user-plus mr-2"></i> DATA AKUN
+
+        <!-- DATA AKUN -->
+        <div class="border rounded-lg p-4">
+            <div class="card-body">
+                <h5 class="mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
+                    <i class="bi bi-person-badge"></i> DATA AKUN
+                    <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
+                </h5>
             </div>
-            <div class="grid grid-cols-2 gap-4 p-4">
-                <div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Nama Petugas</label>
-                    <input type="text" name="nama" class="w-full border rounded p-2" placeholder="Cth: Amin Rais" value="{{ old('nama') }}">
-                    @error('nama') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    <input type="text" name="nama" class="w-full border rounded px-3 py-2" placeholder="Cth: Amin Rais" value="{{ old('nama') }}">
                 </div>
-                <div>
+                <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Username</label>
-                    <input type="text" name="username" class="w-full border rounded p-2" placeholder="Cth: amin123" value="{{ old('username') }}">
-                    @error('username') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    <input type="text" name="username" class="w-full border rounded px-3 py-2" placeholder="Cth: amin123" value="{{ old('username') }}">
                 </div>
-                <div>
+                <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Email</label>
-                    <input type="email" name="email" class="w-full border rounded p-2" placeholder="Cth: RudiHartanto@gmail.com" value="{{ old('email') }}">
-                    @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    <input type="email" name="email" class="w-full border rounded px-3 py-2" placeholder="Cth: RudiHartanto@gmail.com" value="{{ old('email') }}">
                 </div>
-                <div>
+                <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Nomor WhatsApp</label>
-                    <input type="text" name="no_hp" class="w-full border rounded p-2" placeholder="Cth: 085788689017" value="{{ old('no_hp') }}">
-                    @error('no_hp') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    <input type="text" name="no_hp" class="w-full border rounded px-3 py-2" placeholder="Cth: 085788689017" value="{{ old('no_hp') }}">
                 </div>
-                <div class="col-span-2">
+                <div class="field-card col-span-2">
                     <label class="block text-sm font-semibold mb-1">Alamat Domisili</label>
-                    <input type="text" name="alamat" class="w-full border rounded p-2" placeholder="Cth: Jl. Wijoyo Kusumo, Wirogo" value="{{ old('alamat') }}">
-                    @error('alamat') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    <input type="text" name="alamat" class="w-full border rounded px-3 py-2" placeholder="Cth: Jl. Wijoyo Kusumo, Wirogo" value="{{ old('alamat') }}">
                 </div>
             </div>
         </div>
 
-        {{-- KEAMANAN LOGIN --}}
-        <div class="border rounded mb-6">
-            <div class="bg-gray-100 p-3 font-semibold flex items-center">
-                <i class="fa fa-lock mr-2"></i> KEAMANAN LOGIN AKUN
+        <!-- KEAMANAN LOGIN -->
+        <div class="border rounded-lg p-4">
+            <div class="card-body">
+                <h5 class="mt-4 mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
+                    <i class="bi bi-lock"></i> KEAMANAN LOGIN AKUN
+                    <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
+                </h5>
             </div>
-            <div class="grid grid-cols-2 gap-4 p-4">
-                <div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Password</label>
-                    <input type="password" name="password" id="password" class="w-full border rounded p-2" placeholder="Masukkan Password Anda..">
-                    @error('password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                    
+                    <input type="password" name="password" id="password" class="w-full border rounded px-3 py-2" placeholder="Masukkan Password Anda..">
                     <div class="mt-2 text-sm">
                         <b>Ketentuan Password:</b>
                         <ul class="list-disc pl-5 text-red-600">
@@ -75,16 +83,41 @@
                         </ul>
                     </div>
                 </div>
-                <div>
+                <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Ulangi Password</label>
-                    <input type="password" name="password_confirmation" class="w-full border rounded p-2" placeholder="Ulangi Password Anda..">
+                    <input type="password" name="password_confirmation" class="w-full border rounded px-3 py-2" placeholder="Ulangi Password Anda..">
                 </div>
             </div>
         </div>
 
-        <button type="submit" class="w-full bg-green-700 text-white p-3 rounded">DAFTAR</button>
+        <!-- BUTTON -->
+        <div class="flex justify-center mt-8">
+            <button type="submit" class="w-full md:w-1/2 bg-green-800 text-white font-bold py-3 rounded-lg shadow hover:bg-green-900 transition">
+                <i class="bi bi-person-check"></i> Daftarkan Petugas
+            </button>
+        </div>
     </form>
 </main>
+
+<style>
+    .field-card {
+        border: 1px solid #838383;
+        border-radius: 5px;
+        background: #fff;
+        padding: 8px 12px;
+    }
+    .card-body h5 {
+        font-weight: 600;
+        font-size: 1.25rem;
+        color: #276561;
+        border-radius: 5px; 
+        border: 1px solid #000000; 
+        padding: 10px; 
+        margin: 0;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+</style>
 
 <script>
     const password = document.getElementById("password");

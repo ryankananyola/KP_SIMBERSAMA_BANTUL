@@ -161,7 +161,7 @@
 <style>
 
     .field-card{
-      border: 1px solid #838383;
+      border: 1px solid #ada8a8;
       border-radius: 5px;           
       background: #fff;
       padding: 5px 14px;    
@@ -183,7 +183,7 @@
 }
 
 .field-card-costum{
-      border: 1px solid #838383;
+      border: 1px solid #ada8a8;
       border-radius: 5px;           
       background: #fff;
       padding: 5px 14px;    

@@ -80,8 +80,8 @@
 
             @if($status == 'Aktif')
                 <div class="alert alert-info">
-                    <h6 class="fw-bold">Survei Selesai</h6>
-                    <p class="mb-0">Selamat, survei sudah selesai. Proses pendaftaran Anda berhasil dan akun anda Aktif 🎉</p>
+                    <h6 class="fw-bold">Akun Aktif</h6>
+                    <p class="mb-0">Selamat akun anda telah aktif, silahkan mengisi laporan periodik persemester 🎉</p>
                 </div>
             @endif
 

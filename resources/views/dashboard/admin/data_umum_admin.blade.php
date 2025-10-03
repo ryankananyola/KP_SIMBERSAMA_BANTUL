@@ -1,4 +1,5 @@
 @extends('layouts.layout_admin')
+
 @section('content')
 <div class="container-fluid p-4">
     <h1 class="h3 mb-4 fw-bold text-center">Data Umum</h1>
@@ -10,8 +11,9 @@
                     <option value="user" {{ $filter === 'user' ? 'selected' : '' }}>User</option>
                 </select>
             </form>
-            <table class="table table-bordered align-middle">
-                <thead class="table-light">
+
+            <table class="table table-hover align-middle">
+                <thead>
                     <tr>
                         <th style="width: 50px;">No</th>
                         @if($filter === 'petugas')
@@ -19,12 +21,12 @@
                         @else
                             <th>Nama Bank Sampah</th>
                         @endif
-                        <th style="width: 120px;">Aksi</th>
+                        <th class="text-center" style="width: 150px;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $index => $item)
-                        <tr>
+                        <tr class="border rounded shadow-sm mb-2">
                             <td>{{ $index + 1 }}</td>
 
                             @if($filter === 'petugas')
@@ -33,9 +35,9 @@
                                 <td>{{ $item->nama_bank_sampah }}</td>
                             @endif
 
-                            <td>
+                            <td class="text-center">
                                 <a href="{{ route('admin.data_umum.show', $item->id) }}?filter={{ $filter }}" 
-                                class="btn btn-info text-white">
+                                    class="btn btn-primary btn-sm text-white w-100">
                                     Detail
                                 </a>
                             </td>
@@ -49,7 +51,8 @@
                     @endif
                 </tbody>
             </table>
-            <div class="d-flex justify-content-center mt-4">
+
+            <div class="d-flex justify-content-center mt-3">
                 {{ $data->appends(['filter' => $filter])->links('pagination::bootstrap-5') }}
             </div>
         </div>
