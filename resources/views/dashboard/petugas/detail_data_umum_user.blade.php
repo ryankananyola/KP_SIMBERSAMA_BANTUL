@@ -53,7 +53,7 @@
             </div>
 
             <h5 class="mt-4 mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
-                <i class="bi bi-geo-alt-fill"></i> LOCATION
+                <i class="bi bi-geo-alt-fill"></i> LOKASI
                 <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
             </h5>
             <div class="row g-3">

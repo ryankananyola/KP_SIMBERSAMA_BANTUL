@@ -77,6 +77,13 @@
             cursor: pointer;
         }
 
+        .logout-btn {
+            position: absolute;
+            bottom: 2rem;   
+            left: 5%;
+            width: 100%;    
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 margin-left: -16.5rem;
@@ -148,13 +155,13 @@
                     </li> --}}
 
 
-                <li class="nav-item mt-4">
-                    <button type="button" 
-                            class="nav-link btn btn-link text-black w-100 text-start" 
-                            data-bs-toggle="modal" data-bs-target="#logoutModal">
-                        <span class="material-icons">logout</span> Logout
-                    </button>
-                </li>
+                    <li class="nav-item mt-4 logout-btn">
+                        <button type="button" 
+                                class="nav-link btn btn-link text-black w-100 text-start" 
+                                data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <span class="material-icons">logout</span> Logout
+                        </button>
+                    </li>
             </ul>
         </nav>
 
