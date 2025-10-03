@@ -1,12 +1,11 @@
 @extends('layouts.layout_petugas')
 <head>
-    <!-- Tambahkan Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 @section('content')
 <div class="container-fluid p-4">
-    <h1 class="h3 mb-4 fw-bold text-center">Detail Data Umum</h1>
+    <h1 class="h3 mb-4 fw-bold text-center">Detail Data Bank Sampah - {{ $akun->nama_bank_sampah }}</h1>
     <div class="card shadow-sm">
         <div class="card-body">
             <!-- Data Akun -->

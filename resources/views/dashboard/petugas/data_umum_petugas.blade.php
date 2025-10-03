@@ -20,13 +20,12 @@
                             <td>{{ $item->nama_bank_sampah }}</td>
                             <td class="text-center">
                                 <a href="{{ route('petugas.data_umum.show', $item->id) }}" 
-                                    class="btn btn-primary btn-sm text-white">
+                                    class="btn btn-primary btn-sm text-white w-50">
                                     Detail
                                 </a>
                             </td>
                         </tr>
                     @endforeach
-
                     @if ($data->isEmpty())
                         <tr>
                             <td colspan="3" class="text-center">Tidak ada data user</td>

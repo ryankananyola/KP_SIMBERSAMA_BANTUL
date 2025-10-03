@@ -87,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            
             <!-- LOCATION -->
             <div>
                 <div class="card-body">
@@ -196,6 +196,7 @@
                 <a href="/login" class="bg-green-600 text-white font-bold px-6 py-2 rounded shadow hover:bg-[#1e5647] transition flex items-center gap-2">
                     <span class="material-icons">login</span> Masuk
                 </a>
+            </div>
             </div>
           
         </form>
@@ -387,6 +388,7 @@ passwordConfirm.addEventListener('input', checkPasswordMatch);
     padding: 10px; 
     margin: 0;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 </style>
 </html>

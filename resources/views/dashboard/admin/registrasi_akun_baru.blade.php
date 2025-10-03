@@ -1,9 +1,13 @@
+<
 @extends('layouts.layout_admin')
 
 @section('content')
-<main class="max-w-6xl mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-6">Registrasi Akun Baru</h1>
-
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<main class="max-w-5xl mx-auto p-4 font-[Instrument Sans]">
+    <h1 class="h3 mb-4 fw-bold text-center">Registrasi Baru</h1>
     @if(session('success'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
             {{ session('success') }}
@@ -20,120 +24,144 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.akun.store') }}" method="POST" class="bg-white rounded-xl shadow p-6 space-y-6">
+    <form action="{{ route('admin.akun.store') }}" method="POST" 
+          class="bg-white rounded-xl border-2 border-gray-300 shadow p-6 space-y-6">
         @csrf
 
         <!-- DATA AKUN -->
         <div class="border rounded-lg p-4">
-            <h2 class="text-lg font-bold text-green-800 mb-4">DATA AKUN</h2>
+            <div class="card-body">
+                <h5 class="mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
+                    <i class="bi bi-person-circle"></i> DATA AKUN
+                    <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
+                </h5>
+                </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-semibold mb-1">Nama Pengelola</label>
-                    <input type="text" name="nama" class="w-full border rounded px-3 py-2" value="{{ old('nama') }}" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-1">Username</label>
-                    <input type="text" name="username" class="w-full border rounded px-3 py-2" value="{{ old('username') }}" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-1">Email</label>
-                    <input type="email" name="email" class="w-full border rounded px-3 py-2" value="{{ old('email') }}" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-1">Password</label>
-                    <input type="password" name="password" id="password" class="w-full border rounded px-3 py-2" required minlength="10">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-1">Nomor WA</label>
-                    <input type="text" name="nomor_wa" class="w-full border rounded px-3 py-2" value="{{ old('nomor_wa') }}" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-1">Jenis Fasilitas</label>
+                <div class="field-card">
+                    <label class="block text-sm font-semibold mb-1">Pilih Jenis Fasilitas</label>
                     <select name="jenis_fasilitas" class="w-full border rounded px-3 py-2">
                         <option value="">-- Pilih Jenis Fasilitas --</option>
-                        <option value="Bank Sampah" {{ old('jenis_fasilitas')=='Bank Sampah'?'selected':'' }}>Bank Sampah</option>
-                        <option value="Shodaqoh Sampah" {{ old('jenis_fasilitas')=='Shodaqoh Sampah'?'selected':'' }}>Shodaqoh Sampah</option>
-                        <option value="TPS3R" {{ old('jenis_fasilitas')=='TPS3R'?'selected':'' }}>TPS3R</option>
-                        <option value="Lainnya" {{ old('jenis_fasilitas')=='Lainnya'?'selected':'' }}>Lainnya</option>
+                        <option value="Bank Sampah">Bank Sampah</option>
+                        <option value="Shodaqoh Sampah">Shodaqoh Sampah</option>
+                        <option value="TPS3R">TPS3R</option>
+                        <option value="Lainnya">Lainnya</option>
                     </select>
                 </div>
-                <div>
+                <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Nama Bank Sampah</label>
-                    <input type="text" name="nama_bank_sampah" class="w-full border rounded px-3 py-2" value="{{ old('nama_bank_sampah') }}">
+                    <input type="text" name="nama_bank_sampah" class="w-full border rounded px-3 py-2" placeholder="Cth: Bank Sampah UGM Jaya">
+                </div>
+                <div class="field-card">
+                    <label class="block text-sm font-semibold mb-1">Nama Pengelola</label>
+                    <input type="text" name="nama" class="w-full border rounded px-3 py-2" placeholder="Cth: Saya Sendiri">
+                </div>
+                <div class="field-card">
+                    <label class="block text-sm font-semibold mb-1">Nomor Whatsapp</label>
+                    <input type="text" name="nomor_wa" class="w-full border rounded px-3 py-2" placeholder="Cth: 081234567890">
+                </div>
+                <div class="field-card">
+                    <label class="block text-sm font-semibold mb-1">Email</label>
+                    <input type="email" name="email" class="w-full border rounded px-3 py-2" placeholder="Cth: email@gmail.com">
                 </div>
             </div>
         </div>
 
         <!-- LOCATION -->
         <div class="border rounded-lg p-4">
-            <h2 class="text-lg font-bold text-green-800 mb-4">LOCATION</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-semibold mb-1">Alamat Bank Sampah</label>
-                    <input type="text" name="alamat" class="w-full border rounded px-3 py-2" value="{{ old('alamat') }}">
+            <div class="card-body">
+                <h5 class="mt-4 mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
+                    <i class="bi bi-geo-alt-fill"></i> LOKASI
+                    <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
+                </h5>
                 </div>
-                <div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="field-card">
+                    <label class="block text-sm font-semibold mb-1">Alamat Bank Sampah</label>
+                    <input type="text" name="alamat" class="w-full border rounded px-3 py-2" placeholder="Cth: Jl. Wiyoro Kidul">
+                </div>
+                <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Kapanewon</label>
-                    <select name="kapanewon_id" id="kapanewon" class="w-full border rounded px-3 py-2" required>
+                    <select name="kapanewon_id" id="kapanewon" class="w-full border rounded px-3 py-2">
                         <option value="">-- Pilih Kapanewon --</option>
                         @foreach($kapanewon as $k)
-                            <option value="{{ $k->id }}" {{ old('kapanewon_id')==$k->id?'selected':'' }}>{{ $k->nama }}</option>
+                            <option value="{{ $k->id }}">{{ $k->nama }}</option>
                         @endforeach
                     </select>
                 </div>
-                <div>
+                <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Kelurahan</label>
-                    <select name="kelurahan_id" id="kelurahan" class="w-full border rounded px-3 py-2" required>
+                    <select name="kelurahan_id" id="kelurahan" class="w-full border rounded px-3 py-2">
                         <option value="">-- Pilih Kelurahan --</option>
                     </select>
                 </div>
-                <div>
+                <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Padukuhan</label>
-                    <select name="padukuhan_id" id="padukuhan" class="w-full border rounded px-3 py-2" required>
+                    <select name="padukuhan_id" id="padukuhan" class="w-full border rounded px-3 py-2">
                         <option value="">-- Pilih Padukuhan --</option>
                     </select>
                 </div>
-                <div>
+                <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Link Google Maps</label>
-                    <input type="url" name="link_maps" class="w-full border rounded px-3 py-2" value="{{ old('link_maps') }}">
+                    <input type="url" name="link_maps" class="w-full border rounded px-3 py-2" placeholder="https://maps.app.goo.gl/xxx">
                 </div>
             </div>
         </div>
 
-        <button type="submit" class="bg-green-800 text-white font-bold py-2 px-6 rounded hover:bg-green-900">Daftarkan Akun</button>
+        <!-- KEAMANAN LOGIN -->
+        <div class="border rounded-lg p-4">
+            <div class="card-body">
+                <h5 class="mt-4 mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
+                    <i class="bi bi-lock"></i> KEAMANAN LOGIN AKUN
+                    <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
+                </h5>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="field-card">
+                    <label class="block text-sm font-semibold mb-1">Password</label>
+                    <input type="password" name="password" id="password" class="w-full border rounded px-3 py-2" placeholder="Masukkan Password Anda..">
+                    <div class="mt-2 text-sm">
+                        <b>Ketentuan Password:</b>
+                        <ul class="list-disc pl-5 text-red-600">
+                            <li id="min-char">Minimal 10 Karakter</li>
+                            <li id="lowercase">Kombinasi huruf kecil</li>
+                            <li id="uppercase">Kombinasi huruf besar</li>
+                            <li id="number">Kombinasi angka</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="field-card">
+                    <label class="block text-sm font-semibold mb-1">Ulangi Password</label>
+                    <input type="password" name="password_confirmation" class="w-full border rounded px-3 py-2" placeholder="Ulangi Password Anda..">
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center mt-8">
+            <button type="submit" class="w-full md:w-1/2 bg-green-800 text-white font-bold py-3 rounded-lg shadow hover:bg-green-900 transition">
+                <i class="bi bi-person-plus"></i> Daftarkan Akun
+            </button>
+        </div>
     </form>
 </main>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const kapanewon = document.getElementById('kapanewon');
-    const kelurahan = document.getElementById('kelurahan');
-    const padukuhan = document.getElementById('padukuhan');
-
-    kapanewon.addEventListener('change', function() {
-        fetch(`/wilayah/kelurahan/${this.value}`)
-            .then(res => res.json())
-            .then(data => {
-                kelurahan.innerHTML = '<option value="">-- Pilih Kelurahan --</option>';
-                padukuhan.innerHTML = '<option value="">-- Pilih Padukuhan --</option>';
-                data.forEach(item => {
-                    kelurahan.innerHTML += `<option value="${item.id}">${item.nama}</option>`;
-                });
-            });
-    });
-
-    kelurahan.addEventListener('change', function() {
-        padukuhan.innerHTML = '<option value="">-- Pilih Padukuhan --</option>';
-        if (this.value) {
-            fetch(`/wilayah/padukuhan/${this.value}`)
-                .then(res => res.json())
-                .then(data => {
-                    data.forEach(item => {
-                        padukuhan.innerHTML += `<option value="${item.id}">${item.nama}</option>`;
-                    });
-                });
-        }
-    });
-});
-</script>
+<style>
+    .field-card {
+        border: 1px solid #838383;
+        border-radius: 5px;
+        background: #fff;
+        padding: 8px 12px;
+    }
+    .card-body h5 {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #276561;
+    border-radius: 5px; 
+    border-radius: 5px;
+    border: 1px solid #000000; 
+    padding: 10px; 
+    margin: 0;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+</style>
 @endsection
