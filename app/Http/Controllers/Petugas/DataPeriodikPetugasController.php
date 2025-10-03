@@ -75,13 +75,15 @@ class DataPeriodikPetugasController extends Controller
         return $pdf->stream('laporan-periodik.pdf');
     }
 
-    public function exportSinglePdf($id)
+   public function exportSinglePdf($id)
     {
         $laporan = LaporanPeriodik::with(['user.kapanewon','user.kelurahan','user.padukuhan'])
                     ->findOrFail($id);
 
         $pdf = Pdf::loadView('dashboard.petugas.pdf_data_periodik_single', [
-            'laporan' => $laporan
+            'laporan' => $laporan,
+            'periode' => $laporan->periode ?? null,
+            'tahun'   => $laporan->tahun ?? null,
         ])->setPaper('A4', 'portrait');
 
         return $pdf->stream('laporan-periodik-'.$laporan->id.'.pdf');

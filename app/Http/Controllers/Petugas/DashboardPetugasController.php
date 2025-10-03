@@ -12,20 +12,18 @@ class DashboardPetugasController extends Controller
     public function dashboard()
     {   
         $laporan = LaporanPeriodik::selectRaw('
-                sum(organik_rumah_tangga) as organik_rumah_tangga,
-                sum(organik_pasar) as organik_pasar,
-                sum(organik_kantor) as organik_kantor,
-                sum(anorganik_rumah_tangga) as anorganik_rumah_tangga,
-                sum(anorganik_pasar) as anorganik_pasar,
-                sum(anorganik_kantor) as anorganik_kantor,
-                sum(b3_rumah_tangga) as b3_rumah_tangga,
-                sum(b3_pasar) as b3_pasar,
-                sum(b3_kantor) as b3_kantor
-            ')
-            ->groupBy('periode', 'tahun')
-            ->get();
+            SUM(organik_rumah_tangga) as organik_rumah_tangga,
+            SUM(organik_pasar) as organik_pasar,
+            SUM(organik_kantor) as organik_kantor,
+            SUM(anorganik_rumah_tangga) as anorganik_rumah_tangga,
+            SUM(anorganik_pasar) as anorganik_pasar,
+            SUM(anorganik_kantor) as anorganik_kantor,
+            SUM(b3_rumah_tangga) as b3_rumah_tangga,
+            SUM(b3_pasar) as b3_pasar,
+            SUM(b3_kantor) as b3_kantor
+        ')->first();
 
-        return view('dashboard.petugas.dashboard_petugas',compact('laporan'));
+        return view('dashboard.petugas.dashboard_petugas', compact('laporan'));
     }
 
     public function dataUmum()

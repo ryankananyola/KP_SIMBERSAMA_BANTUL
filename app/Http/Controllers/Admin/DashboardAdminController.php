@@ -4,13 +4,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // <- tambahkan ini
+use Illuminate\Support\Facades\Auth;
+use App\Models\LaporanPeriodik;
 
 class DashboardAdminController extends Controller
 {
     public function dashboard()
     {
-        return view('dashboard.admin.dashboard_admin');
+        $laporan = LaporanPeriodik::selectRaw('
+            SUM(organik_rumah_tangga) as organik_rumah_tangga,
+            SUM(organik_pasar) as organik_pasar,
+            SUM(organik_kantor) as organik_kantor,
+            SUM(anorganik_rumah_tangga) as anorganik_rumah_tangga,
+            SUM(anorganik_pasar) as anorganik_pasar,
+            SUM(anorganik_kantor) as anorganik_kantor,
+            SUM(b3_rumah_tangga) as b3_rumah_tangga,
+            SUM(b3_pasar) as b3_pasar,
+            SUM(b3_kantor) as b3_kantor
+        ')->first();
+
+        return view('dashboard.admin.dashboard_admin', compact('laporan'));
     }
 
     public function dataUmum()

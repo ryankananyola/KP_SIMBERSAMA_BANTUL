@@ -19,6 +19,14 @@ use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\DataPeriodikAdminController;
 use App\Http\Controllers\Admin\AkunDitangguhkanAdminController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::get('/', [LandingController::class, 'index']);
 Route::get('/home', fn() => view('home'));
@@ -38,7 +46,6 @@ Route::post('/register-admin', [RegisterAdminController::class, 'store'])->name(
 Route::get('/wilayah/kapanewon', [WilayahController::class, 'getKapanewon']);
 Route::get('/wilayah/kelurahan/{kapanewon_id}', [WilayahController::class, 'getKelurahan']);
 Route::get('/wilayah/padukuhan/{kelurahan_id}', [WilayahController::class, 'getPadukuhan']);
-
 
 Route::middleware(['auth:akun'])->group(function () {
     Route::prefix('dashboard_user')->name('user.')->group(function () {

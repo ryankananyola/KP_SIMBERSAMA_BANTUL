@@ -49,4 +49,7 @@ class Akun extends Authenticatable
         return $this->hasOne(DokumenSK::class, 'user_id');
     }
 
+    public function setRememberToken($value) {}
+    public function getRememberToken() { return null; }
+    public function getRememberTokenName() { return null; }
 }

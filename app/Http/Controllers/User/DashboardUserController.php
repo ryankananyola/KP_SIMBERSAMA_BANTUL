@@ -53,7 +53,7 @@ class DashboardUserController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        return view('dashboard.user.profile-user', compact('user'));
+        return view('dashboard.user.profile_user', compact('user'));
     }
 
     public function updateProfile(Request $request)
@@ -75,6 +75,6 @@ class DashboardUserController extends Controller
         $user->nomor_wa = $request->nomor_wa;
         $user->save();
 
-        return redirect()->route('user.profile-user')->with('success', 'Profil berhasil diperbarui!');
+        return redirect()->route('user.profile')->with('success', 'Profil berhasil diperbarui!');
     }
 }
