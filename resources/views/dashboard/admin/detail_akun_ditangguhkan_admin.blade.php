@@ -37,7 +37,7 @@
                     <tr>
                         <th>Jenis dan Nomor SK</th>
                         <th>Diperlukan Oleh</th>
-                        <th>Struktur Organisasi</th>
+                        <th>Penanggung Jawab</th>
                         <th>Kondisi Bangunan</th>
                         <th>Dibangun Oleh</th>
                         <th>Pihak yang Membangun</th>
@@ -56,7 +56,7 @@
                             @endif
                         </td>
                         <td>{{ $sk->diperlukan_oleh ?? '-' }}</td>
-                        <td>{{ $sk->struktur_organisasi ?? '-' }}</td>
+                        <td>{{ $sk->penanggung_jawab ?? '-' }}</td>
                         <td>{{ $sk->kondisi_bangunan ?? '-' }}</td>
                         <td>{{ $sk->dibangun_oleh ?? '-' }}</td>
                         <td>{{ $sk->pihak_membangun ?? '-' }}</td>

@@ -117,10 +117,12 @@
                                             {{ $isActive ? 'disabled' : '' }}>
                                             @if($isActive)
                                                 <i class="bi bi-person-check me-1"></i> Akun Aktif
-                                            @elseif($item->status == 'Diterima' && empty($item->survey_date))
-                                                <i class="bi bi-calendar-plus me-1"></i> Simpan Jadwal
+                                            @elseif($item->status == 'Survey' && !empty($item->survey_date) && $item->status_survey == 'Perlu Perbaikan')
+                                                <i class="bi bi-calendar-plus me-1"></i> Jadwal Ulang
                                             @elseif($item->status == 'Survey' && !empty($item->survey_date))
                                                 <i class="bi bi-calendar2-event me-1"></i> Revisi Jadwal
+                                            @elseif($item->status == 'Diterima' && empty($item->survey_date))
+                                                <i class="bi bi-calendar-plus me-1"></i> Simpan Jadwal
                                             @else
                                                 <i class="bi bi-calendar-plus me-1"></i> Simpan Jadwal
                                             @endif
