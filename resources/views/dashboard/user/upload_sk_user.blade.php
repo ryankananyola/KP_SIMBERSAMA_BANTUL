@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container py-4">
-    <h4 class="fw-bold mb-4">SK, Organisasi & Bangunan</h4>
+    <h4 class="fw-bold mb-4 text-center">SK, Organisasi & Bangunan</h4>
 
     @php
         $latestSK = \App\Models\DokumenSK::where('user_id', auth()->id())
@@ -87,8 +87,8 @@
             @if($latestSK) @method('PUT') @endif
 
             <div class="row g-3">
-                <div class="col-md-6">
-                    <div class="field-card">
+                <div class="col-md-6 d-flex">
+                    <div class="field-card w-100">
                         <label class="form-label fw-semibold">SK<span class="text-danger">*</span></label>
                         <select name="sk" id="sk_select" class="form-select" required>
                             <option value="">-- Pilih 1 --</option>
@@ -104,15 +104,15 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="field-card">
+                <div class="col-md-6 d-flex">
+                    <div class="field-card w-100">
                         <label class="form-label fw-semibold">No. SK<span class="text-danger">*</span></label>
                         <input type="text" name="no_sk" class="form-control" value="{{ $latestSK->no_sk ?? '' }}" required>
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="field-card">
+                <div class="col-md-6 d-flex">
+                    <div class="field-card w-100">
                         <label class="form-label fw-semibold">Di Perlukan Oleh<span class="text-danger">*</span></label>
                         @php
                             $diperlukan_options = ['Kepala Dinas','Pihak Pengelola','Departemen Teknik','Tim Pengadaan'];
@@ -128,8 +128,8 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="field-card">
+                <div class="col-md-6 d-flex">
+                    <div class="field-card w-100">
                         <label class="form-label fw-semibold">
                             Upload File SK<span class="text-danger">*</span>
                         </label>
@@ -147,13 +147,13 @@
 
                 <div class="col-md-6">
                     <div class="field-card">
-                        <label class="form-label fw-semibold">Struktur Organisasi<span class="text-danger">*</span></label>
-                        <input type="text" name="struktur_organisasi" class="form-control" value="{{ $latestSK->struktur_organisasi ?? '' }}">
+                        <label class="form-label fw-semibold">Penanggung Jawab<span class="text-danger">*</span></label>
+                        <input type="text" name="penanggung_jawab" class="form-control" value="{{ $latestSK->penanggung_jawab ?? '' }}">
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="field-card">
+                <div class="col-md-6 d-flex">
+                    <div class="field-card w-100">
                         <label class="form-label fw-semibold">Kondisi Bangunan<span class="text-danger">*</span></label>
                         @php
                             $kondisi_options = ['Baru Dibangun','Renovasi','Perlu Perbaikan','Rusak Berat','Baik'];
@@ -169,8 +169,8 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="field-card">
+                <div class="col-md-6 d-flex">
+                    <div class="field-card w-100">
                         <label class="form-label fw-semibold">Dibangun Oleh<span class="text-danger">*</span></label>
                         @php $dibangun_options = ['Pemerintah Daerah','PT XYZ','Kontraktor XYZ']; @endphp
                         <select name="dibangun_oleh" id="dibangun_select" class="form-select">
@@ -184,8 +184,8 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="field-card">
+                <div class="col-md-6 d-flex">
+                    <div class="field-card w-100">
                         <label class="form-label fw-semibold">Pihak yang Membangun<span class="text-danger">*</span></label>
                         @php $pihak_options = ['Pemerintah Kota/Kabupaten','Kontraktor','Pengelola Sumber Daya']; @endphp
                         <select name="pihak_membangun" id="pihak_select" class="form-select">
@@ -199,22 +199,22 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="field-card">
+                <div class="col-md-6 d-flex">
+                    <div class="field-card w-100">
                         <label class="form-label fw-semibold">Tahun Pembangunan<span class="text-danger">*</span></label>
                         <input type="number" name="tahun_pembangunan" min="1900" max="2100" class="form-control" value="{{ $latestSK->tahun_pembangunan ?? '' }}">
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="field-card">
+                <div class="col-md-6 d-flex">
+                    <div class="field-card w-100">
                         <label class="form-label fw-semibold">Luas (m²)<span class="text-danger">*</span></label>
                         <input type="number" step="0.01" name="luas" class="form-control" value="{{ $latestSK->luas ?? '' }}">
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="field-card">
+                <div class="col-md-6 d-flex">
+                    <div class="field-card w-100">
                         <label class="form-label fw-semibold">Biaya Pembangunan (Rp)<span class="text-danger">*</span></label>
                         <input type="number" step="0.01" name="biaya_pembangunan" class="form-control" value="{{ $latestSK->biaya_pembangunan ?? '' }}">
                     </div>
@@ -261,33 +261,54 @@ document.addEventListener('DOMContentLoaded', function() {
 @endsection
 
 <style>
-
-    .field-card{
-      border: 1px solid #838383;
-      border-radius: 5px;           
+    .field-card {
+      border: 1px solid #c9c9c9;
+      border-radius: 10px;
       background: #fff;
-      padding: 5px 14px;    
-      padding-left: 15px;
+      padding: 14px 18px;
+      height: 100%; 
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
-
-    .field-card .form-label{
-  font-weight: 700;
-  font-size: .875rem;
-  margin-bottom: .35rem;
-  color: #2c2c2c;
-}
-.field-card .form-control{
-  background-color: #f8f9fa;
-  border: 0;                    
-  border-radius: 8px;
-  padding: 15px 12px;
-  color: #495057;
-}
-
-.card {
-    border-radius: 20px;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    background-color: #fff;
-}
-</style>
+    
+    .field-card .form-label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: #2c2c2c;
+    }
+    
+    .field-card .form-control,
+    .field-card .form-select {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #495057;
+      min-height: 42px; 
+    }
+    
+    .field-card .form-control:focus,
+    .field-card .form-select:focus {
+      border-color: #198754;
+      box-shadow: 0 0 0 0.1rem rgba(25, 135, 84, 0.25);
+    }
+    
+    .row.g-3 > [class*="col-"] {
+      margin-bottom: 10px;
+    }
+    
+    .btn-success {
+      font-weight: 600;
+      padding: 10px 24px;
+      border-radius: 10px;
+    }
+    
+    .card {
+      border-radius: 15px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+      background-color: #fff;
+    }
+    </style>
+    

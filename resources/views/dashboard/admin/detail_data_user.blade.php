@@ -1,6 +1,5 @@
 @extends('layouts.layout_admin')
 <head>
-    <!-- Tambahkan Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
@@ -53,7 +52,6 @@
                 </div>
             </div>
 
-            <!-- Lokasi -->
             <h5 class="mt-4 mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
                 <i class="bi bi-geo-alt-fill"></i> LOKASI
                 <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
@@ -104,58 +102,98 @@
                 <div class="col-md-6">
                     <div class="field-card">
                         <label class="form-label">Link Google Maps</label>
+           <!-- Lokasi -->
+<h5 class="mt-4 mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
+    <i class="bi bi-geo-alt-fill"></i> LOKASI
+    <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
+</h5>
 
-                        @if (!empty($akun->alamat))
-                            <button type="button"
-                                class="d-flex align-items-center gap-2 p-2 rounded bg-light border text-primary text-decoration-none"
-                                data-bs-toggle="modal"
-                                data-bs-target="#mapsModal">
-                                <i class="bi bi-geo-alt-fill"></i>
-                                <span>Lihat di Google Maps</span>
-                            </button>
-
-                            <div class="modal fade" id="mapsModal" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-lg modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header bg-light text-black">
-                                            <h5 class="modal-title"><i class="bi bi-geo-alt-fill"></i> Lokasi Google Maps</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body p-0">
-                                           @php
-                                                $latitude = null;
-                                                $longitude = null;
-
-                                                if(!empty($akun->link_maps)){
-                                                    if(preg_match('/@([-0-9.]+),([-0-9.]+)/', $akun->link_maps, $matches)){
-                                                        $latitude = $matches[1];
-                                                        $longitude = $matches[2];
-                                                    }
-                                                }
-                                                @endphp
-
-                                                @if($latitude && $longitude)
-                                                    <iframe
-                                                        width="100%"
-                                                        height="400"
-                                                        style="border:0;"
-                                                        loading="lazy"
-                                                        allowfullscreen
-                                                        src="https://www.google.com/maps/embed/v1/place?key={{ config('services.google_maps.api_key') }}
-                                                        &q={{ $latitude }},{{ $longitude }}">
-                                                    </iframe>
-                                                @else
-                                                    <p>Lokasi belum tersedia atau link tidak valid.</p>
-                                                @endif
-                                        </div>
-                                    </div>
-                                </div>
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="field-card">
+            <label class="form-label">Alamat</label>
+            <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->alamat ?? '-' }}" readonly>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="field-card">
+            <label class="form-label">Link Google Maps</label>
+    
+            @php
+                $latitude = null;
+                $longitude = null;
+    
+                if (!empty($akun->link_maps)) {
+                    if (preg_match('/@([-0-9.]+),([-0-9.]+)/', $akun->link_maps, $matches)) {
+                        $latitude = $matches[1];
+                        $longitude = $matches[2];
+                    }
+                }
+    
+                $modalId = 'mapsModal_' . ($akun->id ?? uniqid());
+            @endphp
+    
+            @if (!empty($akun->link_maps) && $latitude && $longitude)
+                <input type="text"
+                       class="form-control bg-light text-primary border-0"
+                       value="Lihat di Google Maps"
+                       readonly
+                       data-bs-toggle="modal"
+                       data-bs-target="#{{ $modalId }}"
+                       style="cursor: pointer; font-weight: 500;">
+                
+                <!-- Modal -->
+                <div class="modal fade" id="{{ $modalId }}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-light text-black">
+                                <h5 class="modal-title"><i class="bi bi-geo-alt-fill"></i> Lokasi Google Maps</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                        @else
-                            <input type="text" class="form-control bg-light text-muted border-0" value="-" readonly>
-                        @endif
+                            <div class="modal-body p-0">
+                                <iframe
+                                    width="100%"
+                                    height="400"
+                                    style="border:0;"
+                                    loading="lazy"
+                                    allowfullscreen
+                                    src="https://www.google.com/maps/embed/v1/place?key={{ config('services.google_maps.api_key') }}&q={{ $latitude }},{{ $longitude }}">
+                                </iframe>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            @else
+                <input type="text" class="form-control bg-light text-muted border-0" value="Link Maps tidak tersedia" readonly>
+            @endif
+        </div>
+    </div>
+    
+            <div class="row g-3 mt-2">
+
+                <div class="col-md-4">
+                    <div class="field-card">
+                    <label class="form-label">Padukuhan</label>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->padukuhan->nama ?? '-' }}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="field-card">
+                    <label class="form-label">Kelurahan</label>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->kelurahan->nama ?? '-' }}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="field-card">
+                    <label class="form-label">Kapanewon</label>
+                    <input type="text" class="form-control bg-light text-muted border-0" value="{{ $akun->kapanewon->nama ?? '-' }}" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <div class="mt-4 text-end">
+                <a href="{{ route('admin.data_umum.index') }}" class="btn btn-secondary">Kembali</a>
             </div>
         </div>
     </div>
@@ -171,6 +209,7 @@
   background: #fff;
   padding: 0px 14px;    
   padding-left: 15px;
+  padding-top: 5px;
 }
 
 .field-card .form-label{

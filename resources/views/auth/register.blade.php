@@ -49,92 +49,111 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <div class="field-card">
-                        <label class="block text-sm font-semibold mb-1">Pilih Jenis Fasilitas</label>
-                        <select class="w-full border rounded px-3 py-2" name="jenis_fasilitas">
-                            <option value="">--Pilih jenis Fasilitas--</option>
-                            <option value="Bank Sampah" {{ old('jenis_fasilitas') == 'Bank Sampah' ? 'selected' : ''}}>Bank Sampah</option>
-                            <option value="Shodaqoh Sampah" {{ old('jenis_fasilitas') == 'Shodaqoh Sampah' ? 'selected' : ''}}>Shodaqoh Sampah</option>
-                            <option value="TPS3R" {{ old('jenis_fasilitas') == 'TPS3R'  ? 'selected' : ''}}>TPS3R</option>
-                            <option value="Lainnya" {{ old('jenis_fasilitas') == 'Lainnya'  ? 'selected' : ''}}>Lainnya</option>
-                        </select>
-                        @error('jenis_fasilitas')
-                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                        @enderror
+                            <label class="block text-sm font-semibold mb-1">Pilih Jenis Fasilitas</label>
+                            <select class="w-full border rounded px-3 py-2" name="jenis_fasilitas">
+                                <option value="">--Pilih jenis Fasilitas--</option>
+                                <option value="Bank Sampah" {{ old('jenis_fasilitas') == 'Bank Sampah' ? 'selected' : ''}}>Bank Sampah</option>
+                                <option value="Shodaqoh Sampah" {{ old('jenis_fasilitas') == 'Shodaqoh Sampah' ? 'selected' : ''}}>Shodaqoh Sampah</option>
+                                <option value="TPS3R" {{ old('jenis_fasilitas') == 'TPS3R'  ? 'selected' : ''}}>TPS3R</option>
+                                <option value="Lainnya" {{ old('jenis_fasilitas') == 'Lainnya'  ? 'selected' : ''}}>Lainnya</option>
+                            </select>
+                            @error('jenis_fasilitas')
+                                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
+                
                     <div>
                         <div class="field-card">
-                        <label class="block text-sm font-semibold mb-1">Nama Bank Sampah</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" name="nama_bank_sampah" placeholder="Cth: Bank Sampah UGM Jaya" value="{{ old('nama_bank_sampah') }}">
+                            <label class="block text-sm font-semibold mb-1">Nama Bank Sampah</label>
+                            <input type="text" class="w-full border rounded px-3 py-2" name="nama_bank_sampah" placeholder="Cth: Bank Sampah UGM Jaya" value="{{ old('nama_bank_sampah') }}">
                         </div>
                     </div>
-                    <div>
+                
+                    <div class="md:col-span-2">
                         <div class="field-card">
-                        <label class="block text-sm font-semibold mb-1">Nama Pengelola</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" name="nama" placeholder="Cth: Saya Sendiri" value="{{ old('nama') }}">
+                            <label class="block text-sm font-semibold mb-1">Nama Pengelola</label>
+                            <input type="text" class="w-full border rounded px-3 py-2" name="nama" placeholder="Cth: Saya Sendiri" value="{{ old('nama') }}">
                         </div>
                     </div>
+                
+                    
                     <div>
                         <div class="field-card">
-                        <label class="block text-sm font-semibold mb-1">Nomor Whatsapp</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" name="nomor_wa" placeholder="Cth: 081234567890" value="{{ old('nomor_wa') }}">
+                            <label class="block text-sm font-semibold mb-1">Nomor Whatsapp</label>
+                            <input type="text" class="w-full border rounded px-3 py-2" name="nomor_wa" placeholder="Cth: 081234567890" value="{{ old('nomor_wa') }}">
                         </div>
                     </div>
+                
                     <div>
                         <div class="field-card">
-                        <label class="block text-sm font-semibold mb-1">Email</label>
-                        <input type="email" class="w-full border rounded px-3 py-2" name="email" placeholder="Cth: sayasendiri@gmail.com" value="{{ old('email') }}">
+                            <label class="block text-sm font-semibold mb-1">Email</label>
+                            <input type="email" class="w-full border rounded px-3 py-2" name="email" placeholder="Cth: sayasendiri@gmail.com" value="{{ old('email') }}">
                         </div>
                     </div>
                 </div>
+                
             
             <!-- LOCATION -->
             <div>
                 <div class="card-body">
-                <h5 class="mt-4 mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
-                    <i class="bi bi-geo-alt-fill"></i> LOKASI
-                    <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
-                </h5>
+                    <h5 class="mt-4 mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
+                        <i class="bi bi-geo-alt-fill"></i> LOKASI
+                        <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
+                    </h5>
                 </div>
+            
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
+            
+                    <!-- Alamat Bank Sampah (memanjang ke kanan) -->
+                    <div class="md:col-span-2">
                         <div class="field-card">
-                        <label class="block text-sm font-semibold mb-1">Alamat Bank Sampah</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" name="alamat" placeholder="Cth: J. Wiyoro Kidul, Wirono" value="{{ old('alamat') }}">
+                            <label class="block text-sm font-semibold mb-1">Alamat Bank Sampah</label>
+                            <input type="text" class="w-full border rounded px-3 py-2" name="alamat" placeholder="Cth: Jl. Wiyoro Kidul, Wirono" value="{{ old('alamat') }}">
                         </div>
                     </div>
+            
+                    <!-- Kecamatan -->
                     <div>
                         <div class="field-card">
-                        <label class="block text-sm font-semibold mb-1">Kecamatan</label>
-                        <select id="kecamatan" class="w-full border rounded px-3 py-2" name="kapanewon_id">
-                            <option>--Pilih Kapanewon--</option>
-                        </select>
+                            <label class="block text-sm font-semibold mb-1">Kapanewon</label>
+                            <select id="kecamatan" class="w-full border rounded px-3 py-2" name="kapanewon_id">
+                                <option>--Pilih Kapanewon--</option>
+                            </select>
                         </div>
                     </div>
+            
+                    <!-- Kelurahan -->
                     <div>
                         <div class="field-card">
-                        <label class="block text-sm font-semibold mb-1">Kelurahan</label>
-                        <select id="kelurahan" class="w-full border rounded px-3 py-2" name="kelurahan_id">
-                            <option>--Pilih Kelurahan--</option>
-                        </select>
+                            <label class="block text-sm font-semibold mb-1">Kelurahan</label>
+                            <select id="kelurahan" class="w-full border rounded px-3 py-2" name="kelurahan_id">
+                                <option>--Pilih Kalurahan--</option>
+                            </select>
                         </div>
                     </div>
+            
+                    <!-- Padukuhan -->
                     <div>
                         <div class="field-card">
-                        <label class="block text-sm font-semibold mb-1">Padukuhan</label>
-                        <select id="padukuhan" class="w-full border rounded px-3 py-2" name="padukuhan_id">
-                            <option>--Pilih Padukuhan--</option>
-                        </select>
+                            <label class="block text-sm font-semibold mb-1">Padukuhan</label>
+                            <select id="padukuhan" class="w-full border rounded px-3 py-2" name="padukuhan_id">
+                                <option>--Pilih Padukuhan--</option>
+                            </select>
                         </div>
                     </div>
+            
+                    <!-- Link Google Maps -->
                     <div>
                         <div class="field-card">
-                        <label class="block text-sm font-semibold mb-1">Link Google Maps</label>
-                        <input type="text" class="w-full border rounded px-3 py-2" name="link_maps" placeholder="Cth: https://maps.app.goo.gl/xxx" value="{{ old('link_maps') }}">
+                            <label class="block text-sm font-semibold mb-1">Link Google Maps</label>
+                            <input type="text" class="w-full border rounded px-3 py-2" name="link_maps" placeholder="Cth: https://maps.app.goo.gl/xxx" value="{{ old('link_maps') }}">
+                        </div>
                     </div>
-                    </div>
+            
                 </div>
             </div>
+            
             <!-- KEAMANAN LOGIN AKUN -->
             <div>
                 <div class="card-body">
