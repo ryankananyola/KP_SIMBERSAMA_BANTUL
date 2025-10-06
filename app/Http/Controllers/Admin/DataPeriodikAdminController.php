@@ -80,7 +80,9 @@ class DataPeriodikAdminController extends Controller
                     ->findOrFail($id);
 
         $pdf = Pdf::loadView('dashboard.admin.pdf_data_periodik_single', [
-            'laporan' => $laporan
+            'laporan' => $laporan,
+            'periode' => $laporan->periode ?? null,
+            'tahun' => $laporan->tahun ?? null,
         ])->setPaper('A4', 'portrait');
 
         return $pdf->stream('laporan-periodik-'.$laporan->id.'.pdf');
