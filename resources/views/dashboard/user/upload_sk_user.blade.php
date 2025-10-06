@@ -93,7 +93,7 @@
                         <select name="sk" id="sk_select" class="form-select" required>
                             <option value="">-- Pilih 1 --</option>
                             @php
-                                $sk_options = ['SK Pengadaan Bangunan','SK Pemanfaatan Aset','SK Penyerahan Aset','SK Penetapan Lokasi','SK Pemberian Tunjangan','SK Pembentukan Tim Kerja'];
+                                $sk_options = ['Ada', 'Tidak Ada'];
                             @endphp
                             @foreach($sk_options as $option)
                                 <option value="{{ $option }}" @if($latestSK && $latestSK->sk === $option) selected @endif>{{ $option }}</option>
@@ -115,7 +115,7 @@
                     <div class="field-card">
                         <label class="form-label fw-semibold">Di Perlukan Oleh<span class="text-danger">*</span></label>
                         @php
-                            $diperlukan_options = ['Kepala Dinas','Pihak Pengelola','Departemen Teknik','Tim Pengadaan'];
+                            $diperlukan_options = ['Lurah/Kepala Desa','Camat/Panewu','Kepala Dinas','Bupati'];
                         @endphp
                         <select name="diperlukan_oleh" id="diperlukan_select" class="form-select" required>
                             <option value="">-- Pilih 1 --</option>
@@ -156,7 +156,7 @@
                     <div class="field-card">
                         <label class="form-label fw-semibold">Kondisi Bangunan<span class="text-danger">*</span></label>
                         @php
-                            $kondisi_options = ['Baru Dibangun','Renovasi','Perlu Perbaikan','Rusak Berat','Baik'];
+                            $kondisi_options = ['Bangunan Permanen Sendiri','Bangun Semi Permanen','Gabung Dengan Rumah Warga','Kantor RT/RW','Poskamling', 'Gabung Dengan Perkantoran dan Sejenisnya', 'Lainnya'];
                         @endphp
                         <select name="kondisi_bangunan" id="kondisi_select" class="form-select">
                             <option value="">-- Pilih 1 --</option>
@@ -172,7 +172,7 @@
                 <div class="col-md-6">
                     <div class="field-card">
                         <label class="form-label fw-semibold">Dibangun Oleh<span class="text-danger">*</span></label>
-                        @php $dibangun_options = ['Pemerintah Daerah','PT XYZ','Kontraktor XYZ']; @endphp
+                        @php $dibangun_options = ['Pemerintah Pusat','Pemerintah Provinsi','Pemerintah Kabupaten', 'Pemerintah Desa', 'Bantuan Donatur/LN', 'Swasta', 'Swadaya']; @endphp
                         <select name="dibangun_oleh" id="dibangun_select" class="form-select">
                             <option value="">-- Pilih 1 --</option>
                             @foreach($dibangun_options as $opt)
@@ -187,7 +187,7 @@
                 <div class="col-md-6">
                     <div class="field-card">
                         <label class="form-label fw-semibold">Pihak yang Membangun<span class="text-danger">*</span></label>
-                        @php $pihak_options = ['Pemerintah Kota/Kabupaten','Kontraktor','Pengelola Sumber Daya']; @endphp
+                            @php $pihak_options = ['Pemerintah Kota/Kabupaten','Kontraktor','Pengelola Sumber Daya']; @endphp
                         <select name="pihak_membangun" id="pihak_select" class="form-select">
                             <option value="">-- Pilih 1 --</option>
                             @foreach($pihak_options as $opt)

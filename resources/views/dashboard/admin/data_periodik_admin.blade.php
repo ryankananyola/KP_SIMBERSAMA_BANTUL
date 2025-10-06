@@ -57,7 +57,7 @@
             <div class="card-body">
                 @if($laporan->isEmpty())
                     <div class="alert alert-warning text-center mb-0">
-                        Tidak ada user yang sudah mengisi laporan pada periode ini.
+                        Tidak ada bank sampah yang sudah mengisi laporan pada periode ini.
                     </div>
                 @else
                     <div class="table-responsive">
