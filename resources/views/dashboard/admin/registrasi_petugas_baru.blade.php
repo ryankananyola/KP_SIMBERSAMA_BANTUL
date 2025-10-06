@@ -7,7 +7,7 @@
 </head>
 
 <main class="max-w-5xl mx-auto p-4 font-[Instrument Sans]">
-    <h1 class="h3 mb-4 fw-bold text-center">Input Petugas</h1>
+    <h1 class="h3 mb-4 fw-bold text-center">Registrasi Petugas</h1>
 
     @if(session('success'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">

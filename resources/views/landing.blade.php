@@ -24,16 +24,17 @@
       border:1px solid rgba(0,0,0,.06);
     }
     
-    .section-chip{
-      background: var(--brand);
-      color:#fff;
-      border-radius:14px;
-      padding:.6rem 1rem;
-      font-weight:700;
-      display:inline-flex;
-      align-items:center;
-      gap:.5rem;
-    }
+    .section-header-box {
+  border: 2px solid #198754; /* hijau garis */
+  border-radius: 14px;
+  background-color: #fff; /* putih di dalam */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  font-weight: 700;
+  color: #198754; /* teks hijau */
+}
     
     .btn-download{
       background:#eaf7f1;
@@ -72,6 +73,15 @@
       max-width: 1200px;
       margin-top: 5px; 
     }
+
+    .content-box-green {
+  background-color: white;
+  border: 2px solid green;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
   </style>
 </head>
 
@@ -147,33 +157,43 @@
               <div class="mt-1 text-gray-600">Total Sampah</div>
             </div>
           </div>
-
-          <div class="mt-10">
-            <div class="flex items-center justify-between mb-3">
-              <div class="section-chip">Judul</div>
-              <div class="section-chip">File</div>
-            </div>
-
-            <div class="bg-white rounded-xl overflow-hidden border border-gray-200">
-              <div class="grid grid-cols-12 items-center px-4 py-3 border-b border-gray-100">
-                <div class="col-span-10 text-gray-800">Buku Panduan</div>
-                <div class="col-span-2 flex justify-end">
-                  <a href="https://drive.google.com/file/d/1Sbv44XKbyC887ux-60rLcW-8jiz8h_b8/view" class="btn-download">
-                    <span>⬇</span> Unduh
-                  </a>
-                </div>
-              </div>
-
-              <div class="grid grid-cols-12 items-center px-4 py-3">
-                <div class="col-span-10 text-gray-800">Video Tutorial</div>
-                <div class="col-span-2 flex justify-end">
-                  <a href="#" class="btn-download">
-                    <span>⬇</span> Unduh
-                  </a>
-                </div>
-              </div>
+          <div class="mt-10 flex justify-center">
+            <div class="bg-white border-2 border-green-600 rounded-xl shadow-sm overflow-hidden w-3/4">
+              <table class="min-w-full text-center border-collapse">
+                <!-- Header -->
+                <thead class="bg-white border-b-2 border-green-600">
+                  <tr class="text-green-700 font-semibold">
+                    <th class="py-3 px-4">Judul</th>
+                    <th class="py-3 px-4">File</th>
+                  </tr>
+                </thead>
+          
+                <!-- Isi Tabel -->
+                <tbody>
+                  <tr class="border-b border-gray-200">
+                    <td class="py-3 px-4 text-gray-800">Buku Panduan</td>
+                    <td class="py-3 px-4">
+                      <a href="https://drive.google.com/file/d/1Sbv44XKbyC887ux-60rLcW-8jiz8h_b8/view"
+                         class="inline-block bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm hover:bg-green-700 transition">
+                        ⬇ Unduh
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 text-gray-800">Video Tutorial</td>
+                    <td class="py-3 px-4">
+                      <a href="#"
+                         class="inline-block bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm hover:bg-green-700 transition">
+                        ⬇ Unduh
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
+          
+          
 
           <div class="mt-8">
             <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 sm:p-5">

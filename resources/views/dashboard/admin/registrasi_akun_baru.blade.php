@@ -50,9 +50,11 @@
                     <label class="block text-sm font-semibold mb-1">Nama Bank Sampah</label>
                     <input type="text" name="nama_bank_sampah" class="w-full border rounded px-3 py-2" placeholder="Cth: Bank Sampah UGM Jaya">
                 </div>
+                <div class="md:col-span-2">
                 <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Nama Pengelola</label>
                     <input type="text" name="nama" class="w-full border rounded px-3 py-2" placeholder="Cth: Saya Sendiri">
+                </div>
                 </div>
                 <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Nomor Whatsapp</label>
@@ -74,9 +76,11 @@
                 </h5>
                 </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="md:col-span-2">
                 <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Alamat Bank Sampah</label>
                     <input type="text" name="alamat" class="w-full border rounded px-3 py-2" placeholder="Cth: Jl. Wiyoro Kidul">
+                </div>
                 </div>
                 <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Kapanewon</label>
@@ -88,7 +92,7 @@
                     </select>
                 </div>
                 <div class="field-card">
-                    <label class="block text-sm font-semibold mb-1">Kelurahan</label>
+                    <label class="block text-sm font-semibold mb-1">Kalurahan</label>
                     <select name="kelurahan_id" id="kelurahan" class="w-full border rounded px-3 py-2">
                         <option value="">-- Pilih Kelurahan --</option>
                     </select>

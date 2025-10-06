@@ -1,6 +1,5 @@
 @extends('layouts.layout_admin')
 <head>
-    <!-- Tambahkan Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
@@ -53,7 +52,6 @@
                 </div>
             </div>
 
-            <!-- Lokasi -->
             <h5 class="mt-4 mb-3 fw-bold" style="color: #276561; padding-left: 25px; position: relative;">
                 <i class="bi bi-geo-alt-fill"></i> LOKASI
                 <span style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background-color: #276561; border-radius: 10px 0 0 10px;"></span>
@@ -67,6 +65,16 @@
                 </div>
                 <div class="col-md-6">
                     <div class="field-card">
+                    <label class="form-label">Link Google Maps</label>
+                    @if (!empty($akun->link_maps))
+                        <a href="{{ $akun->link_maps }}" target="_blank" class="d-flex align-items-center gap-2 p-2 rounded bg-light border text-primary text-decoration-none">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <span>Lihat di Google Maps</span>
+                        </a>
+                    @else
+                        <input type="text" class="form-control bg-light text-muted border-0" value="-" readonly>
+                    @endif
+                </div>
                         <label class="form-label">Link Google Maps</label>
 
                         @if (!empty($akun->alamat))
@@ -158,6 +166,7 @@
   background: #fff;
   padding: 0px 14px;    
   padding-left: 15px;
+  padding-top: 5px;
 }
 
 .field-card .form-label{
