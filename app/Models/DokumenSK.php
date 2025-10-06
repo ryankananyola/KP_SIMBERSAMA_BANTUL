@@ -16,7 +16,7 @@ class DokumenSK extends Model
         'no_sk',
         'diperlukan_oleh',
         'file_sk',
-        'struktur_organisasi',
+        'penanggung_jawab',
         'kondisi_bangunan',
         'dibangun_oleh',
         'pihak_membangun',

@@ -62,7 +62,7 @@
             <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
                     <img src="{{ asset('assets/images/sampah/b3_'.$key.'.jpg') }}" 
-                         alt="B3 {{ $label }}" 
+                         alt="B3 {{ $label }}" 3
                          class="img-fluid mb-3" style="max-height:150px; object-fit:contain;">
                     <h6 class="fw-bold">Sampah B3 : {{ $label }}</h6>
                     <label class="form-label">Quantity (Kg)</label>
