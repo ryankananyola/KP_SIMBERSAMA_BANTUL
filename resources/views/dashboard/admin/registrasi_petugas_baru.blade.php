@@ -70,22 +70,38 @@
                 </h5>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="field-card">
-                    <label class="block text-sm font-semibold mb-1">Password</label>
-                    <input type="password" name="password" id="password" class="w-full border rounded px-3 py-2" placeholder="Masukkan Password Anda..">
-                    <div class="mt-2 text-sm">
-                        <b>Ketentuan Password:</b>
-                        <ul class="list-disc pl-5 text-red-600">
-                            <li id="min-char">Minimal 10 Karakter</li>
-                            <li id="lowercase">Kombinasi huruf kecil</li>
-                            <li id="uppercase">Kombinasi huruf besar</li>
-                            <li id="number">Kombinasi angka</li>
-                        </ul>
+                <div>
+                    <div class="field-card">
+                    <label class="block text-sm font-semibold mb-1">Username</label>
+                    <input type="text" class="w-full border rounded px-3 py-2" name="username" placeholder="Cth: sayasendiri12" value="{{ old('username') }}">
                     </div>
                 </div>
-                <div class="field-card">
+                <div></div>
+                <div>
+                    <div class="field-card">
+                    <label class="block text-sm font-semibold mb-1">Password</label>
+                    <div class="relative">
+                        <input type="password" id="password" class="w-full border rounded px-3 py-2 pr-10 mb-2" name="password" placeholder="Masukkan Password Anda..">
+                        <span class="material-icons absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400" id="toggle-password" onclick="togglePassword('password', 'toggle-password')">visibility_off</span>
+                    </div>
+                    <div class="bg-[#f7f7f7] rounded p-2 text-xs" id="password-rules">
+                        <span class="text-blue-700 font-bold">&#9432; Ketentuan Password:</span><br>
+                        <span id="rule-length" class="text-red-600"><span id="icon-length" style="color:#e3342f">&#10006;</span> Minimal 10 Karakter</span><br>
+                        <span id="rule-lower" class="text-red-600"><span id="icon-lower" style="color:#e3342f">&#10006;</span> Kombinasi <span class="font-bold">huruf kecil</span></span><br>
+                        <span id="rule-upper" class="text-red-600"><span id="icon-upper" style="color:#e3342f">&#10006;</span> Kombinasi <span class="font-bold">huruf besar</span></span><br>
+                        <span id="rule-number" class="text-red-600"><span id="icon-number" style="color:#e3342f">&#10006;</span> Kombinasi <span class="font-bold">angka</span></span>
+                    </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="field-card">
                     <label class="block text-sm font-semibold mb-1">Ulangi Password</label>
-                    <input type="password" name="password_confirmation" class="w-full border rounded px-3 py-2" placeholder="Ulangi Password Anda..">
+                    <div class="relative">
+                        <input type="password" id="password_confirmation" class="w-full border rounded px-3 py-2 pr-10" name="password_confirmation" placeholder="Ulangi Password Anda..">
+                        <span class="material-icons absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400" id="toggle-confirm" onclick="togglePassword('password_confirmation', 'toggle-confirm')">visibility_off</span>
+                    </div>
+                    <div id="password-match-status" class="text-xs mt-1"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -98,6 +114,108 @@
         </div>
     </form>
 </main>
+
+<script>
+    const passwordInput = document.getElementById('password');
+    const passwordConfirm = document.getElementById('password_confirmation');
+    const ruleLength = document.getElementById('rule-length');
+    const ruleLower = document.getElementById('rule-lower');
+    const ruleUpper = document.getElementById('rule-upper');
+    const ruleNumber = document.getElementById('rule-number');
+    const iconLength = document.getElementById('icon-length');
+    const iconLower = document.getElementById('icon-lower');
+    const iconUpper = document.getElementById('icon-upper');
+    const iconNumber = document.getElementById('icon-number');
+    const matchStatus = document.getElementById('password-match-status');
+    
+    function setIconColor(icon, valid) {
+        if (valid) {
+            icon.style.color = '#38c172'; 
+        } else {
+            icon.style.color = '#e3342f';
+        }
+    }
+    function validatePassword(password) {
+        const isLength = password.length >= 10;
+        const isLower = /[a-z]/.test(password);
+        const isUpper = /[A-Z]/.test(password);
+        const isNumber = /[0-9]/.test(password);
+    
+        if (isLength) {
+            ruleLength.classList.remove('text-red-600');
+            ruleLength.classList.add('text-green-600');
+            iconLength.innerHTML = '&#10004;';
+            setIconColor(iconLength, true);
+        } else {
+            ruleLength.classList.add('text-red-600');
+            ruleLength.classList.remove('text-green-600');
+            iconLength.innerHTML = '&#10006;';
+            setIconColor(iconLength, false);
+        }
+        if (isLower) {
+            ruleLower.classList.remove('text-red-600');
+            ruleLower.classList.add('text-green-600');
+            iconLower.innerHTML = '&#10004;';
+            setIconColor(iconLower, true);
+        } else {
+            ruleLower.classList.add('text-red-600');
+            ruleLower.classList.remove('text-green-600');
+            iconLower.innerHTML = '&#10006;';
+            setIconColor(iconLower, false);
+        }
+        if (isUpper) {
+            ruleUpper.classList.remove('text-red-600');
+            ruleUpper.classList.add('text-green-600');
+            iconUpper.innerHTML = '&#10004;';
+            setIconColor(iconUpper, true);
+        } else {
+            ruleUpper.classList.add('text-red-600');
+            ruleUpper.classList.remove('text-green-600');
+            iconUpper.innerHTML = '&#10006;';
+            setIconColor(iconUpper, false);
+        }
+        if (isNumber) {
+            ruleNumber.classList.remove('text-red-600');
+            ruleNumber.classList.add('text-green-600');
+            iconNumber.innerHTML = '&#10004;';
+            setIconColor(iconNumber, true);
+        } else {
+            ruleNumber.classList.add('text-red-600');
+            ruleNumber.classList.remove('text-green-600');
+            iconNumber.innerHTML = '&#10006;';
+            setIconColor(iconNumber, false);
+        }
+    }
+    function togglePassword(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.textContent = 'visibility';
+        } else {
+            input.type = 'password';
+            icon.textContent = 'visibility_off';
+        }
+    }
+    function checkPasswordMatch() {
+        if (passwordConfirm.value.length === 0) {
+            matchStatus.textContent = '';
+            return;
+        }
+        if (passwordInput.value === passwordConfirm.value) {
+            matchStatus.textContent = 'Password sudah sama';
+            matchStatus.className = 'text-green-600 text-xs mt-1';
+        } else {
+            matchStatus.textContent = 'Password belum sama';
+            matchStatus.className = 'text-red-600 text-xs mt-1';
+        }
+    }
+    passwordInput.addEventListener('input', function() {
+        validatePassword(this.value);
+        checkPasswordMatch();
+    });
+    passwordConfirm.addEventListener('input', checkPasswordMatch);
+    </script>
 
 <style>
     .field-card {
@@ -119,13 +237,4 @@
     }
 </style>
 
-<script>
-    const password = document.getElementById("password");
-    password.addEventListener("input", function() {
-        document.getElementById("min-char").style.color = password.value.length >= 10 ? "green" : "red";
-        document.getElementById("lowercase").style.color = /[a-z]/.test(password.value) ? "green" : "red";
-        document.getElementById("uppercase").style.color = /[A-Z]/.test(password.value) ? "green" : "red";
-        document.getElementById("number").style.color = /[0-9]/.test(password.value) ? "green" : "red";
-    });
-</script>
 @endsection
