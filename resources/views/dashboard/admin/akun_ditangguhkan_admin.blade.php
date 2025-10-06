@@ -7,7 +7,6 @@
     <h1 class="h3 mb-4 fw-bold text-center">Daftar Akun Ditangguhkan</h1>
     <div class="card shadow">
         <div class="card-body">
-            <div class="table-responsive">
             <table class="table table-bordered align-middle text-center">
                 <thead class="table-light">
                     <tr>
@@ -22,79 +21,128 @@
                 </thead>
                 <tbody>
                     @foreach ($data as $index => $item)
+                        @php $isActive = $item->status === 'Aktif'; @endphp
                         <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->user->username }}</td>
-                            <td>{{ $item->user->nama_bank_sampah ?? '-' }}</td>
                             <td>
-                                <a href="{{ route('admin.akun_ditangguhkan_admin.show', $item->id) }}" 
-                                class="btn {{ in_array($item->status, ['Diterima','Survey','Aktif']) 
-                                                    ? 'btn-secondary disabled' 
-                                                    : 'btn-info text-white' }}">
-                                        Cek Dokumen
-                                </a>
+                                <div class="d-flex flex-column gap-2">
+                                    {{ $index + 1 }}
+                                </div>
                             </td>
-                            <td>
-                                @if($item->status == 'Pending')
-                                    <span class="btn btn-danger w-100">Menunggu Verifikasi Dokumen</span>
-                                @elseif($item->status == 'Diterima')
-                                    <span class="btn btn-warning w-100">Menunggu Survey</span>
-                                @elseif($item->status == 'Aktif')
-                                    <span class="btn btn-primary w-100">Akun Aktif</span>
-                                @else
-                                    <span class="btn btn-secondary w-100">{{ $item->status }}</span>
-                                @endif
-                            </td>
-                            <td>
-                                @if(is_null($item->survey_date))
-                                    <span class="badge bg-secondary mb-2">Belum Dijadwalkan</span>
-                                @elseif($item->status_survey == 'Menunggu')
-                                    <span class="badge bg-warning mb-2">Menunggu Survey</span>
-                                @elseif($item->status_survey == 'Layak')
-                                    <span class="badge bg-success mb-2">Layak</span>
-                                @elseif($item->status_survey == 'Perlu Perbaikan')
-                                    <span class="badge bg-danger mb-2">Perlu Perbaikan</span>
-                                @else
-                                    <span class="badge bg-dark mb-2">{{ $item->status_survey ?? $item->status }}</span>
-                                @endif
 
-                                @php $isActive = $item->status === 'Aktif'; @endphp
-                                <form action="{{ route('admin.akun_ditangguhkan_admin.setSurvey', $item->id) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="text" name="survey_date" 
-                                        class="form-control datetimepicker mb-2" 
-                                        placeholder="Pilih Tanggal & Jam" 
-                                        value="{{ $item->survey_date ?? '' }}"
-                                        {{ $isActive ? 'disabled style=background-color:#e9ecef;' : 'required' }}>
-                                    @if($isActive)
-                                        <input type="hidden" name="survey_date" value="{{ $item->survey_date }}">
-                                    @endif
-                                    @php
-                                        $hasSchedule = !is_null($item->survey_date); 
-                                    @endphp
-                                    <button type="submit" class="btn w-100" 
-                                        style="background-color: {{ $isActive ? '#6c757d' : '#20b2aa' }}; color:white;" 
-                                        {{ $isActive ? 'disabled' : '' }}>
-                                        @if($isActive)
-                                            Akun Aktif
-                                        @elseif($hasSchedule)
-                                            Revisi Jadwal
-                                        @else
-                                            Simpan Jadwal
-                                        @endif
-                                    </button>
-                                </form>
-                            </td>
                             <td>
-                                <form action="{{ route('admin.akun_ditangguhkan_admin.setHasilSurvey', $item->id) }}" method="POST">
+                                <div class="d-flex flex-column gap-2">
+                                    <span class="fw-semibold">{{ $item->user->username }}</span>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="d-flex flex-column gap-2">
+                                    {{ $item->user->nama_bank_sampah ?? '-' }}
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="d-flex flex-column gap-2">
+                                    <a href="{{ route('petugas.akun_ditangguhkan.show', $item->id) }}" 
+                                        class="btn {{ in_array($item->status, ['Diterima','Survey','Aktif']) 
+                                            ? 'btn-secondary disabled' 
+                                            : 'btn-info text-white' }}">
+                                        Cek Dokumen
+                                    </a>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="d-flex flex-column gap-2">
+                                    @if($item->status == 'Pending')
+                                        <span class="badge rounded-pill px-3 py-2 bg-danger-subtle text-danger fw-semibold">
+                                            <i class="bi bi-hourglass-split me-1"></i> Menunggu Verifikasi Dokumen
+                                        </span>
+                                    @elseif($item->status == 'Diterima')
+                                        <span class="badge rounded-pill px-3 py-2 bg-warning-subtle text-warning fw-semibold">
+                                            <i class="bi bi-clipboard-check me-1"></i> Menunggu Survey
+                                        </span>
+                                    @elseif($item->status == 'Aktif')
+                                        <span class="badge rounded-pill px-3 py-2 bg-primary-subtle text-primary fw-semibold">
+                                            <i class="bi bi-person-check me-1"></i> Akun Aktif
+                                        </span>
+                                    @else
+                                        <span class="badge rounded-pill px-3 py-2 bg-secondary-subtle text-secondary fw-semibold">
+                                            <i class="bi bi-question-circle me-1"></i> {{ $item->status }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="d-flex flex-column gap-2">
+                                    @if(is_null($item->survey_date))
+                                        <span class="badge rounded-pill bg-secondary-subtle text-secondary fw-semibold">
+                                            <i class="bi bi-calendar-x me-1"></i> Belum Dijadwalkan
+                                        </span>
+                                    @elseif($item->status_survey == 'Menunggu')
+                                        <span class="badge rounded-pill bg-warning-subtle text-warning fw-semibold">
+                                            <i class="bi bi-clock-history me-1"></i> Menunggu Survey
+                                        </span>
+                                    @elseif($item->status_survey == 'Layak')
+                                        <span class="badge rounded-pill bg-success-subtle text-success fw-semibold">
+                                            <i class="bi bi-check-circle me-1"></i> Selesai
+                                        </span>
+                                    @elseif($item->status_survey == 'Perlu Perbaikan')
+                                        <span class="badge rounded-pill bg-danger-subtle text-danger fw-semibold">
+                                            <i class="bi bi-tools me-1"></i> Perlu Perbaikan
+                                        </span>
+                                    @else
+                                        <span class="badge rounded-pill bg-dark-subtle text-dark fw-semibold">
+                                            <i class="bi bi-question-circle me-1"></i> {{ $item->status_survey ?? $item->status }}
+                                        </span>
+                                    @endif
+
+                                    <form action="{{ route('admin.akun_ditangguhkan_admin.setSurvey', $item->id) }}" method="POST" class="d-flex flex-column gap-2">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="text" name="survey_date" 
+                                            class="form-control datetimepicker"
+                                            placeholder="Pilih Tanggal & Jam" 
+                                            value="{{ $item->survey_date ?? '' }}"
+                                            {{ $isActive ? 'disabled style=background-color:#e9ecef;' : 'required' }}>
+
+                                        @if($isActive)
+                                            <input type="hidden" name="survey_date" value="{{ $item->survey_date }}">
+                                        @endif
+
+                                        <button type="submit" class="btn w-100"
+                                            style="background-color: {{ $isActive ? '#6c757d' : '#20b2aa' }}; color:white;"
+                                            {{ $isActive ? 'disabled' : '' }}>
+                                            @if($isActive)
+                                                <i class="bi bi-person-check me-1"></i> Akun Aktif
+                                            @elseif($item->status == 'Diterima' && empty($item->survey_date))
+                                                <i class="bi bi-calendar-plus me-1"></i> Simpan Jadwal
+                                            @elseif($item->status == 'Survey' && !empty($item->survey_date))
+                                                <i class="bi bi-calendar2-event me-1"></i> Revisi Jadwal
+                                            @else
+                                                <i class="bi bi-calendar-plus me-1"></i> Simpan Jadwal
+                                            @endif
+                                        </button>
+
+                                    </form>
+                                </div>
+                            </td>
+
+                            @php $isActive = $item->status === 'Aktif'; @endphp
+
+                            <td>
+                                <form action="{{ route('petugas.akun_ditangguhkan.setHasilSurvey', $item->id) }}" method="POST" class="hasil-survey-form">
                                     @csrf
                                     @method('PUT')
-                                    <select name="survey_result" class="form-control mb-2" 
+
+                                    <select name="survey_result" 
+                                        class="form-control mb-2 survey-result" 
+                                        data-id="{{ $item->id }}"
                                         {{ $isActive ? 'disabled style=background-color:#e9ecef;' : 'required' }}>
                                         <option value="">-- Pilih Hasil --</option>
-                                        <option value="Layak" {{ $isActive && $item->survey_result == 'Layak' ? 'selected' : '' }}>Layak</option>
-                                        <option value="Perlu Perbaikan" {{ $isActive && $item->survey_result == 'Perlu Perbaikan' ? 'selected' : '' }}>Perlu Perbaikan</option>
+                                        <option value="Layak" {{ $item->survey_result == 'Layak' ? 'selected' : '' }}>Layak</option>
+                                        <option value="Perlu Perbaikan" {{ $item->survey_result == 'Perlu Perbaikan' ? 'selected' : '' }}>Perlu Perbaikan</option>
                                     </select>
 
                                     <input type="hidden" name="catatan_petugas" id="catatan-{{ $item->id }}">
@@ -116,6 +164,7 @@
                     @endif
                 </tbody>
             </table>
+            <div class="table-responsive">
             <div class="d-flex justify-content-center mt-3">
                 {{ $data->links('pagination::bootstrap-5') }}
             </div>
@@ -140,6 +189,42 @@
         </div>
     </div>
 </div>
+<style>
+    .btn {
+        border-radius: 12px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .btn-success {
+        background: linear-gradient(45deg, #28a745, #20c997);
+        border: none;
+    }
+
+    .btn-primary {
+        background: linear-gradient(45deg, #007bff, #00b4d8);
+        border: none;
+    }
+
+    .btn-info {
+        background: linear-gradient(45deg, #17a2b8, #20c997);
+        border: none;
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        border: none;
+        opacity: 0.8;
+    }
+
+    .btn i {
+        font-size: 1rem;
+    }
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
@@ -177,5 +262,6 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.hide();
     });
 });
+
 </script>
 @endsection

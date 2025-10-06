@@ -32,7 +32,7 @@
                                 <tr>
                                     <th>Jenis dan Nomor SK</th>
                                     <th>Diperlukan Oleh</th>
-                                    <th>Struktur Organisasi</th>
+                                    <th>Penanggung Jawab</th>
                                     <th>Kondisi Bangunan</th>
                                     <th>Dibangun Oleh</th>
                                     <th>Pihak yang Membangun</th>
@@ -93,14 +93,12 @@
                         <select name="sk" id="sk_select" class="form-select" required>
                             <option value="">-- Pilih 1 --</option>
                             @php
-                                $sk_options = ['SK Pengadaan Bangunan','SK Pemanfaatan Aset','SK Penyerahan Aset','SK Penetapan Lokasi','SK Pemberian Tunjangan','SK Pembentukan Tim Kerja'];
+                                $sk_options = ['Ada', 'Tidak Ada'];
                             @endphp
                             @foreach($sk_options as $option)
                                 <option value="{{ $option }}" @if($latestSK && $latestSK->sk === $option) selected @endif>{{ $option }}</option>
                             @endforeach
-                            <option value="Lainnya" @if($latestSK && !in_array($latestSK->sk, $sk_options)) selected @endif>Lainnya</option>
                         </select>
-                        <input type="text" name="sk_lainnya" id="sk_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->sk ?? '', $sk_options)) d-none @endif" placeholder="Isi jenis SK lainnya" value="{{ $latestSK && !in_array($latestSK->sk, $sk_options) ? $latestSK->sk : '' }}">
                     </div>
                 </div>
 
@@ -115,7 +113,7 @@
                     <div class="field-card w-100">
                         <label class="form-label fw-semibold">Di Perlukan Oleh<span class="text-danger">*</span></label>
                         @php
-                            $diperlukan_options = ['Kepala Dinas','Pihak Pengelola','Departemen Teknik','Tim Pengadaan'];
+                            $diperlukan_options = ['Lurah/Kepala Desa','Camat/Panewu','Kepala Dinas','Bupati'];
                         @endphp
                         <select name="diperlukan_oleh" id="diperlukan_select" class="form-select" required>
                             <option value="">-- Pilih 1 --</option>
@@ -156,7 +154,7 @@
                     <div class="field-card w-100">
                         <label class="form-label fw-semibold">Kondisi Bangunan<span class="text-danger">*</span></label>
                         @php
-                            $kondisi_options = ['Baru Dibangun','Renovasi','Perlu Perbaikan','Rusak Berat','Baik'];
+                            $kondisi_options = ['Bangunan Permanen Sendiri','Bangun Semi Permanen','Gabung Dengan Rumah Warga','Kantor RT/RW','Poskamling', 'Gabung Dengan Perkantoran dan Sejenisnya', 'Lainnya'];
                         @endphp
                         <select name="kondisi_bangunan" id="kondisi_select" class="form-select">
                             <option value="">-- Pilih 1 --</option>
@@ -172,7 +170,7 @@
                 <div class="col-md-6 d-flex">
                     <div class="field-card w-100">
                         <label class="form-label fw-semibold">Dibangun Oleh<span class="text-danger">*</span></label>
-                        @php $dibangun_options = ['Pemerintah Daerah','PT XYZ','Kontraktor XYZ']; @endphp
+                        @php $dibangun_options = ['Pemerintah Pusat','Pemerintah Provinsi','Pemerintah Kabupaten', 'Pemerintah Desa', 'Bantuan Donatur/LN', 'Swasta', 'Swadaya']; @endphp
                         <select name="dibangun_oleh" id="dibangun_select" class="form-select">
                             <option value="">-- Pilih 1 --</option>
                             @foreach($dibangun_options as $opt)
@@ -187,15 +185,9 @@
                 <div class="col-md-6 d-flex">
                     <div class="field-card w-100">
                         <label class="form-label fw-semibold">Pihak yang Membangun<span class="text-danger">*</span></label>
-                        @php $pihak_options = ['Pemerintah Kota/Kabupaten','Kontraktor','Pengelola Sumber Daya']; @endphp
-                        <select name="pihak_membangun" id="pihak_select" class="form-select">
-                            <option value="">-- Pilih 1 --</option>
-                            @foreach($pihak_options as $opt)
-                                <option value="{{ $opt }}" @if($latestSK && $latestSK->pihak_membangun === $opt) selected @endif>{{ $opt }}</option>
-                            @endforeach
-                            <option value="Lainnya" @if($latestSK && !in_array($latestSK->pihak_membangun ?? '', $pihak_options)) selected @endif>Lainnya</option>
-                        </select>
-                        <input type="text" name="pihak_membangun_lainnya" id="pihak_lainnya" class="form-control mt-2 @if(!$latestSK || in_array($latestSK->pihak_membangun ?? '', $pihak_options)) d-none @endif" placeholder="Isi manual" value="{{ $latestSK && !in_array($latestSK->pihak_membangun ?? '', $pihak_options) ? $latestSK->pihak_membangun : '' }}">
+                        <input type="text" name="pihak_membangun" class="form-control" 
+                            placeholder="Isi pihak yang membangun"
+                            value="{{ $latestSK->pihak_membangun ?? '' }}" required>
                     </div>
                 </div>
 
@@ -239,8 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { selectId: 'sk_select', inputId: 'sk_lainnya' },
         { selectId: 'diperlukan_select', inputId: 'diperlukan_lainnya' },
         { selectId: 'kondisi_select', inputId: 'kondisi_lainnya' },
-        { selectId: 'dibangun_select', inputId: 'dibangun_lainnya' },
-        { selectId: 'pihak_select', inputId: 'pihak_lainnya' }
+        { selectId: 'dibangun_select', inputId: 'dibangun_lainnya' }
     ];
 
     dropdowns.forEach(item => {

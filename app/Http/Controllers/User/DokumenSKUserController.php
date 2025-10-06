@@ -21,7 +21,7 @@ class DokumenSKUserController extends Controller
             'no_sk' => 'required|string|max:255',
             'diperlukan_oleh' => 'required|string|max:255',
             'file_sk' => 'required|mimes:pdf,doc,docx,jpg,png|max:4096',
-            'struktur_organisasi' => 'nullable|string|max:255',
+            'penanggung_jawab' => 'nullable|string|max:255',
             'kondisi_bangunan' => 'nullable|string|max:255',
             'dibangun_oleh' => 'nullable|string|max:255',
             'pihak_membangun' => 'nullable|string|max:255',
@@ -60,7 +60,7 @@ class DokumenSKUserController extends Controller
             'no_sk' => $request->no_sk,
             'diperlukan_oleh' => $diperlukan_oleh,
             'file_sk' => $path,
-            'struktur_organisasi' => $request->struktur_organisasi,
+            'penanggung_jawab' => $request->penanggung_jawab,
             'kondisi_bangunan' => $kondisi_bangunan,
             'dibangun_oleh' => $dibangun_oleh,
             'pihak_membangun' => $pihak_membangun,
@@ -84,7 +84,7 @@ class DokumenSKUserController extends Controller
             'no_sk' => 'required|string|max:255',
             'diperlukan_oleh' => 'required|string|max:255',
             'file_sk' => 'required|mimetypes:application/pdf|max:2048',
-            'struktur_organisasi' => 'nullable|string|max:255',
+            'penanggung_jawab' => 'nullable|string|max:255',
             'kondisi_bangunan' => 'nullable|string|max:255',
             'dibangun_oleh' => 'nullable|string|max:255',
             'pihak_membangun' => 'nullable|string|max:255',
@@ -101,7 +101,7 @@ class DokumenSKUserController extends Controller
         $dokumen->sk = $request->sk === 'Lainnya' ? $request->sk_lainnya : $request->sk;
         $dokumen->no_sk = $request->no_sk;
         $dokumen->diperlukan_oleh = $request->diperlukan_oleh === 'Lainnya' ? $request->diperlukan_oleh_lainnya : $request->diperlukan_oleh;
-        $dokumen->struktur_organisasi = $request->struktur_organisasi;
+        $dokumen->penanggung_jawab = $request->penanggung_jawab;
         $dokumen->kondisi_bangunan = $request->kondisi_bangunan === 'Lainnya' ? $request->kondisi_bangunan_lainnya : $request->kondisi_bangunan;
         $dokumen->dibangun_oleh = $request->dibangun_oleh === 'Lainnya' ? $request->dibangun_oleh_lainnya : $request->dibangun_oleh;
         $dokumen->pihak_membangun = $request->pihak_membangun === 'Lainnya' ? $request->pihak_yang_membangun_lainnya : $request->pihak_membangun;

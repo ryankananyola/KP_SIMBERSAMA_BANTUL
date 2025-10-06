@@ -9,45 +9,90 @@
             <h5 class="mb-0">Informasi User</h5>
         </div>
         <div class="card-body">
-            <p><strong>Username:</strong> {{ $sk->user->username }}</p>
-            <p><strong>Nama Bank Sampah:</strong> {{ $sk->user->nama_bank_sampah ?? '-' }}</p>
-            <p><strong>Status Akun:</strong> {{ $sk->status }}</p>
+            <table class="table table-bordered table-striped mb-0">
+                <tr>
+                    <th width="30%">Username</th>
+                    <td>{{ $sk->user->username }}</td>
+                </tr>
+                <tr>
+                    <th>Nama Bank Sampah</th>
+                    <td>{{ $sk->user->nama_bank_sampah ?? '-' }}</td>
+                </tr>
+                <tr>
+                    <th>Status Akun</th>
+                    <td>{{ $sk->status }}</td>
+                </tr>
+            </table>
         </div>
     </div>
 
     <div class="card shadow-sm mt-4">
-        <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">Detail Dokumen SK</h5>
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Detail Dokumen SK</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Jenis dan Nomor SK</th>
+                        <th>Diperlukan Oleh</th>
+                        <th>Penanggung Jawab</th>
+                        <th>Kondisi Bangunan</th>
+                        <th>Dibangun Oleh</th>
+                        <th>Pihak yang Membangun</th>
+                        <th>Tahun Pembangunan</th>
+                        <th>Luas (m²)</th>
+                        <th>Biaya Pembangunan</th>
+                        <th>File SK</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            {{ $sk->sk ?? '-' }} 
+                            @if(!empty($sk->no_sk))
+                                ({{ $sk->no_sk }})
+                            @endif
+                        </td>
+                        <td>{{ $sk->diperlukan_oleh ?? '-' }}</td>
+                        <td>{{ $sk->penanggung_jawab ?? '-' }}</td>
+                        <td>{{ $sk->kondisi_bangunan ?? '-' }}</td>
+                        <td>{{ $sk->dibangun_oleh ?? '-' }}</td>
+                        <td>{{ $sk->pihak_membangun ?? '-' }}</td>
+                        <td>{{ $sk->tahun_pembangunan ?? '-' }}</td>
+                        <td>{{ $sk->luas ?? '-' }}</td>
+                        <td>Rp {{ number_format($sk->biaya_pembangunan ?? 0,0,',','.') }}</td>
+                        <td>
+                            @if($sk->file_sk)
+                                @php $ext = pathinfo($sk->file_sk, PATHINFO_EXTENSION); @endphp
+                                @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif']))
+                                    <img src="{{ asset('storage/' . $sk->file_sk) }}" 
+                                        alt="File SK" 
+                                        class="img-fluid rounded" style="max-height:120px">
+                                @elseif(strtolower($ext) === 'pdf')
+                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#pdfModal">
+                                        Lihat File
+                                    </button>
+                                @else
+                                    <a href="{{ asset('storage/' . $sk->file_sk) }}" target="_blank" class="btn btn-sm btn-primary">
+                                        Download File
+                                    </a>
+                                @endif
+                            @else
+                                <span class="text-muted">Belum ada</span>
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="card-body">
-            <p><strong>Jenis SK:</strong> {{ $sk->sk ?? '-' }}</p>
-            <p><strong>No SK:</strong> {{ $sk->no_sk ?? '-' }}</p>
-            <p><strong>Diperlukan Oleh:</strong> {{ $sk->diperlukan_oleh ?? '-' }}</p>
-            <p><strong>Struktur Organisasi:</strong> {{ $sk->struktur_organisasi ?? '-' }}</p>
-            <p><strong>Kondisi Bangunan:</strong> {{ $sk->kondisi_bangunan ?? '-' }}</p>
-            <p><strong>Dibangun Oleh:</strong> {{ $sk->dibangun_oleh ?? '-' }}</p>
-            <p><strong>Pihak yang Membangun:</strong> {{ $sk->pihak_membangun ?? '-' }}</p>
-            <p><strong>Tahun Pembangunan:</strong> {{ $sk->tahun_pembangunan ?? '-' }}</p>
-            <p><strong>Luas:</strong> {{ $sk->luas ?? '-' }} m²</p>
-            <p><strong>Biaya Pembangunan:</strong> Rp {{ number_format($sk->biaya_pembangunan ?? 0,0,',','.') }}</p>
-            <hr>
-            <p><strong>File SK:</strong></p>
-            @if($sk->file_sk)
-                @php $ext = pathinfo($sk->file_sk, PATHINFO_EXTENSION); @endphp
-                @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif']))
-                    <img src="{{ asset('storage/' . $sk->file_sk) }}" alt="File SK" class="img-fluid rounded">
-                @elseif(strtolower($ext) === 'pdf')
-                    <iframe src="{{ asset('storage/' . $sk->file_sk) }}" frameborder="0" width="100%" height="600px"></iframe>
-                @else
-                    <a href="{{ asset('storage/' . $sk->file_sk) }}" target="_blank">Download File SK</a>
-                @endif
-            @else
-                <p class="text-muted">Belum ada file SK diupload.</p>
-            @endif
-        </div>
+    </div>
+</div>
 
-         @if($sk->status === 'Pending')
-            <form action="{{ route('petugas.akun_ditangguhkan.verify', $sk->id) }}" method="POST" class="d-flex gap-2">
+
+        @if($sk->status === 'Pending')
+            <form action="{{ route('petugas.akun_ditangguhkan.verify', $sk->id) }}" method="POST" class="d-flex gap-2 p-3">
                 @csrf
                 @method('PUT')
                 <button type="submit" name="action" value="terima" class="btn btn-success">
@@ -62,13 +107,27 @@
     </div>
 
     <div class="mt-3 text-end">
-        <a href="{{ route('petugas.akun_ditangguhkan.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('admin.akun_ditangguhkan_admin.index') }}" class="btn btn-secondary">Kembali</a>
     </div>
+</div>
+
+<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl"> 
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="pdfModalLabel">Pratinjau Dokumen SK (PDF)</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body">
+        <iframe src="{{ asset('storage/' . $sk->file_sk) }}" width="100%" height="600px" style="border:none;"></iframe>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="modal fade" id="revisiModal" tabindex="-1" aria-labelledby="revisiModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <form action="{{ route('petugas.akun_ditangguhkan.verify', $sk->id) }}" method="POST">
+    <form action="{{ route('admin.akun_ditangguhkan_admin.verify', $sk->id) }}" method="POST">
         @csrf
         @method('PUT')
         <input type="hidden" name="action" value="revisi">

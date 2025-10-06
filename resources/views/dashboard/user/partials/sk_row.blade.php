@@ -6,7 +6,7 @@
         @endif
     </td>
     <td>{{ $sk->diperlukan_oleh ?? '-' }}</td>
-    <td>{{ $sk->struktur_organisasi ?? '-' }}</td>
+    <td>{{ $sk->penanggung_jawab ?? '-' }}</td>
     <td>{{ $sk->kondisi_bangunan ?? '-' }}</td>
     <td>{{ $sk->dibangun_oleh ?? '-' }}</td>
     <td>{{ $sk->pihak_membangun ?? '-' }}</td>

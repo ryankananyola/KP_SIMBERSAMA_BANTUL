@@ -13,6 +13,7 @@
             background: #f8f9fa; 
             transition: all 0.3s; 
             overflow-x: hidden;
+            font-family: 'Inter', sans-serif !important;
         }
         .sidebar {
             background: #fff;

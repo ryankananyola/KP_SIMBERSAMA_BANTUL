@@ -9,7 +9,7 @@
                     <tr>
                         <th>Jenis dan Nomor SK</th>
                         <th>Diperlukan Oleh</th>
-                        <th>Struktur Organisasi</th>
+                        <th>Penanggung Jawab</th>
                         <th>Kondisi Bangunan</th>
                         <th>Dibangun Oleh</th>
                         <th>Pihak yang Membangun</th>
@@ -28,7 +28,7 @@
                             @endif
                         </td>
                         <td>{{ $latestSK->diperlukan_oleh ?? '-' }}</td>
-                        <td>{{ $latestSK->struktur_organisasi ?? '-' }}</td>
+                        <td>{{ $latestSK->penanggung_jawab ?? '-' }}</td>
                         <td>{{ $latestSK->kondisi_bangunan ?? '-' }}</td>
                         <td>{{ $latestSK->dibangun_oleh ?? '-' }}</td>
                         <td>{{ $latestSK->pihak_membangun ?? '-' }}</td>
