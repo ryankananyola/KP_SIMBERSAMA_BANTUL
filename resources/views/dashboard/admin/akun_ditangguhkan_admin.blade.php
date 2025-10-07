@@ -43,7 +43,7 @@
 
                             <td>
                                 <div class="d-flex flex-column gap-2">
-                                    <a href="{{ route('petugas.akun_ditangguhkan.show', $item->id) }}" 
+                                    <a href="{{ route('admin.akun_ditangguhkan_admin.show', $item->id) }}" 
                                         class="btn {{ in_array($item->status, ['Diterima','Survey','Aktif']) 
                                             ? 'btn-secondary disabled' 
                                             : 'btn-info text-white' }}">
@@ -132,7 +132,7 @@
                             @php $isActive = $item->status === 'Aktif'; @endphp
 
                             <td>
-                                <form action="{{ route('petugas.akun_ditangguhkan.setHasilSurvey', $item->id) }}" method="POST" class="hasil-survey-form">
+                                <form action="{{ route('admin.akun_ditangguhkan_admin.setHasilSurvey', $item->id) }}" method="POST" class="hasil-survey-form">
                                     @csrf
                                     @method('PUT')
 
@@ -172,7 +172,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                 <div class="modal-header bg-warning">
-                    <h5 class="modal-title" id="modalCatatanLabel">Catatan Petugas</h5>
+                    <h5 class="modal-title" id="modalCatatanLabel">Catatan Admin</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

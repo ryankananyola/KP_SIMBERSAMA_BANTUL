@@ -92,7 +92,7 @@
 
 
         @if($sk->status === 'Pending')
-            <form action="{{ route('petugas.akun_ditangguhkan.verify', $sk->id) }}" method="POST" class="d-flex gap-2 p-3">
+            <form action="{{ route('admin.akun_ditangguhkan_admin.verify', $sk->id) }}" method="POST" class="d-flex gap-2 p-3">
                 @csrf
                 @method('PUT')
                 <button type="submit" name="action" value="terima" class="btn btn-success">
