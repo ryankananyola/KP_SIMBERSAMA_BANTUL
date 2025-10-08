@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->string('no_hp', 20)->nullable();
             $table->text('alamat')->nullable();
             $table->tinyInteger('role')->default(1); 
-            // 1 = Petugas, 2 = Admin
             $table->timestamps();
         });
     }

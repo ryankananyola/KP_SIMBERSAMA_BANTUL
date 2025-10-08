@@ -27,7 +27,6 @@ return new class extends Migration
             $table->decimal('b3_kantor', 10, 2)->default(0);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('akun')->onDelete('cascade');
-
         });
     }
 
