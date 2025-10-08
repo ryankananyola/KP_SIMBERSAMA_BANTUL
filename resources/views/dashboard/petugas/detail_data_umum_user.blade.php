@@ -66,49 +66,51 @@
                 <div class="col-md-6">
                     <div class="field-card">
                         <label class="form-label">Link Google Maps</label>
-
+                
                         @if (!empty($akun->alamat))
-                            <button type="button"
-                                class="d-flex align-items-center gap-2 p-2 rounded bg-light border text-primary text-decoration-none"
-                                data-bs-toggle="modal"
+                            <input type="text" 
+                                class="form-control text-primary bg-light border" 
+                                value="Lihat di Google Maps"
+                                readonly 
+                                style="cursor:pointer;" 
+                                data-bs-toggle="modal" 
                                 data-bs-target="#mapsModal">
-                                <i class="bi bi-geo-alt-fill"></i>
-                                <span>Lihat di Google Maps</span>
-                            </button>
-
+                
+                            <!-- Modal untuk tampilan Google Maps -->
                             <div class="modal fade" id="mapsModal" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-lg modal-dialog-centered">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-light text-white">
-                                            <h5 class="modal-title"><i class="bi bi-geo-alt-fill"></i> Lokasi Google Maps</h5>
+                                        <div class="modal-header bg-light text-black">
+                                            <h5 class="modal-title">
+                                                <i class="bi bi-geo-alt-fill"></i> Lokasi Google Maps
+                                            </h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body p-0">
-                                           @php
+                                            @php
                                                 $latitude = null;
                                                 $longitude = null;
-
                                                 if(!empty($akun->link_maps)){
                                                     if(preg_match('/@([-0-9.]+),([-0-9.]+)/', $akun->link_maps, $matches)){
                                                         $latitude = $matches[1];
                                                         $longitude = $matches[2];
                                                     }
                                                 }
-                                                @endphp
-
-                                                @if($latitude && $longitude)
-                                                    <iframe
-                                                        width="100%"
-                                                        height="400"
-                                                        style="border:0;"
-                                                        loading="lazy"
-                                                        allowfullscreen
-                                                        src="https://www.google.com/maps/embed/v1/place?key={{ config('services.google_maps.api_key') }}
-                                                        &q={{ $latitude }},{{ $longitude }}">
-                                                    </iframe>
-                                                @else
-                                                    <p>Lokasi belum tersedia atau link tidak valid.</p>
-                                                @endif
+                                            @endphp
+                
+                                            @if($latitude && $longitude)
+                                                <iframe
+                                                    width="100%"
+                                                    height="400"
+                                                    style="border:0;"
+                                                    loading="lazy"
+                                                    allowfullscreen
+                                                    src="https://www.google.com/maps/embed/v1/place?key={{ config('services.google_maps.api_key') }}
+                                                    &q={{ $latitude }},{{ $longitude }}">
+                                                </iframe>
+                                            @else
+                                                <p class="text-center text-muted py-4">Lokasi belum tersedia atau link tidak valid.</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -118,6 +120,7 @@
                         @endif
                     </div>
                 </div>
+                
                 <div class="col-md-4">
                     <div class="field-card">
                     <label class="form-label">Padukuhan</label>
